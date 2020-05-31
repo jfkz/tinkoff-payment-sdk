@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "Node",
+    "module": "CommonJS",
+    "target": "ES2017",
+    "strict": true,
+    "esModuleInterop": true,
+    "declaration": true,
+    "declarationDir": "dist/types/",
+    "sourceMap": true,
+    "outDir": "dist/",
+    "lib": [
+      "ESNext"
+    ]
+  },
+  "include": [
+    "src/"
+  ]
+}

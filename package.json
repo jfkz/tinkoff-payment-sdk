@@ -1,0 +1,47 @@
+{
+  "name": "@sfomin/tinkoff-payment-sdk",
+  "version": "0.0.0",
+  "description": "Tinkoff Payment SDK for Node.js",
+  "scripts": {
+    "build": "run-s build:clean build:compile",
+    "build:clean": "rm -rf ./dist/",
+    "build:compile": "tsc",
+    "build:watch": "tsc -w",
+    "lint": "npx eslint src/**/*.ts",
+    "prepublishOnly": "run-s lint build",
+    "start": "run-s build:clean build:watch"
+  },
+  "keywords": [
+    "tinkoff",
+    "payment",
+    "sdk",
+    "node"
+  ],
+  "author": "Slava Fomin II <slava@fomin.io> (https://slava.fomin.io)",
+  "homepage": "https://github.com/slavafomin/tinkoff-payment-sdk",
+  "repository": "https://github.com/slavafomin/tinkoff-payment-sdk.git",
+  "bugs": "https://github.com/slavafomin/tinkoff-payment-sdk/issues",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist/"
+  ],
+  "peerDependencies": {
+    "got": "^11.0.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.15"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.152",
+    "@types/node": "^12.12.42",
+    "@typescript-eslint/eslint-plugin": "^3.0.1",
+    "@typescript-eslint/parser": "^3.0.1",
+    "eslint": "^7.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "got": "^11.0.3",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^3.9.3"
+  }
+}
