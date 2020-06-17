@@ -17,6 +17,12 @@ export {
 
 } from './http-client/got-http-client';
 
+export {
+  RequestHttpClient,
+  RequestHttpClientOptions,
+
+} from './http-client/request-http-client';
+
 
 //============//
 // API CLIENT //
@@ -26,6 +32,19 @@ export { ApiClient, ApiClientOptions } from './api-client/api-client';
 
 export { Language } from './api-client/requests/common/language';
 export { PayType } from './api-client/requests/common/pay-type';
+
+export {
+  AgentData,
+  AgentDataAgentSign,
+  Receipt,
+  ReceiptItem,
+  ReceiptPaymentMethod,
+  ReceiptPaymentObject,
+  ReceiptTax,
+  ReceiptTaxation,
+  SupplierInfo,
+
+} from './api-client/requests/common/receipt';
 
 
 //=============//
@@ -58,8 +77,6 @@ export { SdkError, PayloadWithMessage } from './common/sdk-error';
 export {
   initPayment,
   InitPaymentRequestPayload,
-  InitPaymentOneOffRequestPayload,
-  InitPaymentRecurrentRequestPayload,
   InitPaymentResponsePayload,
 
 } from './api-client/requests/init-payment';

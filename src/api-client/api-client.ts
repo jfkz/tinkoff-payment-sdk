@@ -1,12 +1,12 @@
 
 import { URL } from 'url';
 
-import { HttpClient, HttpRequest, HttpResponse } from '../http-client/http-client';
-import { ResponsePayload } from './response-payload';
 import { SdkError } from '../common/sdk-error';
+import { signRequestPayload } from '../common/signature';
+import { HttpClient, HttpRequest, HttpResponse } from '../http-client/http-client';
 import { Schema } from '../serialization/schema';
 import { serializeData } from '../serialization/serializer';
-import { signRequestPayload } from '../common/signature';
+import { ResponsePayload } from './response-payload';
 
 
 export interface ApiClientOptions {
@@ -19,8 +19,8 @@ export interface ApiClientOptions {
 
 
 const defaultOptions: Partial<ApiClientOptions> = {
-  baseUrl: `https://securepay.tinkoff.ru/v2/`,
-  userAgent: `Tinkoff Payment Node.js SDK (https://slava.fomin.io)`,
+  baseUrl: 'https://securepay.tinkoff.ru/v2/',
+  userAgent: 'Tinkoff Payment Node.js SDK (https://slava.fomin.io)',
 };
 
 

@@ -40,7 +40,7 @@ export class GotHttpClient implements HttpClient {
     const response = await got<ResponsePayloadType>(url, {
       method,
       headers,
-      form: payload,
+      json: payload,
       responseType: 'json',
     });
 

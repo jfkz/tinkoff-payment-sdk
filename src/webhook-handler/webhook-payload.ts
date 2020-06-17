@@ -1,6 +1,6 @@
 
-import { Schema, SchemaPropertyType as PropType } from '../serialization/schema';
 import { PaymentStatus } from '../common/payment-status';
+import { Schema, SchemaPropertyType as PropType } from '../serialization/schema';
 
 
 export interface WebhookPayload {
@@ -20,10 +20,6 @@ export interface WebhookPayload {
 }
 
 export const webhookPayloadSchema: Schema = [
-  {
-    property: 'Success',
-    type: PropType.BooleanFromString,
-  },
   {
     property: 'PaymentId',
     type: PropType.IntegerFromString,

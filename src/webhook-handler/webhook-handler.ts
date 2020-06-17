@@ -1,9 +1,9 @@
 
-import { WebhookPayload, webhookPayloadSchema } from './webhook-payload';
-import { HttpRequest, HttpResponse } from '../http-client/http-client';
 import { SdkError } from '../common/sdk-error';
-import { serializeData } from '../serialization/serializer';
 import { generateSignature } from '../common/signature';
+import { HttpRequest, HttpResponse } from '../http-client/http-client';
+import { serializeData } from '../serialization/serializer';
+import { WebhookPayload, webhookPayloadSchema } from './webhook-payload';
 
 
 export interface WebhookHandlerOptions {
@@ -35,7 +35,7 @@ export class WebhookHandler {
 
     if (!payload) {
       throw new SdkError({
-        message: `Missing payload from the webhook request`,
+        message: 'Missing payload from the webhook request',
       });
     }
 
@@ -50,7 +50,7 @@ export class WebhookHandler {
     if (payload?.Token !== checkToken) {
       throw new SdkError({
         payload,
-        message: `Incorrect webhook request token`,
+        message: 'Incorrect webhook request token',
       });
     }
 
@@ -68,17 +68,10 @@ export class WebhookHandler {
     if (payload.TerminalKey !== terminalKey) {
       throw new SdkError({
         payload,
-        message: `Incorrect webhook request terminal key`,
+        message: 'Incorrect webhook request terminal key',
       });
     }
 
-
-    // Checking request for errors
-    // -----
-
-    if (payload.ErrorCode !== '0') {
-      throw new SdkError({ payload });
-    }
 
     // -----
 
