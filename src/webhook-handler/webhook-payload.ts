@@ -36,6 +36,7 @@ export const webhookPayloadSchema: Schema = [
   {
     property: 'CardId',
     type: PropType.IntegerFromString,
+    optional: true,
   },
   {
     property: 'Amount',
