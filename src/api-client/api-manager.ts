@@ -1,12 +1,11 @@
 
+import { ApiClient, ApiClientOptions } from './api-client';
 import {
   initPayment,
   InitPaymentRequestPayload,
   InitPaymentResponsePayload,
 
 } from './requests/init-payment';
-
-import { ApiClient, ApiClientOptions } from './api-client';
 
 
 /**

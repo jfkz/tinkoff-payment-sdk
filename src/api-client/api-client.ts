@@ -35,6 +35,7 @@ export class ApiClient {
 
   constructor(options: ApiClientOptions) {
     this.options = Object.assign({}, defaultOptions, options);
+    // this.options = ApiClient.assignDefined(defaultOptions, options);
   }
 
 
@@ -136,6 +137,18 @@ export class ApiClient {
       (request.headers || {})
     );
 
+  }
+
+  private static assignDefined(target: any, ...sources: any): any {
+    for (const source of sources) {
+      for (const key of Object.keys(source)) {
+        const val = source[key];
+        if (val !== undefined) {
+          target[key] = val;
+        }
+      }
+    }
+    return target;
   }
 
 }

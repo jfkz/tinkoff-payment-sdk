@@ -14,6 +14,7 @@ import { Receipt, ReceiptItem } from './common/receipt';
 // REQUEST //
 //=========//
 
+/** @see https://oplata.tinkoff.ru/develop/api/payments/init-request/ */
 export interface InitPaymentRequestPayload {
   OrderId: string;
   Amount?: number;
