@@ -1,20 +1,17 @@
 
-# @sfomin/tinkoff-payment-sdk
+# @jfkz/tinkoff-payment-sdk
 
 <!-- NPM Badge -->
-<a href="https://badge.fury.io/js/%40sfomin%2Ftinkoff-payment-sdk">
-  <img src="https://badge.fury.io/js/%40sfomin%2Ftinkoff-payment-sdk.svg" alt="npm version" height="18">
-</a>
-
-<!-- CodeClimate Badge -->
-<a href="https://codeclimate.com/github/slavafomin/tinkoff-payment-sdk/maintainability">
-  <img src="https://api.codeclimate.com/v1/badges/0d74bceac218c511a141/maintainability" alt="maintainability">
+<a href="https://badge.fury.io/js/%40jfkz%2Ftinkoff-payment-sdk">
+  <img src="https://badge.fury.io/js/%40jfkz%2Ftinkoff-payment-sdk.svg" alt="npm version" height="18">
 </a>
 
 <!-- MIT License Badge -->
 <a href="https://opensource.org/licenses/MIT">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" height="20">
 </a>
+
+Lion share of original code was written by Slava Fomin II ([@slavafomin](https://github.com/slavafomin))
 
 ---
 
@@ -36,7 +33,7 @@ A Node.js SDK for Tinkoff Bank's Payment API.
 
 Install the package:
 
-`npm i -S @sfomin/tinkoff-payment-sdk`
+`npm i -S @jfkz/tinkoff-payment-sdk`
 
 Install the [Got HTTP client][Got]
 (if you are not planning to provide custom implementation):
