@@ -1,6 +1,6 @@
 {
   "name": "@jfkz/tinkoff-payment-sdk",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Tinkoff Payment SDK for Node.js",
   "scripts": {
     "build": "run-s build:clean build:compile",
