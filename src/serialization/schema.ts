@@ -12,6 +12,7 @@ export enum SchemaPropertyType {
   MoneyFromPenny = 'MoneyFromPenny',
   DateToString = 'DateToString',
   DateFromString = 'DateFromString',
+  ExpDateFromString = 'ExpDateFromString',
   BooleanToString = 'BooleanToString',
   BooleanFromString = 'BooleanFromString',
   IntegerToString = 'IntegerToString',

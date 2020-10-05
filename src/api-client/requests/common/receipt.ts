@@ -1,3 +1,4 @@
+import { moneyToPennyOrThrow } from '../../../serialization/serializers/money';
 
 export interface Receipt {
   Email?: string;
@@ -89,4 +90,69 @@ export interface SupplierInfo {
   Phones?: string[];
   Name?: string;
   Inn?: string;
+}
+
+
+
+//===========//
+// UTILITIES //
+//===========//
+
+
+export function validateAndPrepareReceipt(receipt: Receipt): Receipt {
+
+  if (!receipt.Items) {
+    throw new Error('Receipt.Items must be set when receipt is used');
+  }
+
+  if (receipt.Items.length === 0) {
+    throw new Error('Receipt.Items must contain at least one item');
+  }
+
+  return {
+    ...receipt,
+    Items: [...receipt.Items.map(validateAndPrepareReceiptItem)]
+  };
+
+}
+
+function validateAndPrepareReceiptItem(item: ReceiptItem): ReceiptItem {
+
+  const $item = { ...item };
+
+
+  //-------//
+  // PRICE //
+  //-------//
+
+  if (!$item.Price) {
+    throw new Error('Price must be set for receipt item');
+  }
+
+  $item.Price = moneyToPennyOrThrow($item.Price);
+
+
+  //----------//
+  // QUANTITY //
+  //----------//
+
+  if ($item.Quantity <= 0) {
+    throw new Error('Receipt item quantity must be greater than zero');
+  }
+
+
+  //--------//
+  // AMOUNT //
+  //--------//
+
+  // Calculating amount automatically, if not defined
+  if ($item.Amount === undefined) {
+    $item.Amount = ($item.Price * $item.Quantity);
+  }
+
+
+  // -----
+
+  return $item;
+
 }

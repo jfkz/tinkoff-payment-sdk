@@ -75,8 +75,23 @@ export { SdkError, PayloadWithMessage } from './common/sdk-error';
 //=======================//
 
 export {
+  ResponsePayload as BaseResponsePayload,
+} from './api-client/response-payload';
+
+export {
   initPayment,
   InitPaymentRequestPayload,
   InitPaymentResponsePayload,
 
 } from './api-client/requests/init-payment';
+
+//=======================//
+// REQUEST: INIT PAYMENT //
+//=======================//
+
+export {
+  cancelPayment,
+  CancelPaymentRequestPayload,
+  CancelPaymentResponsePayload,
+
+} from './api-client/requests/cancel-payment';

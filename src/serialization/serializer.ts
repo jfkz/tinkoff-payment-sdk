@@ -3,11 +3,12 @@ import { get as getByPath, set as setByPath } from 'lodash';
 
 import { Schema, SchemaPropertyType } from './schema';
 import { booleanFromString, booleanToString } from './serializers/boolean';
-import { dateFromStringOrThrow, dateToStringOrThrow } from './serializers/date';
+import { dateFromStringOrThrow, dateToStringOrThrow, expDateFromStringOrThrow } from './serializers/date';
 import { integerFromString, integerToString } from './serializers/integer';
 import { moneyFromPennyOrThrow, moneyToPennyOrThrow } from './serializers/money';
 
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function serializeData<DataType extends {}>(options: {
   data: DataType;
   schema: Schema;
@@ -41,37 +42,41 @@ export function serializeData<DataType extends {}>(options: {
       }
 
       switch (type) {
-        case SchemaPropertyType.MoneyToPenny:
-          value = moneyToPennyOrThrow(value);
-          break;
+      case SchemaPropertyType.MoneyToPenny:
+        value = moneyToPennyOrThrow(value);
+        break;
 
-        case SchemaPropertyType.MoneyFromPenny:
-          value = moneyFromPennyOrThrow(value);
-          break;
+      case SchemaPropertyType.MoneyFromPenny:
+        value = moneyFromPennyOrThrow(value);
+        break;
 
-        case SchemaPropertyType.DateToString:
-          value = dateToStringOrThrow(value);
-          break;
+      case SchemaPropertyType.DateToString:
+        value = dateToStringOrThrow(value);
+        break;
 
-        case SchemaPropertyType.DateFromString:
-          value = dateFromStringOrThrow(value);
-          break;
+      case SchemaPropertyType.DateFromString:
+        value = dateFromStringOrThrow(value);
+        break;
 
-        case SchemaPropertyType.BooleanToString:
-          value = booleanToString(value);
-          break;
+      case SchemaPropertyType.ExpDateFromString:
+        value = expDateFromStringOrThrow(value);
+        break;
 
-        case SchemaPropertyType.BooleanFromString:
-          value = booleanFromString(value);
-          break;
+      case SchemaPropertyType.BooleanToString:
+        value = booleanToString(value);
+        break;
 
-        case SchemaPropertyType.IntegerToString:
-          value = integerToString(value);
-          break;
+      case SchemaPropertyType.BooleanFromString:
+        value = booleanFromString(value);
+        break;
 
-        case SchemaPropertyType.IntegerFromString:
-          value = integerFromString(value);
-          break;
+      case SchemaPropertyType.IntegerToString:
+        value = integerToString(value);
+        break;
+
+      case SchemaPropertyType.IntegerFromString:
+        value = integerFromString(value);
+        break;
       }
 
       setByPath(data, property, value);

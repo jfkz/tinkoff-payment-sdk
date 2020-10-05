@@ -1,11 +1,16 @@
 
 import { ApiClient, ApiClientOptions } from './api-client';
 import {
+  cancelPayment,
+  CancelPaymentRequestPayload,
+  CancelPaymentResponsePayload,
+} from './requests/cancel-payment';
+import {
   initPayment,
   InitPaymentRequestPayload,
   InitPaymentResponsePayload,
-
 } from './requests/init-payment';
+
 
 
 /**
@@ -28,6 +33,18 @@ export class ApiManager {
   ): Promise<InitPaymentResponsePayload> {
 
     return initPayment({
+      apiClient: this.apiClient,
+      payload,
+    });
+
+  }
+
+  public cancelPayment(
+    payload: CancelPaymentRequestPayload
+
+  ): Promise<CancelPaymentResponsePayload> {
+
+    return cancelPayment({
       apiClient: this.apiClient,
       payload,
     });
