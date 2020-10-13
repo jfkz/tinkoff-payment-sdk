@@ -18,9 +18,9 @@ export interface ApiClientOptions {
 }
 
 
-const defaultOptions: Partial<ApiClientOptions> = {
+const apiClientDefaultOptions: Partial<ApiClientOptions> = {
   baseUrl: 'https://securepay.tinkoff.ru/v2/',
-  userAgent: 'Tinkoff Payment Node.js SDK (https://slava.fomin.io)',
+  userAgent: 'Tinkoff Payment Node.js SDK (https://github.com/jfkz/tinkoff-payment-sdk)',
 };
 
 
@@ -32,12 +32,10 @@ export class ApiClient {
 
   private readonly options: ApiClientOptions;
 
-
   constructor(options: ApiClientOptions) {
-    this.options = Object.assign({}, defaultOptions, options);
+    this.options = Object.assign({}, apiClientDefaultOptions, options);
     // this.options = ApiClient.assignDefined(defaultOptions, options);
   }
-
 
   public async sendRequest<ResponsePayloadType extends ResponsePayload>(options: {
     request: HttpRequest;
@@ -80,7 +78,6 @@ export class ApiClient {
     return response;
 
   }
-
 
   private applyBaseUrl(request: HttpRequest) {
     const { baseUrl } = this.options;

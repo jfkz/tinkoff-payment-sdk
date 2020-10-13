@@ -51,7 +51,7 @@ export {
 // API MANAGER //
 //=============//
 
-export { ApiManager } from './api-client/api-manager';
+export { ApiManager, ApiManagerMerchant } from './api-client/api-manager';
 
 
 //=================//
@@ -117,3 +117,15 @@ export {
   ChargePaymentResponsePayload,
 
 } from './api-client/requests/charge-payment';
+
+
+//==========================//
+// REQUEST: ADD CARD        //
+//==========================//
+
+export {
+  addCard,
+  AddCardRequestPayload,
+  AddCardResponsePayload,
+
+} from './api-client/requests/add-card';

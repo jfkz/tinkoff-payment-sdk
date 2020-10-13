@@ -11,7 +11,9 @@
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" height="20">
 </a>
 
-Lion share of original code was written by Slava Fomin II ([@slavafomin](https://github.com/slavafomin))
+Original code was written by Slava Fomin II ([@slavafomin](https://github.com/slavafomin)).
+
+Extended version written by [@jfkz](https://github.com/jfkz)
 
 ---
 
@@ -48,7 +50,7 @@ Install the [Got HTTP client][Got]
 
 ## License (MIT)
 
-Copyright (c) 2020 Slava Fomin II
+Copyright (c) 2020 jfkz, Slava Fomin II
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

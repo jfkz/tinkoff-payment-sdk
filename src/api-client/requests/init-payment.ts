@@ -22,6 +22,7 @@ export interface InitPaymentRequestPayload {
   Token?: string;
   Language?: Language;
   Recurrent?: 'Y';
+  /** Идентификатор покупателя в системе Продавца */
   CustomerKey?: string;
   RedirectDueDate?: Date;
   NotificationURL?: string;
