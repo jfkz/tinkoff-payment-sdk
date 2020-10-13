@@ -52,13 +52,9 @@ const initPaymentRequestSchema: Schema = [
 //==========//
 
 export interface InitPaymentResponsePayload extends BaseResponsePayload {
-  TerminalKey: string;
   Amount: number;
   OrderId: string;
-  Success: boolean;
-  Status: PaymentStatus;
   PaymentId: number;
-  ErrorCode: string;
   CardId?: number;
   /** Card pan */
   Pan?: string;

@@ -85,9 +85,9 @@ export {
 
 } from './api-client/requests/init-payment';
 
-//=======================//
-// REQUEST: INIT PAYMENT //
-//=======================//
+//=========================//
+// REQUEST: CANCEL PAYMENT //
+//=========================//
 
 export {
   cancelPayment,
@@ -95,3 +95,25 @@ export {
   CancelPaymentResponsePayload,
 
 } from './api-client/requests/cancel-payment';
+
+//==========================//
+// REQUEST: CONFIRM PAYMENT //
+//==========================//
+
+export {
+  confirmPayment,
+  ConfirmPaymentRequestPayload,
+  ConfirmPaymentResponsePayload,
+
+} from './api-client/requests/confirm-payment';
+
+//==========================//
+// REQUEST: CHARGE PAYMENT  //
+//==========================//
+
+export {
+  chargePayment,
+  ChargePaymentRequestPayload,
+  ChargePaymentResponsePayload,
+
+} from './api-client/requests/charge-payment';

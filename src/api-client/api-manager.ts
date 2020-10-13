@@ -5,6 +5,8 @@ import {
   CancelPaymentRequestPayload,
   CancelPaymentResponsePayload,
 } from './requests/cancel-payment';
+import { chargePayment, ChargePaymentRequestPayload, ChargePaymentResponsePayload } from './requests/charge-payment';
+import { confirmPayment, ConfirmPaymentRequestPayload, ConfirmPaymentResponsePayload } from './requests/confirm-payment';
 import {
   initPayment,
   InitPaymentRequestPayload,
@@ -45,6 +47,32 @@ export class ApiManager {
   ): Promise<CancelPaymentResponsePayload> {
 
     return cancelPayment({
+      apiClient: this.apiClient,
+      payload,
+    });
+
+  }
+
+
+  public confirmPayment(
+    payload: ConfirmPaymentRequestPayload
+
+  ): Promise<ConfirmPaymentResponsePayload> {
+
+    return confirmPayment({
+      apiClient: this.apiClient,
+      payload,
+    });
+
+  }
+
+
+  public chargePayment(
+    payload: ChargePaymentRequestPayload
+
+  ): Promise<ChargePaymentResponsePayload> {
+
+    return chargePayment({
       apiClient: this.apiClient,
       payload,
     });
