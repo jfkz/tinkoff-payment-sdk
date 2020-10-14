@@ -1,5 +1,7 @@
 
-import { ApiClient, ApiClientOptions } from './api-client';
+import { ApiClient, ApiClientOptions } from './clients/api-client';
+import { BaseClient } from './clients/base-client';
+import { MerchantClient } from './clients/merchant-client';
 import { addCard, AddCardRequestPayload, AddCardResponsePayload } from './requests/add-card';
 import {
   cancelPayment,
@@ -16,11 +18,8 @@ import {
 
 
 abstract class BaseApiManager {
-  protected apiClient: ApiClient;
+  protected apiClient!: BaseClient;
 
-  constructor(options: ApiClientOptions) {
-    this.apiClient = new ApiClient(options);
-  }
 }
 
 /**
@@ -28,6 +27,11 @@ abstract class BaseApiManager {
  * simplify the SDK usage.
  */
 export class ApiManager extends BaseApiManager {
+
+  constructor(options: ApiClientOptions) {
+    super();
+    this.apiClient = new ApiClient(options);
+  }
 
   public initPayment(
     payload: InitPaymentRequestPayload
@@ -84,10 +88,12 @@ export class ApiManager extends BaseApiManager {
 export class ApiManagerMerchant extends BaseApiManager {
 
   constructor (options: ApiClientOptions) {
+    super();
     if (!options.baseUrl) {
-      // options.baseUrl = 'https://securepay.tinkoff.ru/e2c/';
+      options.baseUrl = 'https://securepay.tinkoff.ru/e2c/';
     }
-    super(options);
+
+    this.apiClient = new MerchantClient(options);
   }
 
   public addCard(

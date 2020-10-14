@@ -1,12 +1,9 @@
 /** @see http://static2.tinkoff.ru/acquiring/manuals/merchant_api_protocoI_e2c.pdf */
 
-import { PaymentStatus } from '../../common/payment-status';
 import { HttpRequestMethod } from '../../http-client/http-client';
-import { Schema, SchemaPropertyType as PropType } from '../../serialization/schema';
-import { ApiClient } from '../api-client';
+import { Schema } from '../../serialization/schema';
+import { ApiClient } from '../clients/api-client';
 import { ResponsePayload as BaseResponsePayload } from '../response-payload';
-import { validateAndPrepareReceipt } from './common/receipt';
-import { Receipt } from './common/receipt';
 
 
 export type TCheckType = 'NO' | 'HOLD' | '3DS' | '3DSHOLD';
