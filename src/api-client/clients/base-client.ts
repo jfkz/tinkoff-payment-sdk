@@ -1,6 +1,7 @@
+import _ from 'lodash';
 import { URL } from 'url';
 
-import { signRequestPayload } from '../../common/signature';
+import { sign3410, sign3410async, sign3411, sign3411async, signRequestPayload } from '../../common/signature';
 import { HttpRequest, HttpResponse } from '../../http-client/http-client';
 import { Schema } from '../../serialization/schema';
 import { serializeData } from '../../serialization/serializer';
@@ -12,7 +13,7 @@ export abstract class BaseClient {
   protected readonly options: ApiClientOptions;
 
   constructor(options: ApiClientOptions, defaultOptions: Partial<ApiClientOptions> = {}) {
-    this.options = Object.assign({}, defaultOptions, options);
+    this.options = Object.assign({}, defaultOptions, (options || {}));
   }
 
   public abstract async sendRequest<ResponsePayloadType extends ResponsePayload>(options: {
@@ -21,19 +22,26 @@ export abstract class BaseClient {
     responseSchema: Schema;
   }): Promise<HttpResponse<ResponsePayloadType>>
 
-  protected applyBaseUrl(request: HttpRequest) {
+  protected applyBaseUrl(request: HttpRequest): void {
     const { baseUrl } = this.options;
     request.url = (new URL(request.url, baseUrl)).toString();
   }
 
-  protected serializeRequest(request: HttpRequest, schema: Schema) {
+  protected serializeRequest(request: HttpRequest, schema: Schema): void {
     request.payload = serializeData({
       data: request.payload,
       schema,
     });
   }
 
-  protected deserializeResponse(response: HttpResponse, schema: Schema) {
+  protected serializeForm(request: HttpRequest, schema: Schema): void {
+    request.payload = serializeData({
+      data: request.payload,
+      schema,
+    });
+  }
+
+  protected deserializeResponse(response: HttpResponse, schema: Schema): void {
     response.payload = serializeData({
       data: response.payload,
       schema,
@@ -41,7 +49,7 @@ export abstract class BaseClient {
     });
   }
 
-  protected addSignatureToken(request: HttpRequest) {
+  protected addSignatureToken(request: HttpRequest): void {
 
     const { password } = this.options;
 
@@ -52,7 +60,29 @@ export abstract class BaseClient {
 
   }
 
-  protected addTerminalKey(request: HttpRequest) {
+  protected addCryptoProSigns(request: HttpRequest): void {
+    const line = _.keys(request.payload)
+      .filter((key) => { 
+        return !['DigestValue', 'SignatureValue', 'X509SerialNumber'].includes(key);
+      })
+      .sort()
+      .reduce((l, key) => {
+        return l + request.payload[key];
+      }, '');
+    const DigestValue = sign3410(line);
+    const SignatureValue = sign3411(DigestValue);
+
+    request.payload = {
+      ...request.payload,
+      DigestValue,
+      SignatureValue,
+      X509SerialNumber: 1,
+    };
+
+    console.log(request.payload);
+  }
+
+  protected addTerminalKey(request: HttpRequest): void {
 
     const { terminalKey } = this.options;
 
@@ -62,7 +92,7 @@ export abstract class BaseClient {
 
   }
 
-  protected handleHeaders(request: HttpRequest) {
+  protected handleHeaders(request: HttpRequest): void {
 
     const { userAgent } = this.options;
 
@@ -78,5 +108,8 @@ export abstract class BaseClient {
 
   }
 
+  protected switchToForm(request: HttpRequest): void {
+    request.asForm = true;
+  }
 
 }

@@ -4,6 +4,7 @@ export interface HttpRequest<PayloadType = any> {
   method?: HttpRequestMethod;
   payload?: PayloadType;
   headers?: Record<string, string | string[]>;
+  asForm?: boolean;
 }
 
 export interface HttpResponse<PayloadType = any> {

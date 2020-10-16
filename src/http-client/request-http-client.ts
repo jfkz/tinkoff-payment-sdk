@@ -33,15 +33,22 @@ export class RequestHttpClient implements HttpClient {
 
     } = options;
 
-    const response: FullResponse = await request(url, {
+    const requestOptions: Request.RequestPromiseOptions = {
       method,
       headers,
-      body: payload,
-      json: true,
+      json: !options.asForm,
       resolveWithFullResponse: true,
       simple: false,
       gzip: true,
-    });
+    };
+
+    if (options.asForm) {
+      requestOptions.form  = payload;
+    } else {
+      requestOptions.body = payload;
+    }
+
+    const response: FullResponse = await request(url, requestOptions);
 
     return {
       status: response.statusCode,

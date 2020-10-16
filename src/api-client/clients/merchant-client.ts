@@ -51,13 +51,17 @@ export class MerchantClient extends BaseClient {
 
     } = options;
 
+    this.switchToForm(request);
+
     this.applyBaseUrl(request);
 
     this.serializeRequest(request, requestSchema);
 
     this.addTerminalKey(request);
 
-    this.addSignatureToken(request);
+    // this.addSignatureToken(request);
+
+    this.addCryptoProSigns(request);
 
     this.handleHeaders(request);
 

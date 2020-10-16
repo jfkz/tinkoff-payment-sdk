@@ -28,7 +28,7 @@ export {
 // API CLIENT //
 //============//
 
-export { ApiClient, ApiClientOptions } from './api-client/api-client';
+export { ApiClient, ApiClientOptions } from './api-client/clients/api-client';
 
 export { Language } from './api-client/requests/common/language';
 export { PayType } from './api-client/requests/common/pay-type';

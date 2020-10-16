@@ -1,6 +1,6 @@
 import { HttpRequestMethod } from '../../http-client/http-client';
 import { Schema, SchemaPropertyType as PropType } from '../../serialization/schema';
-import { ApiClient } from '../api-client';
+import { ApiClient } from '../clients/api-client';
 import { ResponsePayload as BaseResponsePayload } from '../response-payload';
 import { validateAndPrepareReceipt } from './common/receipt';
 import { Receipt } from './common/receipt';

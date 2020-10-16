@@ -34,15 +34,26 @@ export class GotHttpClient implements HttpClient {
       method,
       payload,
       headers,
-
+      asForm,
     } = options;
 
-    const response = await got<ResponsePayloadType>(url, {
-      method,
-      headers,
-      json: payload,
-      responseType: 'json',
-    });
+
+    let response;
+    if (!asForm) {
+      response = await got<ResponsePayloadType>(url, {
+        method,
+        headers,
+        json: payload,
+        responseType: 'json',
+      });
+    } else {
+      response = await got<ResponsePayloadType>(url, {
+        method,
+        headers,
+        form: payload,
+        responseType: 'json',
+      });
+    }
 
     return {
       status: response.statusCode,

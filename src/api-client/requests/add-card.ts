@@ -71,6 +71,8 @@ export async function addCard(options: {
     ...restPayload,
   };
 
+  // console.log(apiClient.)
+
   const response = await apiClient.sendRequest<AddCardResponsePayload>({
     request: {
       url: 'AddCard',
