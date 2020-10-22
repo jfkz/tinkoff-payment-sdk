@@ -37,7 +37,6 @@
   },
   "dependencies": {
     "lodash": "^4.17.20",
-    "node-gost-crypto": "^1.0.2",
     "tmp": "^0.2.1"
   },
   "devDependencies": {
