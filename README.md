@@ -50,6 +50,8 @@ Install the [Got HTTP client][Got]
 
 3. Configure MerchantApi with options.
 
+CryptoPro official manual: https://www.cryptopro.ru/sites/default/files/products/cryptcp/cryptcp_5.0.x.pdf
+
 **Remember:** CryptoPro algorithm use intensive file i/o operations by design. Please, reduce count of your operations and/or use fast drive when use this module.
 
 ### Examples
