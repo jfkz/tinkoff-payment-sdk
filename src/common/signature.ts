@@ -62,31 +62,3 @@ export function signRequestPayload<PayloadType>(options: {
   };
 
 }
-
-export function sign3411(line: string): string {
-  const buffer = Buffer.from(line);
-
-  const digest = gostEngine.getGostDigest({ name: 'GOST R 34.11', length: 256, version: 2012 });
-  return Buffer.from(digest.digest(buffer)).toString('hex');
-}
-
-export function sign3410(line: string): string {
-  const buffer = Buffer.from(line);
-
-  const digest = gostEngine.getGostDigest({ name: 'GOST R 34.10', length: 256, version: 2012, mode: 'CPKDF' });
-  return Buffer.from(digest.digest(buffer)).toString('hex');
-}
-
-export async function sign3411async(line: string): Promise<string> {
-  const buffer = Buffer.from(line);
-
-  const arrayBuffer = await gostCrypto.subtle.digest('GOST R 34.11-12-256', buffer);
-  return Buffer.from(arrayBuffer).toString('hex');
-}
-
-export async function sign3410async(line: string): Promise<string> {
-  const buffer = Buffer.from(line);
-
-  const arrayBuffer = await gostCrypto.subtle.digest('GOST R 34.10-12-256', buffer);
-  return Buffer.from(arrayBuffer).toString('hex');
-}

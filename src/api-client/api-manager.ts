@@ -1,7 +1,7 @@
 
-import { ApiClient, ApiClientOptions } from './clients/api-client';
-import { BaseClient } from './clients/base-client';
-import { MerchantClient } from './clients/merchant-client';
+import { ApiClient } from './clients/api-client';
+import { ApiClientOptions, BaseClient } from './clients/base-client';
+import { MerchantClient, MerchantClientOptions } from './clients/merchant-client';
 import { addCard, AddCardRequestPayload, AddCardResponsePayload } from './requests/add-card';
 import {
   cancelPayment,
@@ -87,12 +87,8 @@ export class ApiManager extends BaseApiManager {
 
 export class ApiManagerMerchant extends BaseApiManager {
 
-  constructor (options: ApiClientOptions) {
+  constructor (options: MerchantClientOptions) {
     super();
-    if (!options.baseUrl) {
-      options.baseUrl = 'https://securepay.tinkoff.ru/e2c/';
-    }
-
     this.apiClient = new MerchantClient(options);
   }
 

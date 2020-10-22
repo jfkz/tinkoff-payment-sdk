@@ -1,25 +1,18 @@
 
-import { URL } from 'url';
+import _ from 'lodash';
 
 import { SdkError } from '../../common/sdk-error';
-import { signRequestPayload } from '../../common/signature';
-import { HttpClient, HttpRequest, HttpResponse } from '../../http-client/http-client';
+import { HttpRequest, HttpResponse } from '../../http-client/http-client';
 import { Schema } from '../../serialization/schema';
-import { serializeData } from '../../serialization/serializer';
+import { CryptoProSignProvider, CryptoProSignProviderOptions } from '../../sign-providers/cryptopro-sign-provider';
 import { ResponsePayload } from '../response-payload';
-import { BaseClient } from './base-client';
+import { ApiClientOptions, BaseClient } from './base-client';
 
+export interface MerchantClientOptions extends ApiClientOptions, CryptoProSignProviderOptions {
 
-export interface ApiClientOptions {
-  httpClient: HttpClient;
-  terminalKey: string;
-  password: string;
-  baseUrl?: string;
-  userAgent?: string;
 }
 
-
-const merchantClientDefaultOptions: Partial<ApiClientOptions> = {
+const merchantClientDefaultOptions: Partial<MerchantClientOptions> = {
   baseUrl: 'https://securepay.tinkoff.ru/e2c/',
   userAgent: 'Tinkoff Payment Node.js SDK (https://github.com/jfkz/tinkoff-payment-sdk)',
 };
@@ -30,9 +23,12 @@ const merchantClientDefaultOptions: Partial<ApiClientOptions> = {
  * This version of client is using  
  */
 export class MerchantClient extends BaseClient {
+  
+  private cryptoProOptions: CryptoProSignProviderOptions;
 
-  constructor(options: ApiClientOptions) {
+  constructor(options: MerchantClientOptions) {
     super(options, merchantClientDefaultOptions);
+    this.cryptoProOptions = options;
   }
 
   public async sendRequest<ResponsePayloadType extends ResponsePayload>(options: {
@@ -59,8 +55,6 @@ export class MerchantClient extends BaseClient {
 
     this.addTerminalKey(request);
 
-    // this.addSignatureToken(request);
-
     this.addCryptoProSigns(request);
 
     this.handleHeaders(request);
@@ -79,6 +73,31 @@ export class MerchantClient extends BaseClient {
 
     return response;
 
+  }
+
+  protected addCryptoProSigns(request: HttpRequest): void {
+
+    const cryptoPro = new CryptoProSignProvider(this.cryptoProOptions);
+
+    const line = _.keys(request.payload)
+      .filter((key) => {
+        return !['DigestValue', 'SignatureValue', 'X509SerialNumber'].includes(key);
+      })
+      .sort()
+      .reduce((l, key) => {
+        return l + request.payload[key];
+      }, '');
+    const DigestValue = cryptoPro.digest(request.payload);
+    const SignatureValue = cryptoPro.sign(DigestValue);
+
+    request.payload = {
+      ...request.payload,
+      DigestValue,
+      SignatureValue,
+      X509SerialNumber: 1,
+    };
+
+    console.log(request.payload);
   }
 
 }

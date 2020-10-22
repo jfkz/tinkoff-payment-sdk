@@ -1,22 +1,9 @@
 
-import { URL } from 'url';
-
 import { SdkError } from '../../common/sdk-error';
-import { signRequestPayload } from '../../common/signature';
-import { HttpClient, HttpRequest, HttpResponse } from '../../http-client/http-client';
+import { HttpRequest, HttpResponse } from '../../http-client/http-client';
 import { Schema } from '../../serialization/schema';
-import { serializeData } from '../../serialization/serializer';
 import { ResponsePayload } from '../response-payload';
-import { BaseClient } from './base-client';
-
-
-export interface ApiClientOptions {
-  httpClient: HttpClient;
-  terminalKey: string;
-  password: string;
-  baseUrl?: string;
-  userAgent?: string;
-}
+import { ApiClientOptions, BaseClient } from './base-client';
 
 
 const apiClientDefaultOptions: Partial<ApiClientOptions> = {
