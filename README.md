@@ -42,6 +42,15 @@ Install the [Got HTTP client][Got]
 
 `npm i -S got`
 
+## CryptoPro installation and config
+
+1. Download and install CryptoPro 5+ from official site: https://www.cryptopro.ru/products/csp/downloads
+
+2. Configure stores and keys (working manual: http://pushorigin.ru/cryptopro/cryptcp)
+
+3. Configure MerchantApi with options.
+
+**Remember:** CryptoPro algorithm use intensive file i/o operations by design. Please, reduce count of your operations and/or use fast drive when use this module.
 
 ### Examples
 
