@@ -7,24 +7,25 @@ import tmp from 'tmp';
 
 import { SignProvider } from './sign-provider';
 
+// https://cpdn.cryptopro.ru/content/csp40/html/group___pro_c_s_p_ex_DP8.html
 type THashAlgorithm = '1.2.643.7.1.1.2.2' | '1.2.643.7.1.1.2.3' | '1.2.643.2.2.9';
 type TSignAlgorithm = 'SHA1' | 'SHA256' | 'SHA384' | 'SHA512' | 'MD5' | 'MD2' | 'MD4'
   | 'GOST12_256' | 'GOST12_512' | 'GOST94_256';
 
 export interface CryptoProSignProviderOptions {
-  containerPassword: string;
-  container: string;
-  hashAlg?: THashAlgorithm;
-  singAlg?: TSignAlgorithm;
-  cryptoProDir?: string;
-  hideExceptions: boolean;
+  cpContainerPassword: string;
+  cpContainer: string;
+  cpHashAlg?: THashAlgorithm;
+  cpSingAlg?: TSignAlgorithm;
+  cpLocation?: string;
+  cpHideExceptions?: boolean;
 }
 
 const defaultOptions: Partial<CryptoProSignProviderOptions> = {
-  cryptoProDir: '/opt/cprocsp/bin/amd64',
-  hashAlg: '1.2.643.7.1.1.2.2',
-  singAlg: 'GOST12_256',
-  hideExceptions: true,
+  cpLocation: '/opt/cprocsp/bin/amd64',
+  cpHashAlg: '1.2.643.7.1.1.2.2',
+  cpSingAlg: 'GOST12_256',
+  cpHideExceptions: true,
 };
 
 export class CryptoProSignProvider extends SignProvider {
@@ -40,9 +41,9 @@ export class CryptoProSignProvider extends SignProvider {
     const tmpFilename = tmp.tmpNameSync();
     const hashFilename = `${tmpFilename}.hsh`;
     const {
-      cryptoProDir,
-      hashAlg,
-      hideExceptions,
+      cpLocation: cryptoProDir,
+      cpHashAlg: hashAlg,
+      cpHideExceptions: hideExceptions,
     } = this.options;
     const cmdOptions = [
       `${cryptoProDir}/cryptcp`,
@@ -72,11 +73,11 @@ export class CryptoProSignProvider extends SignProvider {
     const hashFilename = `${tmpFilename}.hsh`;
     const signFilename = `${tmpFilename}.sig`;
     const {
-      cryptoProDir,
-      singAlg,
-      hideExceptions,
-      container,
-      containerPassword,
+      cpLocation: cryptoProDir,
+      cpSingAlg: singAlg,
+      cpHideExceptions: hideExceptions,
+      cpContainer: container,
+      cpContainerPassword: containerPassword,
     } = this.options;
     const cmdOptions = [
       `${cryptoProDir}/csptest`,

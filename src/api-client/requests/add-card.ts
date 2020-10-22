@@ -1,7 +1,7 @@
 /** @see http://static2.tinkoff.ru/acquiring/manuals/merchant_api_protocoI_e2c.pdf */
 
 import { HttpRequestMethod } from '../../http-client/http-client';
-import { Schema } from '../../serialization/schema';
+import { Schema, SchemaPropertyType } from '../../serialization/schema';
 import { ApiClient } from '../clients/api-client';
 import { ResponsePayload as BaseResponsePayload } from '../response-payload';
 
@@ -70,8 +70,6 @@ export async function addCard(options: {
   const $payload: any = {
     ...restPayload,
   };
-
-  // console.log(apiClient.)
 
   const response = await apiClient.sendRequest<AddCardResponsePayload>({
     request: {

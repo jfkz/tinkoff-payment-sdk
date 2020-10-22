@@ -62,6 +62,10 @@ export class MerchantClient extends BaseClient {
     // Using low-level transport to send the request
     const response = await httpClient.sendRequest<ResponsePayloadType>(request);
 
+    if (typeof response.payload === 'string') {
+      response.payload = JSON.parse(response.payload);
+    }
+
     this.deserializeResponse(response, responseSchema);
 
     const { payload } = response;
@@ -79,15 +83,8 @@ export class MerchantClient extends BaseClient {
 
     const cryptoPro = new CryptoProSignProvider(this.cryptoProOptions);
 
-    const line = _.keys(request.payload)
-      .filter((key) => {
-        return !['DigestValue', 'SignatureValue', 'X509SerialNumber'].includes(key);
-      })
-      .sort()
-      .reduce((l, key) => {
-        return l + request.payload[key];
-      }, '');
     const DigestValue = cryptoPro.digest(request.payload);
+
     const SignatureValue = cryptoPro.sign(DigestValue);
 
     request.payload = {
@@ -96,8 +93,6 @@ export class MerchantClient extends BaseClient {
       SignatureValue,
       X509SerialNumber: 1,
     };
-
-    console.log(request.payload);
   }
 
 }

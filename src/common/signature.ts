@@ -1,10 +1,6 @@
 
 import { createHash } from 'crypto';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { gostCrypto, gostEngine } = require('node-gost-crypto');
-
-
 /**
  * Generates signature for the specified request payload,
  * using the specified password.

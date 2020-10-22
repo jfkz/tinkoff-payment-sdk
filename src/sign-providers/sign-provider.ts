@@ -10,9 +10,13 @@ export abstract class SignProvider {
 
   public digest(payload: PayloadType): string {
     const exludeFields = [
+      // Documented fields
       'DigestValue',
       'SignatureValue',
       'X509SerialNumber',
+      // Undocumented fields
+      'Description',
+      'PayForm',
     ];
 
     const line = _.keys(payload)
@@ -24,7 +28,7 @@ export abstract class SignProvider {
         return l + payload[key];
       }, '');
 
-    return line;
+    return this.digestLine(line);
   }
 
   /**
