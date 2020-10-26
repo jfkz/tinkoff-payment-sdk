@@ -118,14 +118,11 @@ export {
 
 } from './api-client/requests/charge-payment';
 
+// Merchant API
 
-//==========================//
-// REQUEST: ADD CARD        //
-//==========================//
-
-export {
-  addCard,
-  AddCardRequestPayload,
-  AddCardResponsePayload,
-
-} from './api-client/requests/add-card';
+export * from './api-client/requests/add-customer';
+export * from './api-client/requests/get-customer';
+export * from './api-client/requests/remove-customer';
+export * from './api-client/requests/add-card';
+export * from './api-client/requests/get-card-list';
+export * from './api-client/requests/remove-card';

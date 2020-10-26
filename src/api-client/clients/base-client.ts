@@ -1,11 +1,11 @@
 
 import { URL } from 'url';
 
+import { BaseResponsePayload } from '../..';
 import { signRequestPayload } from '../../common/signature';
 import { HttpClient, HttpRequest, HttpResponse } from '../../http-client/http-client';
 import { Schema } from '../../serialization/schema';
 import { serializeData } from '../../serialization/serializer';
-import { ResponsePayload } from '../response-payload';
 
 export interface ApiClientOptions {
   httpClient: HttpClient;
@@ -23,10 +23,11 @@ export abstract class BaseClient {
     this.options = Object.assign({}, defaultOptions, (options || {}));
   }
 
-  public abstract async sendRequest<ResponsePayloadType extends ResponsePayload>(options: {
+  public abstract async sendRequest<ResponsePayloadType extends BaseResponsePayload>(options: {
     request: HttpRequest;
     requestSchema: Schema;
     responseSchema: Schema;
+    skipVerification?: boolean;
   }): Promise<HttpResponse<ResponsePayloadType>>
 
   protected applyBaseUrl(request: HttpRequest): void {

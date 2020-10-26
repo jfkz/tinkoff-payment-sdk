@@ -35,6 +35,7 @@ export class MerchantClient extends BaseClient {
     request: HttpRequest;
     requestSchema: Schema;
     responseSchema: Schema;
+    skipVerification?: boolean;
 
   }): Promise<HttpResponse<ResponsePayloadType>> {
 
@@ -61,6 +62,10 @@ export class MerchantClient extends BaseClient {
 
     // Using low-level transport to send the request
     const response = await httpClient.sendRequest<ResponsePayloadType>(request);
+
+    if (options.skipVerification) {
+      return response;
+    }
 
     if (typeof response.payload === 'string') {
       response.payload = JSON.parse(response.payload);
