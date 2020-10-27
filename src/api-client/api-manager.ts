@@ -175,4 +175,16 @@ export class ApiManagerMerchant extends BaseApiManager {
 
   }
 
+  public initPayment(
+    payload: InitPaymentRequestPayload
+
+  ): Promise<InitPaymentResponsePayload> {
+
+    return initPayment({
+      apiClient: this.apiClient,
+      payload,
+    });
+
+  }
+
 }
