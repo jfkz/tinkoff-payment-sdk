@@ -1,4 +1,5 @@
 import { moneyToPennyOrThrow } from '../../../serialization/serializers/money';
+import { ICardData } from '../finish-authorize';
 
 export interface Receipt {
   Email?: string;
@@ -98,6 +99,11 @@ export interface SupplierInfo {
 // UTILITIES //
 //===========//
 
+
+export function validateAndPrepareCardData(cardData: ICardData): string {
+  const dataObj = cardData as any;
+  return Object.keys(cardData).map((key) => `${key}=${dataObj[key]}`).join(';');
+}
 
 export function validateAndPrepareReceipt(receipt: Receipt): Receipt {
 
