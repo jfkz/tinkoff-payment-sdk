@@ -17,6 +17,7 @@ export abstract class SignProvider {
       // Undocumented fields
       'Description',
       'PayForm',
+      'DATA',
     ];
 
     const line = _.keys(payload)

@@ -17,6 +17,8 @@ import { Receipt } from './common/receipt';
 export interface InitPaymentRequestPayload {
   OrderId: string;
   Amount?: number;
+  /** Используется только в /e2c/Init */
+  CardId?: number;
   IP?: string;
   Description?: string;
   Token?: string;
