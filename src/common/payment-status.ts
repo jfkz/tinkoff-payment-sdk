@@ -19,4 +19,7 @@ export enum PaymentStatus {
   REFUNDING = 'REFUNDING',
   PARTIAL_REFUNDED = 'PARTIAL_REFUNDED',
   REFUNDED = 'REFUNDED',
+  // Merchant status
+  CHECKED = 'CHECKED',
+  COMPLETED = 'COMPLETED',
 }

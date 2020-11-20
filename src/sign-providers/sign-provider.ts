@@ -17,8 +17,11 @@ export abstract class SignProvider {
       // Undocumented fields
       'Description',
       'PayForm',
-      'DATA',
     ];
+
+    if (payload.DATA && typeof payload.DATA !== 'string') {
+      exludeFields.push('DATA');
+    }
 
     const line = _.keys(payload)
       .filter((key) => {

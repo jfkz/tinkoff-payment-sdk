@@ -1,4 +1,3 @@
-
 import { ApiClient } from './clients/api-client';
 import { ApiClientOptions, BaseClient } from './clients/base-client';
 import { MerchantClient, MerchantClientOptions } from './clients/merchant-client';
@@ -14,6 +13,7 @@ import {
   CancelPaymentResponsePayload,
 } from './requests/cancel-payment';
 import { chargePayment, ChargePaymentRequestPayload, ChargePaymentResponsePayload } from './requests/charge-payment';
+import { flatDataObject } from './requests/common/data';
 import { confirmPayment, ConfirmPaymentRequestPayload, ConfirmPaymentResponsePayload } from './requests/confirm-payment';
 import { getCardList, GetCardListRequestPayload, GetCardListResponsePayload } from './requests/get-card-list';
 import { getCustomer, GetCustomerRequestPayload, GetCustomerResponsePayload } from './requests/get-customer';
@@ -22,6 +22,7 @@ import {
   InitPaymentRequestPayload,
   InitPaymentResponsePayload,
 } from './requests/init-payment';
+import { payment, PaymentRequestPayload, PaymentResponsePayload } from './requests/payment';
 import { removeCard, RemoveCardRequestPayload, RemoveCardResponsePayload } from './requests/remove-card';
 import { removeCustomer, RemoveCustomerRequestPayload, RemoveCustomerResponsePayload } from './requests/remove-customer';
 
@@ -180,6 +181,10 @@ export class ApiManagerMerchant extends BaseApiManager {
 
   ): Promise<InitPaymentResponsePayload> {
 
+    if (payload.DATA) {
+      payload.DATA = flatDataObject(payload.DATA);
+    }
+
     return initPayment({
       apiClient: this.apiClient,
       payload,
@@ -187,4 +192,13 @@ export class ApiManagerMerchant extends BaseApiManager {
 
   }
 
+  public payment(
+    payload: PaymentRequestPayload
+  ): Promise<PaymentResponsePayload> {
+
+    return payment({
+      apiClient: this.apiClient,
+      payload,
+    });
+  }
 }

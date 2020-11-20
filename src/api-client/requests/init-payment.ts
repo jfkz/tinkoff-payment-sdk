@@ -1,4 +1,3 @@
-import { PaymentStatus } from '../../common/payment-status';
 import { HttpRequestMethod } from '../../http-client/http-client';
 import { Schema, SchemaPropertyType as PropType } from '../../serialization/schema';
 import { ApiClient } from '../clients/api-client';
@@ -32,7 +31,7 @@ export interface InitPaymentRequestPayload {
   FailURL?: string;
   PayType?: PayType;
   Receipt?: Receipt;
-  DATA?: Record<string, string>;
+  DATA?: Record<string, string> | string;
 }
 
 
