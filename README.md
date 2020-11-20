@@ -2,7 +2,7 @@
 # @jfkz/tinkoff-payment-sdk
 
 <!-- NPM Badge -->
-<a href="https://badge.fury.io/js/%40jfkz%2Ftinkoff-payment-sdk">
+<a href="https://www.npmjs.com/package/@jfkz/tinkoff-payment-sdk">
   <img src="https://badge.fury.io/js/%40jfkz%2Ftinkoff-payment-sdk.svg" alt="npm version" height="18">
 </a>
 
