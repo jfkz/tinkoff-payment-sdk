@@ -94,6 +94,18 @@ export class ApiManager extends BaseApiManager {
 
   }
 
+  public getState(
+    payload: GetStateRequestPayload,
+
+  ): Promise<GetStateResponsePayload> {
+
+    return getState({
+      apiClient: this.apiClient,
+      payload,
+    });
+    
+  }
+
 }
 
 export class ApiManagerMerchant extends BaseApiManager {
