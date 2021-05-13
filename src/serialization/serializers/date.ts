@@ -1,3 +1,5 @@
+import { formatISO } from 'date-fns';
+
 export function dateToStringOrThrow(value: Date): string {
 
 
@@ -6,7 +8,7 @@ export function dateToStringOrThrow(value: Date): string {
     throw new Error('Value must be a valid JavaScript Date');
   }
 
-  return value.toISOString();
+  return formatISO(value);
 
 }
 
