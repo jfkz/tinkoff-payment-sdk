@@ -8,7 +8,7 @@ export abstract class SignProvider {
   protected abstract digestLine(line: string): string;
   protected abstract signLine(line: string): string;
 
-  public digest(payload: PayloadType): string {
+  protected compactParameters(payload: PayloadType): string {
     const exludeFields = [
       // Documented fields
       'DigestValue',
@@ -31,7 +31,11 @@ export abstract class SignProvider {
       .reduce((l, key) => {
         return l + payload[key];
       }, '');
+    return line;
+  }
 
+  public digest(payload: PayloadType): string {
+    const line = this.compactParameters(payload);
     return this.digestLine(line);
   }
 

@@ -1,6 +1,4 @@
 
-import _ from 'lodash';
-
 import { SdkError } from '../../common/sdk-error';
 import { HttpRequest, HttpResponse } from '../../http-client/http-client';
 import { Schema } from '../../serialization/schema';
@@ -20,7 +18,6 @@ const merchantClientDefaultOptions: Partial<MerchantClientOptions> = {
 /**
  * A generic API client that encapsulates all communications
  * with Tinkoff Payment API using the provided low-level HTTP client.
- * This version of client is using  
  */
 export class MerchantClient extends BaseClient {
   
@@ -84,6 +81,7 @@ export class MerchantClient extends BaseClient {
 
   }
 
+  /** @deprecated This function will be refactored to new bridge-like style */
   protected addCryptoProSigns(request: HttpRequest): void {
 
     const cryptoPro = new CryptoProSignProvider(this.cryptoProOptions);

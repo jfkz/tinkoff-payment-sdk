@@ -108,6 +108,7 @@ export class ApiManager extends BaseApiManager {
 
 }
 
+/** @deprecated This class will be refactored to new bridge style */
 export class ApiManagerMerchant extends BaseApiManager {
 
   constructor (options: MerchantClientOptions) {

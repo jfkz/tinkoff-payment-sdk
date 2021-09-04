@@ -23,7 +23,7 @@ export abstract class BaseClient {
     this.options = Object.assign({}, defaultOptions, (options || {}));
   }
 
-  public abstract async sendRequest<ResponsePayloadType extends BaseResponsePayload>(options: {
+  public abstract sendRequest<ResponsePayloadType extends BaseResponsePayload>(options: {
     request: HttpRequest;
     requestSchema: Schema;
     responseSchema: Schema;
