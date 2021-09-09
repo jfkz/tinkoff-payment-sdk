@@ -3,14 +3,12 @@ import { SdkError } from '../../common/sdk-error';
 import { HttpRequest, HttpResponse } from '../../http-client/http-client';
 import { Schema } from '../../serialization/schema';
 import { CryptoProSignProvider, CryptoProSignProviderOptions } from '../../sign-providers/cryptopro-sign-provider';
+import { RSASignProvider, RSASignProviderOptions } from '../../sign-providers/rsa-sign-provider';
+import { SignProvider } from '../../sign-providers/sign-provider';
 import { ResponsePayload } from '../response-payload';
 import { ApiClientOptions, BaseClient } from './base-client';
 
-export interface MerchantClientOptions extends ApiClientOptions, CryptoProSignProviderOptions {
-
-}
-
-const merchantClientDefaultOptions: Partial<MerchantClientOptions> = {
+const merchantClientDefaultOptions: Partial<ApiClientOptions> = {
   baseUrl: 'https://securepay.tinkoff.ru/e2c/',
   userAgent: 'Tinkoff Payment Node.js SDK (https://github.com/jfkz/tinkoff-payment-sdk)',
 };
@@ -21,11 +19,12 @@ const merchantClientDefaultOptions: Partial<MerchantClientOptions> = {
  */
 export class MerchantClient extends BaseClient {
   
-  private cryptoProOptions: CryptoProSignProviderOptions;
+  private readonly signProvider: SignProvider;
 
-  constructor(options: MerchantClientOptions) {
-    super(options, merchantClientDefaultOptions);
-    this.cryptoProOptions = options;
+  constructor(options: ApiClientOptions, signProvider: SignProvider) {
+    const thisOptions = Object.assign({}, merchantClientDefaultOptions, (options || {}));
+    super(options, thisOptions);
+    this.signProvider = signProvider;
   }
 
   public async sendRequest<ResponsePayloadType extends ResponsePayload>(options: {
@@ -53,7 +52,7 @@ export class MerchantClient extends BaseClient {
 
     this.addTerminalKey(request);
 
-    this.addCryptoProSigns(request);
+    request.payload = this.signProvider.signRequestPayload(request.payload);
 
     this.handleHeaders(request);
 
@@ -80,22 +79,4 @@ export class MerchantClient extends BaseClient {
     return response;
 
   }
-
-  /** @deprecated This function will be refactored to new bridge-like style */
-  protected addCryptoProSigns(request: HttpRequest): void {
-
-    const cryptoPro = new CryptoProSignProvider(this.cryptoProOptions);
-
-    const DigestValue = cryptoPro.digest(request.payload);
-
-    const SignatureValue = cryptoPro.sign(DigestValue);
-
-    request.payload = {
-      ...request.payload,
-      DigestValue,
-      SignatureValue,
-      X509SerialNumber: 1,
-    };
-  }
-
 }

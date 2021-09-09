@@ -1,6 +1,7 @@
+import { SignProvider } from '../sign-providers/sign-provider';
 import { ApiClient } from './clients/api-client';
 import { ApiClientOptions, BaseClient } from './clients/base-client';
-import { MerchantClient, MerchantClientOptions } from './clients/merchant-client';
+import { MerchantClient } from './clients/merchant-client';
 import {
   addCard,
   AddCardRequestPayload,
@@ -108,12 +109,11 @@ export class ApiManager extends BaseApiManager {
 
 }
 
-/** @deprecated This class will be refactored to new bridge style */
 export class ApiManagerMerchant extends BaseApiManager {
 
-  constructor (options: MerchantClientOptions) {
+  constructor (options: ApiClientOptions, signProvider: SignProvider) {
     super();
-    this.apiClient = new MerchantClient(options);
+    this.apiClient = new MerchantClient(options, signProvider);
   }
 
   public addCustomer(

@@ -1,9 +1,11 @@
 
 import * as _ from 'lodash';
 
-type PayloadType = any;
+import { PayloadType } from '../common/payload-type';
 
 export abstract class SignProvider {
+
+  public abstract signRequestPayload(payload: PayloadType): PayloadType;
 
   protected abstract digestLine(line: string): string;
   protected abstract signLine(line: string): string;

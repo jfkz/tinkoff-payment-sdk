@@ -5,6 +5,7 @@ import { dirname } from 'path';
 
 import tmp from 'tmp';
 
+import { PayloadType } from '../common/payload-type';
 import { SignProvider } from './sign-provider';
 
 // https://cpdn.cryptopro.ru/content/csp40/html/group___pro_c_s_p_ex_DP8.html
@@ -29,6 +30,19 @@ const defaultOptions: Partial<CryptoProSignProviderOptions> = {
 };
 
 export class CryptoProSignProvider extends SignProvider {
+
+  public signRequestPayload(payload: PayloadType): PayloadType {
+    const DigestValue = this.digest(payload);
+
+    const SignatureValue = this.sign(DigestValue);
+
+    return {
+      ...payload,
+      DigestValue,
+      SignatureValue,
+      X509SerialNumber: 1,
+    };
+  }
 
   private options: CryptoProSignProviderOptions;
 
