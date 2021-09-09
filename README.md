@@ -11,9 +11,9 @@
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" height="20">
 </a>
 
-Original code was written by Slava Fomin II ([@slavafomin](https://github.com/slavafomin)).
+Original code: Slava Fomin II ([@slavafomin](https://github.com/slavafomin)).
 
-Extended version written by [@jfkz](https://github.com/jfkz)
+Extended version: [@jfkz](https://github.com/jfkz)
 
 ---
 
@@ -29,7 +29,12 @@ A Node.js SDK for Tinkoff Bank's Payment API.
   (e.g. `string` to `Date`)
 - type-safe, written in TypeScript and ships with complete type declarations
   for all data types and API requests/responses
+- support both CryptoPro and RSA signatures for [merchant API](https://acdn.tinkoff.ru/static/documents/merchant_api_protocoI_e2c.pdf) (actial at 06/15/2021)
 
+## Version difference
+
+* 0.x - old interface for Merchant provider, only CryptoPro is supported
+* 1.x - updated interface for Merchant provider, support both CryptoPro and RSA signatures for request signatures
 
 ## Installation
 
@@ -41,6 +46,10 @@ Install the [Got HTTP client][Got]
 (if you are not planning to provide custom implementation):
 
 `npm i -S got`
+
+## RSA key installation
+
+Follow the [official documentation](https://business.tinkoff.ru/openapi/docs#section/Sertifikaty/Vypusk-sertifikata).
 
 ## CryptoPro installation and config
 

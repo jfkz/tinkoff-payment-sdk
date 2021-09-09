@@ -47,12 +47,18 @@ export {
 } from './api-client/requests/common/receipt';
 
 
+//================//
+// SIGN PROVIDERS //
+//================//
+
+export { CryptoProSignProvider } from './sign-providers/cryptopro-sign-provider';
+export { RSASignProvider } from './sign-providers/rsa-sign-provider';
+
 //=============//
 // API MANAGER //
 //=============//
 
 export { ApiManager, ApiManagerMerchant } from './api-client/api-manager';
-
 
 //=================//
 // WEBHOOK HANDLER //
