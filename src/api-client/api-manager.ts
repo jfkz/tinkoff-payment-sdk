@@ -14,7 +14,6 @@ import {
   CancelPaymentResponsePayload,
 } from './requests/cancel-payment';
 import { chargePayment, ChargePaymentRequestPayload, ChargePaymentResponsePayload } from './requests/charge-payment';
-import { flatDataObject } from './requests/common/data';
 import { confirmPayment, ConfirmPaymentRequestPayload, ConfirmPaymentResponsePayload } from './requests/confirm-payment';
 import { getCardList, GetCardListRequestPayload, GetCardListResponsePayload } from './requests/get-card-list';
 import { getCustomer, GetCustomerRequestPayload, GetCustomerResponsePayload } from './requests/get-customer';
@@ -194,10 +193,6 @@ export class ApiManagerMerchant extends BaseApiManager {
     payload: InitPaymentRequestPayload
 
   ): Promise<InitPaymentResponsePayload> {
-
-    if (payload.DATA) {
-      payload.DATA = flatDataObject(payload.DATA);
-    }
 
     return initPayment({
       apiClient: this.apiClient,

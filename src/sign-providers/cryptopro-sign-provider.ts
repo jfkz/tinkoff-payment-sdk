@@ -5,6 +5,7 @@ import { dirname } from 'path';
 
 import tmp from 'tmp';
 
+import { flatDataObject } from '../api-client/requests/common/data';
 import { PayloadType } from '../common/payload-type';
 import { SignProvider } from './sign-provider';
 
@@ -32,6 +33,10 @@ const defaultOptions: Partial<CryptoProSignProviderOptions> = {
 export class CryptoProSignProvider extends SignProvider {
 
   public signRequestPayload(payload: PayloadType): PayloadType {
+    if (payload.DATA) {
+      payload.DATA = flatDataObject(payload.DATA);
+    }
+
     const DigestValue = this.digest(payload);
 
     const SignatureValue = this.sign(DigestValue);

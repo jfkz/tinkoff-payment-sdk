@@ -5,9 +5,13 @@ import CryptoJS from 'crypto-js';
 
 import { PayloadType } from '../common/payload-type';
 import { SignProvider } from './sign-provider';
+import { SdkError } from '../common/sdk-error';
 
 export interface RSASignProviderOptions {
-  publicKey: string;
+  privateKeyFile?: string;
+  privateKeyString?: string;
+  X509SerialNumber?: string;
+  // certificateFile?: string;
 }
 
 const defaultOptions: Partial<RSASignProviderOptions> = {
@@ -22,20 +26,50 @@ export class RSASignProvider extends SignProvider {
 
     const line = this.compactParameters(payload);
 
-    const SignatureValue = this.sign(line);
+    const SignatureValue = this.signLine(line);
 
     return {
       ...payload,
       DigestValue,
       SignatureValue,
+      X509SerialNumber: this.X509SerialNumber,
     };
   }
 
   private options: RSASignProviderOptions;
 
+  private readonly privateKey!: Buffer;
+
+  private readonly X509SerialNumber!: string;
+
   constructor(options: RSASignProviderOptions) {
     super();
     this.options = Object.assign({}, defaultOptions, (options || {}));
+
+    if (this.options.privateKeyFile) {
+      this.privateKey = readFileSync(this.options.privateKeyFile);
+    }
+
+    if (this.options.privateKeyString) {
+      this.privateKey = Buffer.from(this.options.privateKeyString);
+    }
+
+    if (!this.privateKey) {
+      throw new SdkError({
+        message: "Cant initialize RSA sign provider without private key. Set one of the options: privateKeyFile or privateKeyFile",
+      });
+    }
+
+    if (this.options.X509SerialNumber) {
+      this.X509SerialNumber = this.options.X509SerialNumber;
+    }
+
+
+    if (!this.X509SerialNumber) {
+      throw new SdkError({
+        message: "Cant initialize RSA sign provider without X509SerialNumber.",
+      });
+    }
   }
 
   protected digestLine(line: string): string {
@@ -44,16 +78,12 @@ export class RSASignProvider extends SignProvider {
   }
 
   protected signLine(line: string): string {
-    const key = readFileSync(this.options.publicKey);
-    const encryptedData = crypto.publicEncrypt(
-      {
-        key,
-        padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
-        oaepHash: 'sha256',
-      },
-      // We convert the data string to a buffer using `Buffer.from`
-      Buffer.from(line)
-    );
-    return encryptedData.toString('base64');
+
+    const hash = crypto.createHash('SHA256').update(line).digest();
+
+    const sign = crypto.createSign('RSA-SHA256').update(hash);
+
+    return sign.sign(this.privateKey, 'base64');
+
   }
 }
