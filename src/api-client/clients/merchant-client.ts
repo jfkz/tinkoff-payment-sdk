@@ -1,15 +1,13 @@
-
+import { TINKOFF_API_MERCHANT_URL } from '../../common/consts';
 import { SdkError } from '../../common/sdk-error';
 import { HttpRequest, HttpResponse } from '../../http-client/http-client';
 import { Schema } from '../../serialization/schema';
-import { CryptoProSignProvider, CryptoProSignProviderOptions } from '../../sign-providers/cryptopro-sign-provider';
-import { RSASignProvider, RSASignProviderOptions } from '../../sign-providers/rsa-sign-provider';
 import { SignProvider } from '../../sign-providers/sign-provider';
 import { ResponsePayload } from '../response-payload';
 import { ApiClientOptions, BaseClient } from './base-client';
 
 const merchantClientDefaultOptions: Partial<ApiClientOptions> = {
-  baseUrl: 'https://securepay.tinkoff.ru/e2c/',
+  baseUrl: TINKOFF_API_MERCHANT_URL,
   userAgent: 'Tinkoff Payment Node.js SDK (https://github.com/jfkz/tinkoff-payment-sdk)',
 };
 
@@ -44,7 +42,7 @@ export class MerchantClient extends BaseClient {
 
     } = options;
 
-    this.switchToForm(request);
+    this.signProvider.setFormType(request);
 
     this.applyBaseUrl(request);
 

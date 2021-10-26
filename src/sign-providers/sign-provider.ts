@@ -2,6 +2,7 @@
 import * as _ from 'lodash';
 
 import { PayloadType } from '../common/payload-type';
+import { HttpRequest } from '../http-client/http-client';
 
 export abstract class SignProvider {
 
@@ -9,6 +10,11 @@ export abstract class SignProvider {
 
   protected abstract digestLine(line: string): string;
   protected abstract signLine(line: string): string;
+
+  public setFormType(request: HttpRequest): HttpRequest {
+    request.asForm = true;
+    return request;
+  }
 
   protected compactParameters(payload: PayloadType): string {
     const exludeFields = [

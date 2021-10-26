@@ -94,8 +94,4 @@ export abstract class BaseClient {
 
   }
 
-  protected switchToForm(request: HttpRequest): void {
-    request.asForm = true;
-  }
-
 }

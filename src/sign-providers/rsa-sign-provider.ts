@@ -4,8 +4,9 @@ import { readFileSync } from 'fs';
 import CryptoJS from 'crypto-js';
 
 import { PayloadType } from '../common/payload-type';
-import { SignProvider } from './sign-provider';
 import { SdkError } from '../common/sdk-error';
+import { HttpRequest } from '../http-client/http-client';
+import { SignProvider } from './sign-provider';
 
 export interface RSASignProviderOptions {
   privateKeyFile?: string;
@@ -56,7 +57,7 @@ export class RSASignProvider extends SignProvider {
 
     if (!this.privateKey) {
       throw new SdkError({
-        message: "Cant initialize RSA sign provider without private key. Set one of the options: privateKeyFile or privateKeyFile",
+        message: 'Cant initialize RSA sign provider without private key. Set one of the options: privateKeyFile or privateKeyFile',
       });
     }
 
@@ -67,9 +68,13 @@ export class RSASignProvider extends SignProvider {
 
     if (!this.X509SerialNumber) {
       throw new SdkError({
-        message: "Cant initialize RSA sign provider without X509SerialNumber.",
+        message: 'Cant initialize RSA sign provider without X509SerialNumber. Please, set up this value in options',
       });
     }
+  }
+
+  public setFormType(request: HttpRequest): HttpRequest {
+    return request;
   }
 
   protected digestLine(line: string): string {
