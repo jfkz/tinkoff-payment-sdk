@@ -1,1 +1,9 @@
 version = 1
+
+[[analyzers]]
+name = "test-coverage"
+enabled = true
+
+[[analyzers]]
+name = "javascript"
+enabled = true
