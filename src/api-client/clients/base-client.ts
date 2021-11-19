@@ -4,6 +4,7 @@ import { URL } from 'url';
 import { BaseResponsePayload } from '../..';
 import { signRequestPayload } from '../../common/signature';
 import { HttpClient, HttpRequest, HttpResponse } from '../../http-client/http-client';
+import { SdkLogger, SdkLogLevel } from '../../logger/logger';
 import { Schema } from '../../serialization/schema';
 import { serializeData } from '../../serialization/serializer';
 
@@ -13,6 +14,7 @@ export interface ApiClientOptions {
   password: string;
   baseUrl?: string;
   userAgent?: string;
+  logger?: SdkLogger;
 }
 
 export abstract class BaseClient {
@@ -92,6 +94,39 @@ export abstract class BaseClient {
       (request.headers || {})
     );
 
+  }
+
+  protected log(level: SdkLogLevel, ...args: any[]): void{
+    if (this.options.logger) {
+      const logger = this.options.logger;
+      switch (level) {
+      case SdkLogLevel.debug:
+        if (logger.debug instanceof Function) {
+          logger.debug(...args);
+        }
+        break;
+      case SdkLogLevel.error:
+        if (logger.error instanceof Function) {
+          logger.error(...args);
+        }
+        break;
+      case SdkLogLevel.info:
+        if (logger.info instanceof Function) {
+          logger.info(...args);
+        }
+        break;
+      case SdkLogLevel.log:
+        if (logger.log instanceof Function) {
+          logger.log(...args);
+        }
+        break;
+      case SdkLogLevel.warn:
+        if (logger.warn instanceof Function) {
+          logger.warn(...args);
+        }
+        break;
+      }
+    }
   }
 
 }

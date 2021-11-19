@@ -1,6 +1,7 @@
 import { TINKOFF_API_MERCHANT_URL } from '../../common/consts';
 import { SdkError } from '../../common/sdk-error';
 import { HttpRequest, HttpResponse } from '../../http-client/http-client';
+import { SdkLogLevel } from '../../logger/logger';
 import { Schema } from '../../serialization/schema';
 import { SignProvider } from '../../sign-providers/sign-provider';
 import { ResponsePayload } from '../response-payload';
@@ -54,8 +55,12 @@ export class MerchantClient extends BaseClient {
 
     this.handleHeaders(request);
 
+    this.log(SdkLogLevel.debug, request);
+
     // Using low-level transport to send the request
     const response = await httpClient.sendRequest<ResponsePayloadType>(request);
+
+    this.log(SdkLogLevel.debug, response);
 
     if (options.skipVerification) {
       return response;

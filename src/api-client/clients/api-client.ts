@@ -1,6 +1,7 @@
 
 import { SdkError } from '../../common/sdk-error';
 import { HttpRequest, HttpResponse } from '../../http-client/http-client';
+import { SdkLogLevel } from '../../logger/logger';
 import { Schema } from '../../serialization/schema';
 import { ResponsePayload } from '../response-payload';
 import { ApiClientOptions, BaseClient } from './base-client';
@@ -48,8 +49,12 @@ export class ApiClient extends BaseClient {
 
     this.handleHeaders(request);
 
+    this.log(SdkLogLevel.debug, request);
+
     // Using low-level transport to send the request
     const response = await httpClient.sendRequest<ResponsePayloadType>(request);
+
+    this.log(SdkLogLevel.debug, response);
 
     this.deserializeResponse(response, responseSchema);
 
