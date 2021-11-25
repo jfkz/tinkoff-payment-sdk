@@ -3,8 +3,9 @@ import * as _ from 'lodash';
 
 import { PayloadType } from '../common/payload-type';
 import { HttpRequest } from '../http-client/http-client';
+import { Loggable } from '../logger/logger';
 
-export abstract class SignProvider {
+export abstract class SignProvider extends Loggable {
 
   public abstract signRequestPayload(payload: PayloadType): PayloadType;
 
@@ -23,8 +24,8 @@ export abstract class SignProvider {
       'SignatureValue',
       'X509SerialNumber',
       // Undocumented fields
-      'Description',
-      'PayForm',
+      // 'Description',
+      // 'PayForm',
     ];
 
     if (payload.DATA && typeof payload.DATA !== 'string') {

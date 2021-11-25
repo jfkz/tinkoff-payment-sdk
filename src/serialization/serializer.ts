@@ -83,7 +83,7 @@ export function serializeData<DataType extends {}>(options: {
 
     } catch (error) {
       throw new Error(
-        `Failed to serialize property "${property}": ${error.message} ` +
+        `Failed to serialize property "${property}": ${(error as Error).message} ` +
         `using "${type}" serializer`
       );
 

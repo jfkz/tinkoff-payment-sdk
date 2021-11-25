@@ -6,6 +6,7 @@ import CryptoJS from 'crypto-js';
 import { PayloadType } from '../common/payload-type';
 import { SdkError } from '../common/sdk-error';
 import { HttpRequest } from '../http-client/http-client';
+import { SdkLogLevel } from '../logger/logger';
 import { SignProvider } from './sign-provider';
 
 export interface RSASignProviderOptions {
@@ -26,6 +27,9 @@ export class RSASignProvider extends SignProvider {
     const DigestValue = this.digest(payload);
 
     const line = this.compactParameters(payload);
+
+    this.log(SdkLogLevel.debug, 'RSA Sign Provider: compacted params: ', line);
+    this.log(SdkLogLevel.debug, 'Digest value: ', DigestValue);
 
     const SignatureValue = this.signLine(line);
 
