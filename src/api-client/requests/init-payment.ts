@@ -31,7 +31,7 @@ export interface InitPaymentRequestPayload {
   FailURL?: string;
   PayType?: PayType;
   Receipt?: Receipt;
-  DATA?: Record<string, string> | string;
+  DATA?: Record<string, string | number> | string;
 }
 
 
