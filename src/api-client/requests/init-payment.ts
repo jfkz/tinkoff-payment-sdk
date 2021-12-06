@@ -1,3 +1,4 @@
+import { PayloadType } from '../../common/payload-type';
 import { HttpRequestMethod } from '../../http-client/http-client';
 import { Schema, SchemaPropertyType as PropType } from '../../serialization/schema';
 import { ApiClient } from '../clients/api-client';
@@ -11,6 +12,60 @@ import { Receipt } from './common/receipt';
 //=========//
 // REQUEST //
 //=========//
+
+
+export interface ITinkoffInitRequestData {
+  /** Фамилия отправителя платежа */
+  s_lastname: string;
+  /** Имя отправителя платежа */
+  s_firstname: string;
+  /** Отчество отправителя платежа */
+  s_middlename?: string;
+  /** Дата рождения отправителя платежа в формате ДД.ММ.ГГГ */
+  s_dateOfBirth: string;
+  /** Гражданство отправителя (3-х буквенный ISO-код) */
+  s_citizenship: string;
+  /** Серия паспорта */
+  s_passportSeries: string;
+  /** Номер паспорта */
+  s_pasportNumber: string;
+  /** Дата выдачи паспорта в формате ДД.ММ.ГГГГ */
+  s_passportIssueDate: string;
+  /** Кем выдан паспорт */
+  s_passportIssuedBy: string;
+  /** Признак резидентности Клиента (0 – нерезидент, 1 – резидент) */
+  s_resident?: string;
+  /** Полный адрес отправителя */
+  s_address?: string;
+  /** Почтовый индекс */
+  s_addressZip?: string;
+  /** Страна. Указывается в формате ISO 3166-1 Numeric */
+  s_addressCountry?: number;
+  /** Город\Населенный пункт */
+  s_addressCity?: string;
+  /** Улица */
+  s_addressStreet?: string;
+  /** Номер дома */
+  s_addressBuilding?: string;
+  /** Номер квартиры */
+  s_addressApartment?: string;
+  /** Счет отправителя (номер карты или расчётный счёт) */
+  s_accountNumber?: string;
+
+  /** Фамилия получателя платежа */
+  r_lastname?: string;
+  /** Имя получателя платежа */
+  r_firstname?: string;
+  /** Отчество получателя платежа */
+  r_middlename?: string;
+  /** Номер договора займа */
+  agreement_number?: string;
+
+  /** Направление перевода. 0 – международный, 1 – внутри страны */
+  t_domestic: 0 | 1;
+
+  [key: string]: string | number | undefined;
+}
 
 /** @see https://oplata.tinkoff.ru/develop/api/payments/init-request/ */
 export interface InitPaymentRequestPayload {
@@ -31,7 +86,7 @@ export interface InitPaymentRequestPayload {
   FailURL?: string;
   PayType?: PayType;
   Receipt?: Receipt;
-  DATA?: Record<string, string | number> | string;
+  DATA?: ITinkoffInitRequestData | string;
 }
 
 
@@ -94,7 +149,7 @@ export async function initPayment(options: {
 
   const { Receipt, ...restPayload } = options.payload;
 
-  const $payload: any = {
+  const $payload: PayloadType = {
     ...restPayload,
   };
 
