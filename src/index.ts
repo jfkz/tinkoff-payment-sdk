@@ -88,7 +88,7 @@ export {
   initPayment,
   InitPaymentRequestPayload,
   InitPaymentResponsePayload,
-
+  ITinkoffInitRequestData,
 } from './api-client/requests/init-payment';
 
 //=========================//
