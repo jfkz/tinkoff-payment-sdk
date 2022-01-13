@@ -124,6 +124,17 @@ export {
 
 } from './api-client/requests/charge-payment';
 
+//===========================//
+// REQUEST: FinishAuthorize  //
+//===========================//
+
+export {
+  finishAuthorize,
+  FinishAuthorizeRequestPayload,
+  FinishAuthorizeResponsePayload,
+
+} from './api-client/requests/finish-authorize';
+
 // Merchant API
 
 export * from './api-client/requests/add-customer';
