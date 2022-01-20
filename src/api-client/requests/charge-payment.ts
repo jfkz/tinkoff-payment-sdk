@@ -37,6 +37,8 @@ export interface ChargePaymentResponsePayload extends BaseResponsePayload {
   OrderId: string;
   /** Уникальный идентификатор транзакции в системе банка	*/
   PaymentId: number;
+  /** Идентификатор для безопасной сделки */
+  SpAccumulationId?: string;
 }
 
 const ChargePaymentResponseSchema: Schema = [
