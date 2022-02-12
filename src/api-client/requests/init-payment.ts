@@ -14,6 +14,9 @@ import { Receipt } from './common/receipt';
 //=========//
 
 
+/**
+ * @see https://acdn.tinkoff.ru/static/documents/bezopasnaya_sdelka.pdf
+ */
 export interface ITinkoffInitRequestData {
   /** Фамилия отправителя платежа */
   s_lastname: string;
@@ -64,7 +67,21 @@ export interface ITinkoffInitRequestData {
   /** Направление перевода. 0 – международный, 1 – внутри страны */
   t_domestic: 0 | 1;
 
-  [key: string]: string | number | undefined;
+  /**
+   * Признак управления накоплением: если передано значение true, то начинается накопление суммы для выплаты продавцу
+   */
+  StartSpAccumulation?: null | 'true' | 'false' | '1N';
+
+  /** Идентификатор созданного накопителя */
+  SpAccumulationId?: string;
+
+  /** Email покупателя */
+  Email: string;
+
+  /** Телефон покупателя */
+  Phone: string;
+  
+  [key: string]: string | number | undefined | null;
 }
 
 /** @see https://oplata.tinkoff.ru/develop/api/payments/init-request/ */
@@ -86,7 +103,7 @@ export interface InitPaymentRequestPayload {
   FailURL?: string;
   PayType?: PayType;
   Receipt?: Receipt;
-  DATA?: ITinkoffInitRequestData | string;
+  DATA?: Partial<ITinkoffInitRequestData> | string;
 }
 
 
