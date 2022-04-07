@@ -1,7 +1,6 @@
-import { HttpRequestMethod } from '../../http-client/http-client';
-import { Schema } from '../../serialization/schema';
-import { BaseClient } from '../clients/base-client';
 import { ResponsePayload as BaseResponsePayload } from '../response-payload';
+import { buildSendRequestFunction } from './common/request';
+import { DataTypeQr } from './common/data-type-qr';
 
 //=========//
 // REQUEST //
@@ -11,11 +10,8 @@ export interface GetQrRequestPayload {
   /** PaymentId покупателя в системе Продавца	*/
   PaymentId: number;
   /** Тип возвращаемых данных: PAYLOAD IMAGE */
-  DataType?: 'PAYLOAD' | 'IMAGE';
+  DataType?: DataTypeQr;
 }
-
-
-const getQrRequestSchema: Schema = [];
 
 
 //==========//
@@ -32,37 +28,8 @@ export interface GetQrResponsePayload extends BaseResponsePayload {
 }
 
 
-const getQrResponseSchema: Schema = [];
-
-
 //==========//
 // FUNCTION //
 //==========//
 
-export async function getQr(options: {
-  apiClient: BaseClient;
-  payload: GetQrRequestPayload;
-
-}): Promise<GetQrResponsePayload> {
-
-  const { apiClient } = options;
-
-  const { ...restPayload } = options.payload;
-
-  const $payload: any = {
-    ...restPayload,
-  };
-
-  const response = await apiClient.sendRequest<GetQrResponsePayload>({
-    request: {
-      url: 'GetQr',
-      method: HttpRequestMethod.POST,
-      payload: $payload,
-    },
-    requestSchema: getQrRequestSchema,
-    responseSchema: getQrResponseSchema,
-  });
-
-  return response.payload;
-
-}
+export const getQr = buildSendRequestFunction<GetQrRequestPayload, GetQrResponsePayload>('GetQr');
