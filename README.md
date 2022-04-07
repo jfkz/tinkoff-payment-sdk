@@ -63,7 +63,41 @@ CryptoPro official manual: https://www.cryptopro.ru/sites/default/files/products
 
 **Remember:** CryptoPro algorithm use intensive file i/o operations by design. Please, reduce count of your operations and/or use fast drive when use this module.
 
-### Examples
+### Example: Init Payment
+
+```js
+import {
+  PayType,
+  ApiManager,
+  RequestHttpClient,
+  InitPaymentResponsePayload
+} from '@jfkz/tinkoff-payment-sdk';
+
+import Request from 'request-promise-native'; // need install
+
+const config = {
+  terminal : 'TERMINAL_KEY',
+  password : 'PASSWORD'
+};
+
+const ApiManagerInstance = new ApiManager({
+  httpClient : new RequestHttpClient({
+    request : Request
+  }),
+  terminalKey : config.terminal,
+  password : config.password
+});
+
+ApiManagerInstance.initPayment({
+  OrderId: '1',
+  Amount: 10,
+  PayType: PayType.SingleStage,
+}).then((data : InitPaymentResponsePayload) => {
+  console.log('Init response:', data);
+});
+```
+
+### More examples
 
 @todo
 

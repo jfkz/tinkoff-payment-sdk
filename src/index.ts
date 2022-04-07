@@ -92,6 +92,17 @@ export {
 } from './api-client/requests/init-payment';
 
 //=========================//
+// REQUEST: GET QR //
+//=========================//
+
+export {
+  getQr,
+  GetQrRequestPayload,
+  GetQrResponsePayload,
+
+} from './api-client/requests/get-qr';
+
+//=========================//
 // REQUEST: CANCEL PAYMENT //
 //=========================//
 
