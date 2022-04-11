@@ -32,6 +32,7 @@ export { ApiClient } from './api-client/clients/api-client';
 
 export { Language } from './api-client/requests/common/language';
 export { PayType } from './api-client/requests/common/pay-type';
+export { DataTypeQr } from './api-client/requests/common/data-type-qr';
 
 export {
   AgentData,
@@ -90,6 +91,28 @@ export {
   InitPaymentResponsePayload,
   ITinkoffInitRequestData,
 } from './api-client/requests/init-payment';
+
+//=========================//
+// REQUEST: GET QR //
+//=========================//
+
+export {
+  getQr,
+  GetQrRequestPayload,
+  GetQrResponsePayload,
+
+} from './api-client/requests/get-qr';
+
+//=========================//
+// REQUEST: CHECK ORDER //
+//=========================//
+
+export {
+  checkOrder,
+  CheckOrderRequestPayload,
+  CheckOrderResponsePayload,
+
+} from './api-client/requests/check-order';
 
 //=========================//
 // REQUEST: CANCEL PAYMENT //

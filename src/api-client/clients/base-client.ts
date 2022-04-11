@@ -22,7 +22,7 @@ export abstract class BaseClient extends Loggable {
 
   constructor(options: ApiClientOptions, defaultOptions: Partial<ApiClientOptions> = {}) {
     super(options);
-    this.options = Object.assign({}, defaultOptions, (options || {}));
+    this.options = Object.assign({}, defaultOptions, options);
   }
 
   public abstract sendRequest<ResponsePayloadType extends BaseResponsePayload>(options: {

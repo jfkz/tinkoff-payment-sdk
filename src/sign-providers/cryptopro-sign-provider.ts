@@ -53,7 +53,7 @@ export class CryptoProSignProvider extends SignProvider {
 
   constructor(options: CryptoProSignProviderOptions) {
     super();
-    this.options = Object.assign({}, defaultOptions, (options || {}));
+    this.options = Object.assign({}, defaultOptions, options);
   }
 
   protected digestLine(line: string): string {

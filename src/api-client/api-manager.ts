@@ -18,6 +18,8 @@ import { confirmPayment, ConfirmPaymentRequestPayload, ConfirmPaymentResponsePay
 import { getCardList, GetCardListRequestPayload, GetCardListResponsePayload } from './requests/get-card-list';
 import { getCustomer, GetCustomerRequestPayload, GetCustomerResponsePayload } from './requests/get-customer';
 import { getState, GetStateRequestPayload, GetStateResponsePayload } from './requests/get-state';
+import { getQr, GetQrRequestPayload, GetQrResponsePayload } from './requests/get-qr';
+import { checkOrder, CheckOrderRequestPayload, CheckOrderResponsePayload } from './requests/check-order';
 import {
   initPayment,
   InitPaymentRequestPayload,
@@ -103,7 +105,31 @@ export class ApiManager extends BaseApiManager {
       apiClient: this.apiClient,
       payload,
     });
-    
+
+  }
+
+  public getQr(
+    payload: GetQrRequestPayload,
+
+  ): Promise<GetQrResponsePayload> {
+
+    return getQr({
+      apiClient: this.apiClient,
+      payload,
+    });
+
+  }
+
+  public checkOrder(
+    payload: CheckOrderRequestPayload,
+
+  ): Promise<CheckOrderResponsePayload> {
+
+    return checkOrder({
+      apiClient: this.apiClient,
+      payload,
+    });
+
   }
 
 }
