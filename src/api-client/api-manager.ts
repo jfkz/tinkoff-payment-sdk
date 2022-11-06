@@ -33,6 +33,89 @@ import { removeCustomer, RemoveCustomerRequestPayload, RemoveCustomerResponsePay
 abstract class BaseApiManager {
   protected apiClient!: BaseClient;
 
+  public addCard(
+    payload: AddCardRequestPayload
+
+  ): Promise<AddCardResponsePayload> {
+
+    return addCard({
+      apiClient: this.apiClient,
+      payload,
+    });
+
+  }
+
+  public getCardList(
+    payload: GetCardListRequestPayload
+
+  ): Promise<GetCardListResponsePayload> {
+
+    return getCardList({
+      apiClient: this.apiClient,
+      payload,
+    });
+
+  }
+
+  public removeCard(
+    payload: RemoveCardRequestPayload
+
+  ): Promise<RemoveCardResponsePayload> {
+
+    return removeCard({
+      apiClient: this.apiClient,
+      payload,
+    });
+
+  }
+
+  public payment(
+    payload: PaymentRequestPayload
+  ): Promise<PaymentResponsePayload> {
+
+    return payment({
+      apiClient: this.apiClient,
+      payload,
+    });
+  }
+
+  public addCustomer(
+    payload: AddCustomerRequestPayload
+
+  ): Promise<AddCustomerResponsePayload> {
+
+    return addCustomer({
+      apiClient: this.apiClient,
+      payload,
+    });
+
+  }
+
+  public getCustomer(
+    payload: GetCustomerRequestPayload
+
+  ): Promise<GetCustomerResponsePayload> {
+
+    return getCustomer({
+      apiClient: this.apiClient,
+      payload,
+    });
+
+  }
+
+
+  public removeCustomer(
+    payload: RemoveCustomerRequestPayload
+
+  ): Promise<RemoveCustomerResponsePayload> {
+
+    return removeCustomer({
+      apiClient: this.apiClient,
+      payload,
+    });
+
+  }
+
 }
 
 /**
@@ -141,80 +224,6 @@ export class ApiManagerMerchant extends BaseApiManager {
     this.apiClient = new MerchantClient(options, signProvider);
   }
 
-  public addCustomer(
-    payload: AddCustomerRequestPayload
-
-  ): Promise<AddCustomerResponsePayload> {
-
-    return addCustomer({
-      apiClient: this.apiClient,
-      payload,
-    });
-
-  }
-
-  public getCustomer(
-    payload: GetCustomerRequestPayload
-
-  ): Promise<GetCustomerResponsePayload> {
-
-    return getCustomer({
-      apiClient: this.apiClient,
-      payload,
-    });
-
-  }
-
-
-  public removeCustomer(
-    payload: RemoveCustomerRequestPayload
-
-  ): Promise<RemoveCustomerResponsePayload> {
-
-    return removeCustomer({
-      apiClient: this.apiClient,
-      payload,
-    });
-
-  }
-
-
-  public addCard(
-    payload: AddCardRequestPayload
-
-  ): Promise<AddCardResponsePayload> {
-
-    return addCard({
-      apiClient: this.apiClient,
-      payload,
-    });
-
-  }
-
-  public getCardList(
-    payload: GetCardListRequestPayload
-
-  ): Promise<GetCardListResponsePayload> {
-
-    return getCardList({
-      apiClient: this.apiClient,
-      payload,
-    });
-
-  }
-
-  public removeCard(
-    payload: RemoveCardRequestPayload
-
-  ): Promise<RemoveCardResponsePayload> {
-
-    return removeCard({
-      apiClient: this.apiClient,
-      payload,
-    });
-
-  }
-
   public initPayment(
     payload: InitPaymentRequestPayload
 
@@ -225,16 +234,6 @@ export class ApiManagerMerchant extends BaseApiManager {
       payload,
     });
 
-  }
-
-  public payment(
-    payload: PaymentRequestPayload
-  ): Promise<PaymentResponsePayload> {
-
-    return payment({
-      apiClient: this.apiClient,
-      payload,
-    });
   }
 
   public getState(

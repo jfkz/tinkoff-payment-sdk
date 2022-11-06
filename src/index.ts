@@ -159,7 +159,7 @@ export {
 } from './api-client/requests/finish-authorize';
 
 // Merchant API
-
+export * from './common/consts';
 export * from './api-client/requests/add-customer';
 export * from './api-client/requests/get-customer';
 export * from './api-client/requests/remove-customer';
