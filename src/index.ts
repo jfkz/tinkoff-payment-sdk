@@ -104,6 +104,39 @@ export {
 } from './api-client/requests/get-qr';
 
 //=========================//
+// REQUEST: GET STATIC QR //
+//=========================//
+
+export {
+  getStaticQr,
+  GetStaticQrRequestPayload,
+  GetStaticQrResponsePayload,
+
+} from './api-client/requests/get-static-qr';
+
+//=========================//
+// REQUEST: QR MEMBERS LIST //
+//=========================//
+
+export {
+  getQrMembersList,
+  QrMembersListRequestPayload,
+  QrMembersListResponsePayload,
+
+} from './api-client/requests/qr-members-list';
+
+//=========================//
+// REQUEST: ADD ACCOUNT QR //
+//=========================//
+
+export {
+  addAccountQr,
+  AddAccountQrRequestPayload,
+  AddAccountQrResponsePayload,
+
+} from './api-client/requests/add-account-qr';
+
+//=========================//
 // REQUEST: CHECK ORDER //
 //=========================//
 
@@ -147,6 +180,17 @@ export {
 
 } from './api-client/requests/charge-payment';
 
+//==========================//
+// REQUEST: CHARGE QR  //
+//==========================//
+
+export {
+  chargeQr,
+  ChargeQrRequestPayload,
+  ChargeQrResponsePayload,
+
+} from './api-client/requests/charge-qr';
+
 //===========================//
 // REQUEST: FinishAuthorize  //
 //===========================//
@@ -159,7 +203,7 @@ export {
 } from './api-client/requests/finish-authorize';
 
 // Merchant API
-export * from './common/consts';
+
 export * from './api-client/requests/add-customer';
 export * from './api-client/requests/get-customer';
 export * from './api-client/requests/remove-customer';
