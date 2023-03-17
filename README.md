@@ -29,7 +29,7 @@ A Node.js SDK for Tinkoff Bank's Payment API.
   (e.g. `string` to `Date`)
 - type-safe, written in TypeScript and ships with complete type declarations
   for all data types and API requests/responses
-- support both CryptoPro and RSA signatures for [merchant API](https://acdn.tinkoff.ru/static/documents/merchant_api_protocoI_e2c.pdf) (actial at 06/15/2021)
+- support both CryptoPro and RSA signatures for [merchant API](https://acdn.tinkoff.ru/static/documents/merchant_api_protocoI_e2c.pdf) (actual at 06/15/2021)
 
 ## Version difference
 
