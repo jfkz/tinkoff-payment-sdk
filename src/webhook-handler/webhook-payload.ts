@@ -11,7 +11,7 @@ export interface WebhookPayload {
   PaymentId: number;
   ErrorCode: string;
   Amount: number;
-  Rebilld?: number;
+  RebillId?: number;
   CardId: number;
   Pan: string;
   ExpDate: string;
@@ -29,7 +29,7 @@ export const webhookPayloadSchema: Schema = [
     type: PropType.IntegerFromString,
   },
   {
-    property: 'Rebilld',
+    property: 'RebillId',
     type: PropType.IntegerFromString,
     optional: true,
   },
