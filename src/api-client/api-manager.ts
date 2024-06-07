@@ -34,6 +34,41 @@ import { SignProvider } from '../sign-providers/sign-provider';
 
 abstract class BaseApiManager {
   protected apiClient!: BaseClient;
+
+  public initPayment(payload: InitPaymentRequestPayload): Promise<InitPaymentResponsePayload> {
+    return initPayment({
+      apiClient: this.apiClient,
+      payload,
+    });
+  }
+
+  public addCustomer(payload: AddCustomerRequestPayload): Promise<AddCustomerResponsePayload> {
+    return addCustomer({
+      apiClient: this.apiClient,
+      payload,
+    });
+  }
+
+  public getCustomer(payload: GetCustomerRequestPayload): Promise<GetCustomerResponsePayload> {
+    return getCustomer({
+      apiClient: this.apiClient,
+      payload,
+    });
+  }
+
+  public removeCustomer(payload: RemoveCustomerRequestPayload): Promise<RemoveCustomerResponsePayload> {
+    return removeCustomer({
+      apiClient: this.apiClient,
+      payload,
+    });
+  }
+
+  public resend(payload: ResendRequestPayload): Promise<ResendResponsePayload> {
+    return resend({
+      apiClient: this.apiClient,
+      payload,
+    });
+  }
 }
 
 /**
@@ -44,13 +79,6 @@ export class ApiManager extends BaseApiManager {
   constructor(options: ApiClientOptions) {
     super();
     this.apiClient = new ApiClient(options);
-  }
-
-  public initPayment(payload: InitPaymentRequestPayload): Promise<InitPaymentResponsePayload> {
-    return initPayment({
-      apiClient: this.apiClient,
-      payload,
-    });
   }
 
   public cancelPayment(payload: CancelPaymentRequestPayload): Promise<CancelPaymentResponsePayload> {
@@ -99,36 +127,8 @@ export class ApiManager extends BaseApiManager {
     return sendClosingReceipt({ apiClient: this.apiClient, payload });
   }
 
-  public addCustomer(payload: AddCustomerRequestPayload): Promise<AddCustomerResponsePayload> {
-    return addCustomer({
-      apiClient: this.apiClient,
-      payload,
-    });
-  }
-
-  public getCustomer(payload: GetCustomerRequestPayload): Promise<GetCustomerResponsePayload> {
-    return getCustomer({
-      apiClient: this.apiClient,
-      payload,
-    });
-  }
-
-  public removeCustomer(payload: RemoveCustomerRequestPayload): Promise<RemoveCustomerResponsePayload> {
-    return removeCustomer({
-      apiClient: this.apiClient,
-      payload,
-    });
-  }
-
   public getCardList(payload: GetCardListRequestPayload): Promise<GetCardListResponsePayload> {
     return getCardList({
-      apiClient: this.apiClient,
-      payload,
-    });
-  }
-
-  public resend(payload: ResendRequestPayload): Promise<ResendResponsePayload> {
-    return resend({
       apiClient: this.apiClient,
       payload,
     });
@@ -141,27 +141,6 @@ export class ApiManagerSafeDeal extends BaseApiManager {
     this.apiClient = new SafeDealClient(options);
   }
 
-  public addCustomer(payload: AddCustomerRequestPayload): Promise<AddCustomerResponsePayload> {
-    return addCustomer({
-      apiClient: this.apiClient,
-      payload,
-    });
-  }
-
-  public getCustomer(payload: GetCustomerRequestPayload): Promise<GetCustomerResponsePayload> {
-    return getCustomer({
-      apiClient: this.apiClient,
-      payload,
-    });
-  }
-
-  public removeCustomer(payload: RemoveCustomerRequestPayload): Promise<RemoveCustomerResponsePayload> {
-    return removeCustomer({
-      apiClient: this.apiClient,
-      payload,
-    });
-  }
-
   public addCard(payload: AddCardRequestPayload): Promise<AddCardResponsePayload> {
     return addCard({
       apiClient: this.apiClient,
@@ -183,13 +162,6 @@ export class ApiManagerSafeDeal extends BaseApiManager {
     });
   }
 
-  public initPayment(payload: InitPaymentRequestPayload): Promise<InitPaymentResponsePayload> {
-    return initPayment({
-      apiClient: this.apiClient,
-      payload,
-    });
-  }
-
   public payment(payload: PaymentRequestPayload): Promise<PaymentResponsePayload> {
     return payment({
       apiClient: this.apiClient,
@@ -199,13 +171,6 @@ export class ApiManagerSafeDeal extends BaseApiManager {
 
   public getState(payload: GetStateRequestPayload): Promise<GetStateResponsePayload> {
     return getState({
-      apiClient: this.apiClient,
-      payload,
-    });
-  }
-
-  public resend(payload: ResendRequestPayload): Promise<ResendResponsePayload> {
-    return resend({
       apiClient: this.apiClient,
       payload,
     });
@@ -218,27 +183,6 @@ export class ApiManagerMerchant extends BaseApiManager {
     this.apiClient = new MerchantClient(options, signProvider);
   }
 
-  public addCustomer(payload: AddCustomerRequestPayload): Promise<AddCustomerResponsePayload> {
-    return addCustomer({
-      apiClient: this.apiClient,
-      payload,
-    });
-  }
-
-  public getCustomer(payload: GetCustomerRequestPayload): Promise<GetCustomerResponsePayload> {
-    return getCustomer({
-      apiClient: this.apiClient,
-      payload,
-    });
-  }
-
-  public removeCustomer(payload: RemoveCustomerRequestPayload): Promise<RemoveCustomerResponsePayload> {
-    return removeCustomer({
-      apiClient: this.apiClient,
-      payload,
-    });
-  }
-
   public addCard(payload: AddCardRequestPayload): Promise<AddCardResponsePayload> {
     return addCard({
       apiClient: this.apiClient,
@@ -260,13 +204,6 @@ export class ApiManagerMerchant extends BaseApiManager {
     });
   }
 
-  public initPayment(payload: InitPaymentRequestPayload): Promise<InitPaymentResponsePayload> {
-    return initPayment({
-      apiClient: this.apiClient,
-      payload,
-    });
-  }
-
   public payment(payload: PaymentRequestPayload): Promise<PaymentResponsePayload> {
     return payment({
       apiClient: this.apiClient,
@@ -276,13 +213,6 @@ export class ApiManagerMerchant extends BaseApiManager {
 
   public getState(payload: GetStateRequestPayload): Promise<GetStateResponsePayload> {
     return getState({
-      apiClient: this.apiClient,
-      payload,
-    });
-  }
-
-  public resend(payload: ResendRequestPayload): Promise<ResendResponsePayload> {
-    return resend({
       apiClient: this.apiClient,
       payload,
     });
