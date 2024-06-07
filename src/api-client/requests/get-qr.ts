@@ -1,6 +1,6 @@
-import { ResponsePayload as BaseResponsePayload } from '../response-payload';
-import { buildSendRequestFunction } from './common/request';
-import { DataTypeQr } from './common/data-type-qr';
+import { DataTypeQr } from "./common/data-type-qr";
+import { buildSendRequestFunction } from "./common/request";
+import { ResponsePayload as BaseResponsePayload } from "../response-payload";
 
 //=========//
 // REQUEST //
@@ -12,7 +12,6 @@ export interface GetQrRequestPayload {
   /** Тип возвращаемых данных: PAYLOAD IMAGE */
   DataType?: DataTypeQr;
 }
-
 
 //==========//
 // RESPONSE //
@@ -27,9 +26,11 @@ export interface GetQrResponsePayload extends BaseResponsePayload {
   PaymentId: number;
 }
 
-
 //==========//
 // FUNCTION //
 //==========//
 
-export const getQr = buildSendRequestFunction<GetQrRequestPayload, GetQrResponsePayload>('GetQr');
+export const getQr = buildSendRequestFunction<
+  GetQrRequestPayload,
+  GetQrResponsePayload
+>("GetQr");

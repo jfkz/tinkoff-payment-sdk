@@ -4,10 +4,9 @@ import { SdkError } from "../../common/sdk-error";
 import { HttpRequest, HttpResponse } from "../../http-client/http-client";
 import { SdkLogLevel } from "../../logger/logger";
 import { Schema } from "../../serialization/schema";
-import { SignProvider } from "../../sign-providers/sign-provider";
 import { ResponsePayload } from "../response-payload";
 
-const merchantClientDefaultOptions: Partial<ApiClientOptions> = {
+const safedealMerchantClientDefaultOptions: Partial<ApiClientOptions> = {
   baseUrl: TINKOFF_API_MERCHANT_URL,
   userAgent:
     "Tinkoff Payment Node.js SDK (https://github.com/jfkz/tinkoff-payment-sdk)",
@@ -17,17 +16,9 @@ const merchantClientDefaultOptions: Partial<ApiClientOptions> = {
  * A generic API client that encapsulates all communications
  * with Tinkoff Payment API using the provided low-level HTTP client.
  */
-export class MerchantClient extends BaseClient {
-  private readonly signProvider: SignProvider;
-
-  constructor(options: ApiClientOptions, signProvider: SignProvider) {
-    const thisOptions = Object.assign(
-      {},
-      merchantClientDefaultOptions,
-      options || {},
-    );
-    super(options, thisOptions);
-    this.signProvider = signProvider;
+export class SafeDealClient extends BaseClient {
+  constructor(options: ApiClientOptions) {
+    super(options, safedealMerchantClientDefaultOptions);
   }
 
   public async sendRequest<
@@ -36,13 +27,10 @@ export class MerchantClient extends BaseClient {
     request: HttpRequest;
     requestSchema: Schema;
     responseSchema: Schema;
-    skipVerification?: boolean;
   }): Promise<HttpResponse<ResponsePayloadType>> {
     const { httpClient } = this.options;
 
     const { request, requestSchema, responseSchema } = options;
-
-    this.signProvider.setFormType(request);
 
     this.applyBaseUrl(request);
 
@@ -50,7 +38,9 @@ export class MerchantClient extends BaseClient {
 
     this.addTerminalKey(request);
 
-    request.payload = this.signProvider.signRequestPayload(request.payload);
+    this.setFormType(request);
+
+    this.addSignatureToken(request);
 
     this.handleHeaders(request);
 
@@ -60,14 +50,6 @@ export class MerchantClient extends BaseClient {
     const response = await httpClient.sendRequest<ResponsePayloadType>(request);
 
     this.log(SdkLogLevel.debug, response);
-
-    if (options.skipVerification) {
-      return response;
-    }
-
-    if (typeof response.payload === "string") {
-      response.payload = JSON.parse(response.payload);
-    }
 
     this.deserializeResponse(response, responseSchema);
 
@@ -79,5 +61,9 @@ export class MerchantClient extends BaseClient {
     }
 
     return response;
+  }
+
+  public setFormType(request: HttpRequest): void {
+    request.asForm = true;
   }
 }

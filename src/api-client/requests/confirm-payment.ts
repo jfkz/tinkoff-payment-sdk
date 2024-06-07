@@ -1,10 +1,12 @@
-import { HttpRequestMethod } from '../../http-client/http-client';
-import { Schema, SchemaPropertyType as PropType } from '../../serialization/schema';
-import { ApiClient } from '../clients/api-client';
-import { ResponsePayload as BaseResponsePayload } from '../response-payload';
-import { validateAndPrepareReceipt } from './common/receipt';
-import { Receipt } from './common/receipt';
-
+import { validateAndPrepareReceipt } from "./common/receipt";
+import { Receipt } from "./common/receipt";
+import { HttpRequestMethod } from "../../http-client/http-client";
+import {
+  Schema,
+  SchemaPropertyType as PropType,
+} from "../../serialization/schema";
+import { ApiClient } from "../clients/api-client";
+import { ResponsePayload as BaseResponsePayload } from "../response-payload";
 
 //=========//
 // REQUEST //
@@ -42,11 +44,10 @@ export interface ConfirmPaymentResponsePayload extends BaseResponsePayload {
 
 const ConfirmPaymentResponseSchema: Schema = [
   {
-    property: 'Amount',
+    property: "Amount",
     type: PropType.MoneyFromPenny,
   },
 ];
-
 
 //==========//
 // FUNCTION //
@@ -55,9 +56,7 @@ const ConfirmPaymentResponseSchema: Schema = [
 export async function confirmPayment(options: {
   apiClient: ApiClient;
   payload: ConfirmPaymentRequestPayload;
-
 }): Promise<ConfirmPaymentResponsePayload> {
-
   const { apiClient } = options;
 
   const { Receipt, ...restPayload } = options.payload;
@@ -72,7 +71,7 @@ export async function confirmPayment(options: {
 
   const response = await apiClient.sendRequest<ConfirmPaymentResponsePayload>({
     request: {
-      url: 'Confirm',
+      url: "Confirm",
       method: HttpRequestMethod.POST,
       payload: $payload,
     },
@@ -81,5 +80,4 @@ export async function confirmPayment(options: {
   });
 
   return response.payload;
-
 }

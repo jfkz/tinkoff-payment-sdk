@@ -1,96 +1,92 @@
-
 //=============//
 // HTTP CLIENT //
 //=============//
 
 export {
-  HttpClient,
-  HttpRequest,
-  HttpResponse,
+  type HttpClient,
+  type HttpRequest,
+  type HttpResponse,
   HttpRequestMethod,
-
-} from './http-client/http-client';
+} from "./http-client/http-client";
 
 export {
   GotHttpClient,
-  GotHttpClientOptions
-
-} from './http-client/got-http-client';
+  type GotHttpClientOptions,
+} from "./http-client/got-http-client";
 
 export {
   RequestHttpClient,
-  RequestHttpClientOptions,
-
-} from './http-client/request-http-client';
-
+  type RequestHttpClientOptions,
+} from "./http-client/request-http-client";
 
 //============//
 // API CLIENT //
 //============//
 
-export { ApiClient } from './api-client/clients/api-client';
+export { ApiClient } from "./api-client/clients/api-client";
 
-export { Language } from './api-client/requests/common/language';
-export { PayType } from './api-client/requests/common/pay-type';
-export { DataTypeQr } from './api-client/requests/common/data-type-qr';
+export { Language } from "./api-client/requests/common/language";
+export { PayType } from "./api-client/requests/common/pay-type";
+export { DataTypeQr } from "./api-client/requests/common/data-type-qr";
 
 export {
-  AgentData,
+  type AgentData,
   AgentDataAgentSign,
-  Receipt,
-  ReceiptItem,
+  type Receipt,
+  type ReceiptItem,
   ReceiptPaymentMethod,
   ReceiptPaymentObject,
   ReceiptTax,
   ReceiptTaxation,
-  SupplierInfo,
-
-} from './api-client/requests/common/receipt';
-
+  type SupplierInfo,
+} from "./api-client/requests/common/receipt";
 
 //================//
 // SIGN PROVIDERS //
 //================//
 
-export { CryptoProSignProvider } from './sign-providers/cryptopro-sign-provider';
-export { RSASignProvider } from './sign-providers/rsa-sign-provider';
+export { CryptoProSignProvider } from "./sign-providers/cryptopro-sign-provider";
+export { RSASignProvider } from "./sign-providers/rsa-sign-provider";
 
 //=============//
 // API MANAGER //
 //=============//
 
-export { ApiManager, ApiManagerMerchant } from './api-client/api-manager';
+export {
+  ApiManager,
+  ApiManagerMerchant,
+  ApiManagerSafeDeal,
+} from "./api-client/api-manager";
 
 //=================//
 // WEBHOOK HANDLER //
 //=================//
 
-export { WebhookHandler, WebhookHandlerOptions } from './webhook-handler/webhook-handler';
-export { WebhookPayload } from './webhook-handler/webhook-payload';
-
+export {
+  WebhookHandler,
+  type WebhookHandlerOptions,
+} from "./webhook-handler/webhook-handler";
+export { type WebhookPayload } from "./webhook-handler/webhook-payload";
 
 //==============//
 // COMMON TYPES //
 //==============//
 
-export { PaymentStatus } from './common/payment-status';
-export { SdkError, PayloadWithMessage } from './common/sdk-error';
-
+export { PaymentStatus } from "./common/payment-status";
+export { SdkError, type PayloadWithMessage } from "./common/sdk-error";
 
 //=======================//
 // REQUEST: INIT PAYMENT //
 //=======================//
 
-export {
-  ResponsePayload as BaseResponsePayload,
-} from './api-client/response-payload';
+export { type ResponsePayload as BaseResponsePayload } from "./api-client/response-payload";
 
 export {
   initPayment,
-  InitPaymentRequestPayload,
-  InitPaymentResponsePayload,
-  ITinkoffInitRequestData,
-} from './api-client/requests/init-payment';
+  type InitPaymentRequestPayload,
+  type InitPaymentResponsePayload,
+  type ITinkoffInitRequestData,
+} from "./api-client/requests/init-payment";
 
 //=========================//
 // REQUEST: GET QR //
@@ -98,43 +94,9 @@ export {
 
 export {
   getQr,
-  GetQrRequestPayload,
-  GetQrResponsePayload,
-
-} from './api-client/requests/get-qr';
-
-//=========================//
-// REQUEST: GET STATIC QR //
-//=========================//
-
-export {
-  getStaticQr,
-  GetStaticQrRequestPayload,
-  GetStaticQrResponsePayload,
-
-} from './api-client/requests/get-static-qr';
-
-//=========================//
-// REQUEST: QR MEMBERS LIST //
-//=========================//
-
-export {
-  getQrMembersList,
-  QrMembersListRequestPayload,
-  QrMembersListResponsePayload,
-
-} from './api-client/requests/qr-members-list';
-
-//=========================//
-// REQUEST: ADD ACCOUNT QR //
-//=========================//
-
-export {
-  addAccountQr,
-  AddAccountQrRequestPayload,
-  AddAccountQrResponsePayload,
-
-} from './api-client/requests/add-account-qr';
+  type GetQrRequestPayload,
+  type GetQrResponsePayload,
+} from "./api-client/requests/get-qr";
 
 //=========================//
 // REQUEST: CHECK ORDER //
@@ -142,10 +104,19 @@ export {
 
 export {
   checkOrder,
-  CheckOrderRequestPayload,
-  CheckOrderResponsePayload,
+  type CheckOrderRequestPayload,
+  type CheckOrderResponsePayload,
+} from "./api-client/requests/check-order";
 
-} from './api-client/requests/check-order';
+//===============================//
+// REQUEST: SEND CLOSING RECEIPT //
+//===============================//
+
+export {
+  sendClosingReceipt,
+  type SendClosingReceiptRequestPayload,
+  type SendClosingReceiptResponsePayload,
+} from "./api-client/requests/send-closing-receipt";
 
 //=========================//
 // REQUEST: CANCEL PAYMENT //
@@ -153,10 +124,9 @@ export {
 
 export {
   cancelPayment,
-  CancelPaymentRequestPayload,
-  CancelPaymentResponsePayload,
-
-} from './api-client/requests/cancel-payment';
+  type CancelPaymentRequestPayload,
+  type CancelPaymentResponsePayload,
+} from "./api-client/requests/cancel-payment";
 
 //==========================//
 // REQUEST: CONFIRM PAYMENT //
@@ -164,10 +134,9 @@ export {
 
 export {
   confirmPayment,
-  ConfirmPaymentRequestPayload,
-  ConfirmPaymentResponsePayload,
-
-} from './api-client/requests/confirm-payment';
+  type ConfirmPaymentRequestPayload,
+  type ConfirmPaymentResponsePayload,
+} from "./api-client/requests/confirm-payment";
 
 //==========================//
 // REQUEST: CHARGE PAYMENT  //
@@ -175,21 +144,9 @@ export {
 
 export {
   chargePayment,
-  ChargePaymentRequestPayload,
-  ChargePaymentResponsePayload,
-
-} from './api-client/requests/charge-payment';
-
-//==========================//
-// REQUEST: CHARGE QR  //
-//==========================//
-
-export {
-  chargeQr,
-  ChargeQrRequestPayload,
-  ChargeQrResponsePayload,
-
-} from './api-client/requests/charge-qr';
+  type ChargePaymentRequestPayload,
+  type ChargePaymentResponsePayload,
+} from "./api-client/requests/charge-payment";
 
 //===========================//
 // REQUEST: FinishAuthorize  //
@@ -197,16 +154,20 @@ export {
 
 export {
   finishAuthorize,
-  FinishAuthorizeRequestPayload,
-  FinishAuthorizeResponsePayload,
-
-} from './api-client/requests/finish-authorize';
+  type FinishAuthorizeRequestPayload,
+  type FinishAuthorizeResponsePayload,
+} from "./api-client/requests/finish-authorize";
 
 // Merchant API
 
-export * from './api-client/requests/add-customer';
-export * from './api-client/requests/get-customer';
-export * from './api-client/requests/remove-customer';
-export * from './api-client/requests/add-card';
-export * from './api-client/requests/get-card-list';
-export * from './api-client/requests/remove-card';
+export * from "./api-client/requests/add-customer";
+export * from "./api-client/requests/get-customer";
+export * from "./api-client/requests/remove-customer";
+export * from "./api-client/requests/add-card";
+export * from "./api-client/requests/get-card-list";
+export * from "./api-client/requests/remove-card";
+
+// SafeDeal API
+
+export * from "./api-client/requests/create-sp-deal";
+export * from "./api-client/requests/close-sp-deal";

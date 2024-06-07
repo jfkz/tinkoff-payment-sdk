@@ -1,4 +1,4 @@
-export interface Payments {
+interface PaymentsItem {
   /** Уникальный идентификатор транзакции в системе Банка */
   PaymentId: number;
   /** Статус транзакции */
@@ -8,3 +8,5 @@ export interface Payments {
   /** RRN операции */
   Rrn?: string;
 }
+
+export type Payments = PaymentsItem[];

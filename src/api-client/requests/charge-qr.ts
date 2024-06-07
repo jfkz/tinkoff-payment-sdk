@@ -1,5 +1,5 @@
-import { ResponsePayload as BaseResponsePayload } from '../response-payload';
-import { buildSendRequestFunction } from './common/request';
+import { buildSendRequestFunction } from "./common/request";
+import { ResponsePayload as BaseResponsePayload } from "../response-payload";
 
 //=========//
 // REQUEST //
@@ -18,7 +18,6 @@ export interface ChargeQrRequestPayload {
   InfoEmail?: string;
 }
 
-
 //==========//
 // RESPONSE //
 //==========//
@@ -34,9 +33,11 @@ export interface ChargeQrResponsePayload extends BaseResponsePayload {
   PaymentId: number;
 }
 
-
 //==========//
 // FUNCTION //
 //==========//
 
-export const chargeQr = buildSendRequestFunction<ChargeQrRequestPayload, ChargeQrResponsePayload>('ChargeQr');
+export const chargeQr = buildSendRequestFunction<
+  ChargeQrRequestPayload,
+  ChargeQrResponsePayload
+>("ChargeQr");

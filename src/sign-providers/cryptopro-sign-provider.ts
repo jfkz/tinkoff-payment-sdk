@@ -1,18 +1,29 @@
+import { execSync } from "child_process";
+import * as fs from "fs";
+import { dirname } from "path";
 
-import { execSync } from 'child_process';
-import * as fs from 'fs';
-import { dirname } from 'path';
+import tmp from "tmp";
 
-import tmp from 'tmp';
-
-import { flatDataObject } from '../api-client/requests/common/data';
-import { PayloadType } from '../common/payload-type';
-import { SignProvider } from './sign-provider';
+import { SignProvider } from "./sign-provider";
+import { flatDataObject } from "../api-client/requests/common/data";
+import { PayloadType } from "../common/payload-type";
 
 // https://cpdn.cryptopro.ru/content/csp40/html/group___pro_c_s_p_ex_DP8.html
-type THashAlgorithm = '1.2.643.7.1.1.2.2' | '1.2.643.7.1.1.2.3' | '1.2.643.2.2.9';
-type TSignAlgorithm = 'SHA1' | 'SHA256' | 'SHA384' | 'SHA512' | 'MD5' | 'MD2' | 'MD4'
-  | 'GOST12_256' | 'GOST12_512' | 'GOST94_256';
+type THashAlgorithm =
+  | "1.2.643.7.1.1.2.2"
+  | "1.2.643.7.1.1.2.3"
+  | "1.2.643.2.2.9";
+type TSignAlgorithm =
+  | "SHA1"
+  | "SHA256"
+  | "SHA384"
+  | "SHA512"
+  | "MD5"
+  | "MD2"
+  | "MD4"
+  | "GOST12_256"
+  | "GOST12_512"
+  | "GOST94_256";
 
 export interface CryptoProSignProviderOptions {
   cpContainerPassword: string;
@@ -24,14 +35,13 @@ export interface CryptoProSignProviderOptions {
 }
 
 const defaultOptions: Partial<CryptoProSignProviderOptions> = {
-  cpLocation: '/opt/cprocsp/bin/amd64',
-  cpHashAlg: '1.2.643.7.1.1.2.2',
-  cpSingAlg: 'GOST12_256',
+  cpLocation: "/opt/cprocsp/bin/amd64",
+  cpHashAlg: "1.2.643.7.1.1.2.2",
+  cpSingAlg: "GOST12_256",
   cpHideExceptions: true,
 };
 
 export class CryptoProSignProvider extends SignProvider {
-
   public signRequestPayload(payload: PayloadType): PayloadType {
     if (payload.DATA) {
       payload.DATA = flatDataObject(payload.DATA);
@@ -66,17 +76,17 @@ export class CryptoProSignProvider extends SignProvider {
     } = this.options;
     const cmdOptions = [
       `${cryptoProDir}/cryptcp`,
-      '-hash',
+      "-hash",
       `-hashAlg ${hashAlg}`,
       `-dir ${dirname(tmpFilename)}`,
       tmpFilename,
     ];
-    const hashCmd = cmdOptions.join(' ');
-    let hash = '';
+    const hashCmd = cmdOptions.join(" ");
+    let hash = "";
     try {
       fs.writeFileSync(tmpFilename, line);
       execSync(hashCmd);
-      hash = fs.readFileSync(hashFilename).toString('base64');
+      hash = fs.readFileSync(hashFilename).toString("base64");
       fs.unlinkSync(tmpFilename);
       fs.unlinkSync(hashFilename);
     } catch (err) {
@@ -100,20 +110,20 @@ export class CryptoProSignProvider extends SignProvider {
     } = this.options;
     const cmdOptions = [
       `${cryptoProDir}/csptest`,
-      '-keyset',
+      "-keyset",
       `-sign ${singAlg}`,
       `-cont '${container}'`,
-      '-keytype exchange',
+      "-keytype exchange",
       `-in ${hashFilename}`,
       `-out ${signFilename}`,
       `-password ${containerPassword}`,
     ];
-    const signCmd = cmdOptions.join(' ');
-    let sign = '';
+    const signCmd = cmdOptions.join(" ");
+    let sign = "";
     try {
-      fs.writeFileSync(hashFilename, Buffer.from(hash, 'base64'));
+      fs.writeFileSync(hashFilename, Buffer.from(hash, "base64"));
       execSync(signCmd);
-      sign = fs.readFileSync(signFilename).toString('base64');
+      sign = fs.readFileSync(signFilename).toString("base64");
       fs.unlinkSync(hashFilename);
       fs.unlinkSync(signFilename);
     } catch (err) {

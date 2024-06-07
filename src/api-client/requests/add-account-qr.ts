@@ -1,5 +1,5 @@
-import { ResponsePayload as BaseResponsePayload } from '../response-payload';
-import { buildSendRequestFunction } from './common/request';
+import { buildSendRequestFunction } from "./common/request";
+import { ResponsePayload as BaseResponsePayload } from "../response-payload";
 
 //=========//
 // REQUEST //
@@ -9,13 +9,12 @@ export interface AddAccountQrRequestPayload {
   /** Подробное описание деталей заказа 	*/
   Description: string;
   /** Тип возвращаемых данных PAYLOAD – В ответе возвращается только Payload (по-умолчанию) IMAGE – В ответе возвращается SVG изображение QR */
-  DataType?: 'PAYLOAD' | 'IMAGE';
+  DataType?: "PAYLOAD" | "IMAGE";
   //** JSON объект, содержащий дополнительные параметры */
   DATA?: any;
   //** Cрок жизни ссылки или динамического QRкода СБП */
   RedirectDueDate?: Date;
 }
-
 
 //==========//
 // RESPONSE //
@@ -28,9 +27,11 @@ export interface AddAccountQrResponsePayload extends BaseResponsePayload {
   Data: string;
 }
 
-
 //==========//
 // FUNCTION //
 //==========//
 
-export const addAccountQr = buildSendRequestFunction<AddAccountQrRequestPayload, AddAccountQrResponsePayload>('AddAccountQr');
+export const addAccountQr = buildSendRequestFunction<
+  AddAccountQrRequestPayload,
+  AddAccountQrResponsePayload
+>("AddAccountQr");
