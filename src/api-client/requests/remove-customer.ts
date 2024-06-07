@@ -16,9 +16,7 @@ export interface RemoveCustomerRequestPayload {
   IP?: string;
 }
 
-
 const removeCustomerRequestSchema: Schema = [];
-
 
 //==========//
 // RESPONSE //
@@ -29,9 +27,7 @@ export interface RemoveCustomerResponsePayload extends BaseResponsePayload {
   CustomerKey: string;
 }
 
-
 const removeCustomerResponseSchema: Schema = [];
-
 
 //==========//
 // FUNCTION //
@@ -40,9 +36,7 @@ const removeCustomerResponseSchema: Schema = [];
 export async function removeCustomer(options: {
   apiClient: BaseClient;
   payload: RemoveCustomerRequestPayload;
-
 }): Promise<RemoveCustomerResponsePayload> {
-
   const { apiClient } = options;
 
   const { ...restPayload } = options.payload;
@@ -62,5 +56,4 @@ export async function removeCustomer(options: {
   });
 
   return response.payload;
-
 }

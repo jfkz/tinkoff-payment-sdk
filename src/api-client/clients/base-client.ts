@@ -1,4 +1,3 @@
-
 import { URL } from 'url';
 
 import { BaseResponsePayload } from '../..';
@@ -17,7 +16,6 @@ export interface ApiClientOptions extends LoggableOptions {
 }
 
 export abstract class BaseClient extends Loggable {
-
   protected readonly options: ApiClientOptions;
 
   constructor(options: ApiClientOptions, defaultOptions: Partial<ApiClientOptions> = {}) {
@@ -30,11 +28,11 @@ export abstract class BaseClient extends Loggable {
     requestSchema: Schema;
     responseSchema: Schema;
     skipVerification?: boolean;
-  }): Promise<HttpResponse<ResponsePayloadType>>
+  }): Promise<HttpResponse<ResponsePayloadType>>;
 
   protected applyBaseUrl(request: HttpRequest): void {
     const { baseUrl } = this.options;
-    request.url = (new URL(request.url, baseUrl)).toString();
+    request.url = new URL(request.url, baseUrl).toString();
   }
 
   protected serializeRequest(request: HttpRequest, schema: Schema): void {
@@ -60,40 +58,29 @@ export abstract class BaseClient extends Loggable {
   }
 
   protected addSignatureToken(request: HttpRequest): void {
-
     const { password } = this.options;
 
     request.payload = signRequestPayload({
       payload: request.payload,
       password,
     });
-
   }
 
   protected addTerminalKey(request: HttpRequest): void {
-
     const { terminalKey } = this.options;
 
     Object.assign(request.payload, {
       TerminalKey: terminalKey,
     });
-
   }
 
   protected handleHeaders(request: HttpRequest): void {
-
     const { userAgent } = this.options;
 
     const defaultHeaders = {
       'user-agent': userAgent,
     };
 
-    request.headers = Object.assign(
-      {},
-      defaultHeaders,
-      (request.headers || {})
-    );
-
+    request.headers = Object.assign({}, defaultHeaders, request.headers || {});
   }
-
 }

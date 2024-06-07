@@ -5,7 +5,6 @@ import { Schema } from '../../serialization/schema';
 import { BaseClient } from '../clients/base-client';
 import { ResponsePayload as BaseResponsePayload } from '../response-payload';
 
-
 export type TCheckType = 'NO' | 'HOLD' | '3DS' | '3DSHOLD';
 //=========//
 // REQUEST //
@@ -32,9 +31,7 @@ export interface AddCardRequestPayload {
   IP?: string;
 }
 
-
 const addCardRequestSchema: Schema = [];
-
 
 //==========//
 // RESPONSE //
@@ -49,9 +46,7 @@ export interface AddCardResponsePayload extends BaseResponsePayload {
   PaymentUrl?: string;
 }
 
-
-const addCardResponseSchema: Schema = [ ];
-
+const addCardResponseSchema: Schema = [];
 
 //==========//
 // FUNCTION //
@@ -60,9 +55,7 @@ const addCardResponseSchema: Schema = [ ];
 export async function addCard(options: {
   apiClient: BaseClient;
   payload: AddCardRequestPayload;
-
 }): Promise<AddCardResponsePayload> {
-
   const { apiClient } = options;
 
   const { ...restPayload } = options.payload;
@@ -82,5 +75,4 @@ export async function addCard(options: {
   });
 
   return response.payload;
-
 }

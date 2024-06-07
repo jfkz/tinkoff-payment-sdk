@@ -3,11 +3,11 @@ import { readFileSync } from 'fs';
 
 import CryptoJS from 'crypto-js';
 
+import { SignProvider } from './sign-provider';
 import { PayloadType } from '../common/payload-type';
 import { SdkError } from '../common/sdk-error';
 import { HttpRequest } from '../http-client/http-client';
 import { SdkLogLevel } from '../logger/logger';
-import { SignProvider } from './sign-provider';
 
 export interface RSASignProviderOptions {
   privateKeyFile?: string;
@@ -16,13 +16,10 @@ export interface RSASignProviderOptions {
   // certificateFile?: string;
 }
 
-const defaultOptions: Partial<RSASignProviderOptions> = {
-};
-
+const defaultOptions: Partial<RSASignProviderOptions> = {};
 
 /** https://acdn.tinkoff.ru/static/documents/merchant_api_protocoI_e2c.pdf */
 export class RSASignProvider extends SignProvider {
-
   public signRequestPayload(payload: PayloadType): PayloadType {
     const DigestValue = this.digest(payload);
 
@@ -49,7 +46,7 @@ export class RSASignProvider extends SignProvider {
 
   constructor(options: RSASignProviderOptions) {
     super();
-    this.options = Object.assign({}, defaultOptions, (options || {}));
+    this.options = Object.assign({}, defaultOptions, options || {});
 
     if (this.options.privateKeyFile) {
       this.privateKey = readFileSync(this.options.privateKeyFile);
@@ -61,14 +58,14 @@ export class RSASignProvider extends SignProvider {
 
     if (!this.privateKey) {
       throw new SdkError({
-        message: 'Cant initialize RSA sign provider without private key. Set one of the options: privateKeyFile or privateKeyFile',
+        message:
+          'Cant initialize RSA sign provider without private key. Set one of the options: privateKeyFile or privateKeyFile',
       });
     }
 
     if (this.options.X509SerialNumber) {
       this.X509SerialNumber = this.options.X509SerialNumber;
     }
-
 
     if (!this.X509SerialNumber) {
       throw new SdkError({
@@ -87,12 +84,10 @@ export class RSASignProvider extends SignProvider {
   }
 
   protected signLine(line: string): string {
-
     const hash = crypto.createHash('SHA256').update(line).digest();
 
     const sign = crypto.createSign('RSA-SHA256').update(hash);
 
     return sign.sign(this.privateKey, 'base64');
-
   }
 }

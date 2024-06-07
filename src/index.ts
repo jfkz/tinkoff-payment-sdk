@@ -1,28 +1,12 @@
-
 //=============//
 // HTTP CLIENT //
 //=============//
 
-export {
-  HttpClient,
-  HttpRequest,
-  HttpResponse,
-  HttpRequestMethod,
+export { type HttpClient, type HttpRequest, type HttpResponse, HttpRequestMethod } from './http-client/http-client';
 
-} from './http-client/http-client';
+export { GotHttpClient, type GotHttpClientOptions } from './http-client/got-http-client';
 
-export {
-  GotHttpClient,
-  GotHttpClientOptions
-
-} from './http-client/got-http-client';
-
-export {
-  RequestHttpClient,
-  RequestHttpClientOptions,
-
-} from './http-client/request-http-client';
-
+export { RequestHttpClient, type RequestHttpClientOptions } from './http-client/request-http-client';
 
 //============//
 // API CLIENT //
@@ -35,18 +19,16 @@ export { PayType } from './api-client/requests/common/pay-type';
 export { DataTypeQr } from './api-client/requests/common/data-type-qr';
 
 export {
-  AgentData,
+  type AgentData,
   AgentDataAgentSign,
-  Receipt,
-  ReceiptItem,
+  type Receipt,
+  type ReceiptItem,
   ReceiptPaymentMethod,
   ReceiptPaymentObject,
   ReceiptTax,
   ReceiptTaxation,
-  SupplierInfo,
-
+  type SupplierInfo,
 } from './api-client/requests/common/receipt';
-
 
 //================//
 // SIGN PROVIDERS //
@@ -59,82 +41,40 @@ export { RSASignProvider } from './sign-providers/rsa-sign-provider';
 // API MANAGER //
 //=============//
 
-export { ApiManager, ApiManagerMerchant } from './api-client/api-manager';
+export { ApiManager, ApiManagerMerchant, ApiManagerSafeDeal } from './api-client/api-manager';
 
 //=================//
 // WEBHOOK HANDLER //
 //=================//
 
-export { WebhookHandler, WebhookHandlerOptions } from './webhook-handler/webhook-handler';
-export { WebhookPayload } from './webhook-handler/webhook-payload';
-
+export { WebhookHandler, type WebhookHandlerOptions } from './webhook-handler/webhook-handler';
+export { type WebhookPayload } from './webhook-handler/webhook-payload';
 
 //==============//
 // COMMON TYPES //
 //==============//
 
 export { PaymentStatus } from './common/payment-status';
-export { SdkError, PayloadWithMessage } from './common/sdk-error';
-
+export { SdkError, type PayloadWithMessage } from './common/sdk-error';
 
 //=======================//
 // REQUEST: INIT PAYMENT //
 //=======================//
 
-export {
-  ResponsePayload as BaseResponsePayload,
-} from './api-client/response-payload';
+export { type ResponsePayload as BaseResponsePayload } from './api-client/response-payload';
 
 export {
   initPayment,
-  InitPaymentRequestPayload,
-  InitPaymentResponsePayload,
-  ITinkoffInitRequestData,
+  type InitPaymentRequestPayload,
+  type InitPaymentResponsePayload,
+  type ITinkoffInitRequestData,
 } from './api-client/requests/init-payment';
 
 //=========================//
 // REQUEST: GET QR //
 //=========================//
 
-export {
-  getQr,
-  GetQrRequestPayload,
-  GetQrResponsePayload,
-
-} from './api-client/requests/get-qr';
-
-//=========================//
-// REQUEST: GET STATIC QR //
-//=========================//
-
-export {
-  getStaticQr,
-  GetStaticQrRequestPayload,
-  GetStaticQrResponsePayload,
-
-} from './api-client/requests/get-static-qr';
-
-//=========================//
-// REQUEST: QR MEMBERS LIST //
-//=========================//
-
-export {
-  getQrMembersList,
-  QrMembersListRequestPayload,
-  QrMembersListResponsePayload,
-
-} from './api-client/requests/qr-members-list';
-
-//=========================//
-// REQUEST: ADD ACCOUNT QR //
-//=========================//
-
-export {
-  addAccountQr,
-  AddAccountQrRequestPayload,
-  AddAccountQrResponsePayload,
-
-} from './api-client/requests/add-account-qr';
+export { getQr, type GetQrRequestPayload, type GetQrResponsePayload } from './api-client/requests/get-qr';
 
 //=========================//
 // REQUEST: CHECK ORDER //
@@ -142,10 +82,19 @@ export {
 
 export {
   checkOrder,
-  CheckOrderRequestPayload,
-  CheckOrderResponsePayload,
-
+  type CheckOrderRequestPayload,
+  type CheckOrderResponsePayload,
 } from './api-client/requests/check-order';
+
+//===============================//
+// REQUEST: SEND CLOSING RECEIPT //
+//===============================//
+
+export {
+  sendClosingReceipt,
+  type SendClosingReceiptRequestPayload,
+  type SendClosingReceiptResponsePayload,
+} from './api-client/requests/send-closing-receipt';
 
 //=========================//
 // REQUEST: CANCEL PAYMENT //
@@ -153,9 +102,8 @@ export {
 
 export {
   cancelPayment,
-  CancelPaymentRequestPayload,
-  CancelPaymentResponsePayload,
-
+  type CancelPaymentRequestPayload,
+  type CancelPaymentResponsePayload,
 } from './api-client/requests/cancel-payment';
 
 //==========================//
@@ -164,9 +112,8 @@ export {
 
 export {
   confirmPayment,
-  ConfirmPaymentRequestPayload,
-  ConfirmPaymentResponsePayload,
-
+  type ConfirmPaymentRequestPayload,
+  type ConfirmPaymentResponsePayload,
 } from './api-client/requests/confirm-payment';
 
 //==========================//
@@ -175,21 +122,9 @@ export {
 
 export {
   chargePayment,
-  ChargePaymentRequestPayload,
-  ChargePaymentResponsePayload,
-
+  type ChargePaymentRequestPayload,
+  type ChargePaymentResponsePayload,
 } from './api-client/requests/charge-payment';
-
-//==========================//
-// REQUEST: CHARGE QR  //
-//==========================//
-
-export {
-  chargeQr,
-  ChargeQrRequestPayload,
-  ChargeQrResponsePayload,
-
-} from './api-client/requests/charge-qr';
 
 //===========================//
 // REQUEST: FinishAuthorize  //
@@ -197,9 +132,8 @@ export {
 
 export {
   finishAuthorize,
-  FinishAuthorizeRequestPayload,
-  FinishAuthorizeResponsePayload,
-
+  type FinishAuthorizeRequestPayload,
+  type FinishAuthorizeResponsePayload,
 } from './api-client/requests/finish-authorize';
 
 // Merchant API
@@ -210,3 +144,8 @@ export * from './api-client/requests/remove-customer';
 export * from './api-client/requests/add-card';
 export * from './api-client/requests/get-card-list';
 export * from './api-client/requests/remove-card';
+
+// SafeDeal API
+
+export * from './api-client/requests/create-sp-deal';
+export * from './api-client/requests/close-sp-deal';

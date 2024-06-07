@@ -48,7 +48,6 @@ const ChargePaymentResponseSchema: Schema = [
   },
 ];
 
-
 //==========//
 // FUNCTION //
 //==========//
@@ -56,12 +55,10 @@ const ChargePaymentResponseSchema: Schema = [
 export async function chargePayment(options: {
   apiClient: ApiClient;
   payload: ChargePaymentRequestPayload;
-
 }): Promise<ChargePaymentResponsePayload> {
-
   const { apiClient } = options;
 
-  const {...restPayload } = options.payload;
+  const { ...restPayload } = options.payload;
 
   const $payload: any = {
     ...restPayload,
@@ -78,5 +75,4 @@ export async function chargePayment(options: {
   });
 
   return response.payload;
-
 }

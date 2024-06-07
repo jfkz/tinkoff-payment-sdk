@@ -3,25 +3,24 @@ import { Schema } from '../../../serialization/schema';
 import { BaseClient } from '../../clients/base-client';
 import { ResponsePayload as BaseResponsePayload } from '../../response-payload';
 
-export const buildSendRequestFunction = function<TRequest, TResponse extends BaseResponsePayload>(
-  url : string,
-  RequestSchema : Schema = [],
-  ResponseSchema : Schema = []
-) : (options: {
-  apiClient: BaseClient;
-  payload: TRequest;
-}) => Promise<TResponse> {
-  return async (options : {
-    apiClient: BaseClient;
-    payload: TRequest;
-  }) => {
+export const buildSendRequestFunction = function <TRequest, TResponse extends BaseResponsePayload>(
+  url: string,
+  RequestSchema: Schema = [],
+  ResponseSchema: Schema = [],
+  transformLambda?: (payload: TRequest) => Partial<TRequest>,
+): (options: { apiClient: BaseClient; payload: TRequest }) => Promise<TResponse> {
+  return async (options: { apiClient: BaseClient; payload: TRequest }) => {
     const { apiClient } = options;
 
     const { ...restPayload } = options.payload;
 
-    const $payload: any = {
+    let $payload: TRequest = {
       ...restPayload,
     };
+
+    if (transformLambda) {
+      $payload = { ...$payload, ...transformLambda(restPayload) };
+    }
 
     const response = await apiClient.sendRequest<TResponse>({
       request: {
@@ -34,5 +33,5 @@ export const buildSendRequestFunction = function<TRequest, TResponse extends Bas
     });
 
     return response.payload;
-  }
-}
+  };
+};

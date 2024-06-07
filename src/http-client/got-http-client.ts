@@ -1,13 +1,10 @@
-
 import Got from 'got';
 
 import { HttpClient, HttpRequest, HttpResponse } from './http-client';
 
-
 export interface GotHttpClientOptions {
   got: typeof Got;
 }
-
 
 /**
  * An HTTP client implementation adapter using Got HTTP client.
@@ -17,26 +14,12 @@ export interface GotHttpClientOptions {
  * (e.g. timeout, retries, etc).
  */
 export class GotHttpClient implements HttpClient {
+  constructor(private options: GotHttpClientOptions) {}
 
-  constructor(private options: GotHttpClientOptions) {
-  }
-
-
-  public async sendRequest<ResponsePayloadType>(
-    options: HttpRequest
-
-  ): Promise<HttpResponse<ResponsePayloadType>> {
-
+  public async sendRequest<ResponsePayloadType>(options: HttpRequest): Promise<HttpResponse<ResponsePayloadType>> {
     const { got } = this.options;
 
-    const {
-      url,
-      method,
-      payload,
-      headers,
-      asForm,
-    } = options;
-
+    const { url, method, payload, headers, asForm } = options;
 
     let response;
     if (!asForm) {
@@ -59,7 +42,5 @@ export class GotHttpClient implements HttpClient {
       status: response.statusCode,
       payload: response.body,
     };
-
   }
-
 }

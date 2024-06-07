@@ -1,6 +1,6 @@
-import { ResponsePayload as BaseResponsePayload } from '../response-payload';
 import { Payments } from './common/payments';
 import { buildSendRequestFunction } from './common/request';
+import { ResponsePayload as BaseResponsePayload } from '../response-payload';
 
 //=========//
 // REQUEST //
@@ -10,7 +10,6 @@ export interface CheckOrderRequestPayload {
   /** Номер заказа в системе Продавца	*/
   OrderId: number | string;
 }
-
 
 //==========//
 // RESPONSE //
@@ -22,7 +21,6 @@ export interface CheckOrderResponsePayload extends BaseResponsePayload {
   /** Детали */
   Payments: Payments;
 }
-
 
 //==========//
 // FUNCTION //

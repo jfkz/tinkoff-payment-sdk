@@ -1,5 +1,5 @@
-import { ResponsePayload as BaseResponsePayload } from '../response-payload';
 import { buildSendRequestFunction } from './common/request';
+import { ResponsePayload as BaseResponsePayload } from '../response-payload';
 
 //=========//
 // REQUEST //
@@ -16,7 +16,6 @@ export interface AddAccountQrRequestPayload {
   RedirectDueDate?: Date;
 }
 
-
 //==========//
 // RESPONSE //
 //==========//
@@ -28,9 +27,10 @@ export interface AddAccountQrResponsePayload extends BaseResponsePayload {
   Data: string;
 }
 
-
 //==========//
 // FUNCTION //
 //==========//
 
-export const addAccountQr = buildSendRequestFunction<AddAccountQrRequestPayload, AddAccountQrResponsePayload>('AddAccountQr');
+export const addAccountQr = buildSendRequestFunction<AddAccountQrRequestPayload, AddAccountQrResponsePayload>(
+  'AddAccountQr',
+);

@@ -1,10 +1,10 @@
 /** @see http://static2.tinkoff.ru/acquiring/manuals/merchant_api_protocoI_e2c.pdf */
 
+import { SdkError } from '../..';
 import { HttpRequestMethod } from '../../http-client/http-client';
 import { Schema } from '../../serialization/schema';
 import { BaseClient } from '../clients/base-client';
 import { ResponsePayload as BaseResponsePayload } from '../response-payload';
-
 
 export enum ECardStatus {
   ACTIVE = 'A',
@@ -27,7 +27,7 @@ export interface ICardInfo {
   /** Статус карты: A – активная, I – не активная, E – срок действия карты истек, D - удаленная */
   Status: ECardStatus;
   /** Идентификатор рекуррентного платежа */
-  RebillId: number;
+  RebillId: number | '';
   /** Тип карты:
  0 - карта списания;
  1 - карта пополнения;
@@ -49,19 +49,16 @@ export interface GetCardListRequestPayload {
   IP?: string;
 }
 
-
 const getCardListRequestSchema: Schema = [];
-
 
 //==========//
 // RESPONSE //
 //==========//
 
-export type GetCardListResponsePayload = BaseResponsePayload & ICardInfo[]
+export type GetCardListResponsePayload = BaseResponsePayload & ICardInfo[];
 
 /** TODO: Add verification to ICardInfo */
 const getCardListResponseSchema: Schema = [];
-
 
 //==========//
 // FUNCTION //
@@ -70,9 +67,7 @@ const getCardListResponseSchema: Schema = [];
 export async function getCardList(options: {
   apiClient: BaseClient;
   payload: GetCardListRequestPayload;
-
 }): Promise<GetCardListResponsePayload> {
-
   const { apiClient } = options;
 
   const { ...restPayload } = options.payload;
@@ -81,21 +76,28 @@ export async function getCardList(options: {
     ...restPayload,
   };
 
-  const response = await apiClient.sendRequest<GetCardListResponsePayload>({
-    request: {
-      url: 'GetCardList',
-      method: HttpRequestMethod.POST,
-      payload: $payload,
-    },
-    requestSchema: getCardListRequestSchema,
-    responseSchema: getCardListResponseSchema,
-    skipVerification: true,
-  });
+  const response = await apiClient
+    .sendRequest<GetCardListResponsePayload>({
+      request: {
+        url: 'GetCardList',
+        method: HttpRequestMethod.POST,
+        payload: $payload,
+      },
+      requestSchema: getCardListRequestSchema,
+      responseSchema: getCardListResponseSchema,
+      skipVerification: true,
+    })
+    .catch((err) => {
+      if (err.constructor == SdkError && !!err.payload && !('ErrorCode' in err.payload)) {
+        return { payload: Array.from(Object.values(err.payload)) };
+      }
+      throw err;
+    });
 
   if (typeof response.payload === 'string') {
     response.payload = JSON.parse(response.payload);
   }
-
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error incorrect typing
   return response.payload;
-
 }

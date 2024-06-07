@@ -1,5 +1,5 @@
-import { ResponsePayload as BaseResponsePayload } from '../response-payload';
 import { buildSendRequestFunction } from './common/request';
+import { ResponsePayload as BaseResponsePayload } from '../response-payload';
 
 export interface Member {
   //** Идентификатор участника */
@@ -19,7 +19,6 @@ export interface QrMembersListRequestPayload {
   PaymentId: number;
 }
 
-
 //==========//
 // RESPONSE //
 //==========//
@@ -31,9 +30,10 @@ export interface QrMembersListResponsePayload extends BaseResponsePayload {
   Members?: Member[];
 }
 
-
 //==========//
 // FUNCTION //
 //==========//
 
-export const getQrMembersList = buildSendRequestFunction<QrMembersListRequestPayload, QrMembersListResponsePayload>('QrMembersList');
+export const getQrMembersList = buildSendRequestFunction<QrMembersListRequestPayload, QrMembersListResponsePayload>(
+  'QrMembersList',
+);

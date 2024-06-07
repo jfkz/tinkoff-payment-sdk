@@ -9,11 +9,10 @@
     "declarationDir": "dist/types/",
     "sourceMap": true,
     "outDir": "dist/",
-    "lib": [
-      "ESNext"
-    ]
+    "isolatedModules": true,
+    "lib": ["ESNext"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true
   },
-  "include": [
-    "src/"
-  ]
+  "include": ["src/"]
 }

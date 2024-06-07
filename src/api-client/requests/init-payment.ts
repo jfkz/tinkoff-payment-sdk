@@ -1,18 +1,16 @@
+import { Language } from './common/language';
+import { PayType } from './common/pay-type';
+import { validateAndPrepareReceipt } from './common/receipt';
+import { Receipt } from './common/receipt';
 import { PayloadType } from '../../common/payload-type';
 import { HttpRequestMethod } from '../../http-client/http-client';
 import { Schema, SchemaPropertyType as PropType } from '../../serialization/schema';
 import { ApiClient } from '../clients/api-client';
 import { ResponsePayload as BaseResponsePayload } from '../response-payload';
-import { Language } from './common/language';
-import { PayType } from './common/pay-type';
-import { validateAndPrepareReceipt } from './common/receipt';
-import { Receipt } from './common/receipt';
-
 
 //=========//
 // REQUEST //
 //=========//
-
 
 /**
  * @see https://acdn.tinkoff.ru/static/documents/bezopasnaya_sdelka.pdf
@@ -80,7 +78,7 @@ export interface ITinkoffInitRequestData {
 
   /** Телефон покупателя */
   Phone: string;
-  
+
   [key: string]: string | number | undefined | null;
 }
 
@@ -106,7 +104,6 @@ export interface InitPaymentRequestPayload {
   DATA?: Partial<ITinkoffInitRequestData> | string;
 }
 
-
 const initPaymentRequestSchema: Schema = [
   {
     property: 'Amount',
@@ -119,7 +116,6 @@ const initPaymentRequestSchema: Schema = [
     optional: true,
   },
 ];
-
 
 //==========//
 // RESPONSE //
@@ -139,7 +135,6 @@ export interface InitPaymentResponsePayload extends BaseResponsePayload {
   PaymentURL?: string;
 }
 
-
 const initPaymentResponseSchema: Schema = [
   {
     property: 'Amount',
@@ -148,9 +143,8 @@ const initPaymentResponseSchema: Schema = [
   {
     property: 'ExpDate',
     type: PropType.ExpDateFromString,
-  }
+  },
 ];
-
 
 //==========//
 // FUNCTION //
@@ -159,9 +153,7 @@ const initPaymentResponseSchema: Schema = [
 export async function initPayment(options: {
   apiClient: ApiClient;
   payload: InitPaymentRequestPayload;
-
 }): Promise<InitPaymentResponsePayload> {
-
   const { apiClient } = options;
 
   const { Receipt, ...restPayload } = options.payload;
@@ -185,5 +177,4 @@ export async function initPayment(options: {
   });
 
   return response.payload;
-
 }

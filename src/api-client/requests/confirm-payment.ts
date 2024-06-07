@@ -1,10 +1,9 @@
+import { validateAndPrepareReceipt } from './common/receipt';
+import { Receipt } from './common/receipt';
 import { HttpRequestMethod } from '../../http-client/http-client';
 import { Schema, SchemaPropertyType as PropType } from '../../serialization/schema';
 import { ApiClient } from '../clients/api-client';
 import { ResponsePayload as BaseResponsePayload } from '../response-payload';
-import { validateAndPrepareReceipt } from './common/receipt';
-import { Receipt } from './common/receipt';
-
 
 //=========//
 // REQUEST //
@@ -47,7 +46,6 @@ const ConfirmPaymentResponseSchema: Schema = [
   },
 ];
 
-
 //==========//
 // FUNCTION //
 //==========//
@@ -55,9 +53,7 @@ const ConfirmPaymentResponseSchema: Schema = [
 export async function confirmPayment(options: {
   apiClient: ApiClient;
   payload: ConfirmPaymentRequestPayload;
-
 }): Promise<ConfirmPaymentResponsePayload> {
-
   const { apiClient } = options;
 
   const { Receipt, ...restPayload } = options.payload;
@@ -81,5 +77,4 @@ export async function confirmPayment(options: {
   });
 
   return response.payload;
-
 }

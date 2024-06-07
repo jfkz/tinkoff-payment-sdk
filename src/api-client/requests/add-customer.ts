@@ -20,9 +20,7 @@ export interface AddCustomerRequestPayload {
   Phone?: string;
 }
 
-
 const addCustomerRequestSchema: Schema = [];
-
 
 //==========//
 // RESPONSE //
@@ -33,9 +31,7 @@ export interface AddCustomerResponsePayload extends BaseResponsePayload {
   CustomerKey: string;
 }
 
-
 const addCustomerResponseSchema: Schema = [];
-
 
 //==========//
 // FUNCTION //
@@ -44,9 +40,7 @@ const addCustomerResponseSchema: Schema = [];
 export async function addCustomer(options: {
   apiClient: BaseClient;
   payload: AddCustomerRequestPayload;
-
 }): Promise<AddCustomerResponsePayload> {
-
   const { apiClient } = options;
 
   const { ...restPayload } = options.payload;
@@ -66,5 +60,4 @@ export async function addCustomer(options: {
   });
 
   return response.payload;
-
 }

@@ -18,9 +18,7 @@ export interface RemoveCardRequestPayload {
   IP?: string;
 }
 
-
 const removeCardRequestSchema: Schema = [];
-
 
 //==========//
 // RESPONSE //
@@ -31,9 +29,7 @@ export interface RemoveCardResponsePayload extends BaseResponsePayload {
   CustomerKey: string;
 }
 
-
 const removeCardResponseSchema: Schema = [];
-
 
 //==========//
 // FUNCTION //
@@ -42,9 +38,7 @@ const removeCardResponseSchema: Schema = [];
 export async function removeCard(options: {
   apiClient: BaseClient;
   payload: RemoveCardRequestPayload;
-
 }): Promise<RemoveCardResponsePayload> {
-
   const { apiClient } = options;
 
   const { ...restPayload } = options.payload;
@@ -64,5 +58,4 @@ export async function removeCard(options: {
   });
 
   return response.payload;
-
 }

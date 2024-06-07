@@ -1,8 +1,7 @@
 import { HttpRequestMethod } from '../../http-client/http-client';
-import { Schema, SchemaPropertyType as PropType } from '../../serialization/schema';
+import { Schema } from '../../serialization/schema';
 import { ApiClient } from '../clients/api-client';
 import { ResponsePayload as BaseResponsePayload } from '../response-payload';
-
 
 //=========//
 // REQUEST //
@@ -30,7 +29,6 @@ export interface PaymentResponsePayload extends BaseResponsePayload {
 
 const PaymentResponseSchema: Schema = [];
 
-
 //==========//
 // FUNCTION //
 //==========//
@@ -38,13 +36,11 @@ const PaymentResponseSchema: Schema = [];
 export async function payment(options: {
   apiClient: ApiClient;
   payload: PaymentRequestPayload;
-
 }): Promise<PaymentResponsePayload> {
-
   const { apiClient } = options;
 
   const $payload: any = {
-    ...options.payload
+    ...options.payload,
   };
 
   const response = await apiClient.sendRequest<PaymentResponsePayload>({
@@ -58,5 +54,4 @@ export async function payment(options: {
   });
 
   return response.payload;
-
 }

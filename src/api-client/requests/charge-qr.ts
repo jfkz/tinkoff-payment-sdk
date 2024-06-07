@@ -1,5 +1,5 @@
-import { ResponsePayload as BaseResponsePayload } from '../response-payload';
 import { buildSendRequestFunction } from './common/request';
+import { ResponsePayload as BaseResponsePayload } from '../response-payload';
 
 //=========//
 // REQUEST //
@@ -18,7 +18,6 @@ export interface ChargeQrRequestPayload {
   InfoEmail?: string;
 }
 
-
 //==========//
 // RESPONSE //
 //==========//
@@ -33,7 +32,6 @@ export interface ChargeQrResponsePayload extends BaseResponsePayload {
   /** Уникальный идентификатор транзакции в системе Банка */
   PaymentId: number;
 }
-
 
 //==========//
 // FUNCTION //

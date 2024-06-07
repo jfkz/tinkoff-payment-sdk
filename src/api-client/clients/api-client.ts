@@ -1,24 +1,20 @@
-
+import { ApiClientOptions, BaseClient } from './base-client';
 import { SdkError } from '../../common/sdk-error';
 import { HttpRequest, HttpResponse } from '../../http-client/http-client';
 import { SdkLogLevel } from '../../logger/logger';
 import { Schema } from '../../serialization/schema';
 import { ResponsePayload } from '../response-payload';
-import { ApiClientOptions, BaseClient } from './base-client';
-
 
 const apiClientDefaultOptions: Partial<ApiClientOptions> = {
   baseUrl: 'https://securepay.tinkoff.ru/v2/',
   userAgent: 'Tinkoff Payment Node.js SDK (https://github.com/jfkz/tinkoff-payment-sdk)',
 };
 
-
 /**
  * A generic API client that encapsulates all communications
  * with Tinkoff Payment API using the provided low-level HTTP client.
  */
 export class ApiClient extends BaseClient {
-
   constructor(options: ApiClientOptions) {
     super(options, apiClientDefaultOptions);
   }
@@ -27,17 +23,10 @@ export class ApiClient extends BaseClient {
     request: HttpRequest;
     requestSchema: Schema;
     responseSchema: Schema;
-
   }): Promise<HttpResponse<ResponsePayloadType>> {
-
     const { httpClient } = this.options;
 
-    const {
-      request,
-      requestSchema,
-      responseSchema,
-
-    } = options;
+    const { request, requestSchema, responseSchema } = options;
 
     this.applyBaseUrl(request);
 
@@ -66,6 +55,5 @@ export class ApiClient extends BaseClient {
     }
 
     return response;
-
   }
 }

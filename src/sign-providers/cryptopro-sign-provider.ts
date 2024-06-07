@@ -1,18 +1,26 @@
-
 import { execSync } from 'child_process';
 import * as fs from 'fs';
 import { dirname } from 'path';
 
 import tmp from 'tmp';
 
+import { SignProvider } from './sign-provider';
 import { flatDataObject } from '../api-client/requests/common/data';
 import { PayloadType } from '../common/payload-type';
-import { SignProvider } from './sign-provider';
 
 // https://cpdn.cryptopro.ru/content/csp40/html/group___pro_c_s_p_ex_DP8.html
 type THashAlgorithm = '1.2.643.7.1.1.2.2' | '1.2.643.7.1.1.2.3' | '1.2.643.2.2.9';
-type TSignAlgorithm = 'SHA1' | 'SHA256' | 'SHA384' | 'SHA512' | 'MD5' | 'MD2' | 'MD4'
-  | 'GOST12_256' | 'GOST12_512' | 'GOST94_256';
+type TSignAlgorithm =
+  | 'SHA1'
+  | 'SHA256'
+  | 'SHA384'
+  | 'SHA512'
+  | 'MD5'
+  | 'MD2'
+  | 'MD4'
+  | 'GOST12_256'
+  | 'GOST12_512'
+  | 'GOST94_256';
 
 export interface CryptoProSignProviderOptions {
   cpContainerPassword: string;
@@ -31,7 +39,6 @@ const defaultOptions: Partial<CryptoProSignProviderOptions> = {
 };
 
 export class CryptoProSignProvider extends SignProvider {
-
   public signRequestPayload(payload: PayloadType): PayloadType {
     if (payload.DATA) {
       payload.DATA = flatDataObject(payload.DATA);
@@ -59,11 +66,7 @@ export class CryptoProSignProvider extends SignProvider {
   protected digestLine(line: string): string {
     const tmpFilename = tmp.tmpNameSync();
     const hashFilename = `${tmpFilename}.hsh`;
-    const {
-      cpLocation: cryptoProDir,
-      cpHashAlg: hashAlg,
-      cpHideExceptions: hideExceptions,
-    } = this.options;
+    const { cpLocation: cryptoProDir, cpHashAlg: hashAlg, cpHideExceptions: hideExceptions } = this.options;
     const cmdOptions = [
       `${cryptoProDir}/cryptcp`,
       '-hash',

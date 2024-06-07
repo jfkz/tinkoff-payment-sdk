@@ -1,4 +1,3 @@
-
 export interface HttpRequest<PayloadType = any> {
   url: string;
   method?: HttpRequestMethod;
@@ -18,9 +17,5 @@ export enum HttpRequestMethod {
 }
 
 export interface HttpClient {
-
-  sendRequest<ResponsePayloadType>(request: HttpRequest): (
-    Promise<HttpResponse<ResponsePayloadType>>
-  );
-
+  sendRequest<ResponsePayloadType>(request: HttpRequest): Promise<HttpResponse<ResponsePayloadType>>;
 }

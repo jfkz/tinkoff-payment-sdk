@@ -93,20 +93,18 @@ export interface SupplierInfo {
   Inn?: string;
 }
 
-
-
 //===========//
 // UTILITIES //
 //===========//
 
-
 export function validateAndPrepareCardData(cardData: ICardData): string {
   const dataObj = cardData as any;
-  return Object.keys(cardData).map((key) => `${key}=${dataObj[key]}`).join(';');
+  return Object.keys(cardData)
+    .map((key) => `${key}=${dataObj[key]}`)
+    .join(';');
 }
 
 export function validateAndPrepareReceipt(receipt: Receipt): Receipt {
-
   if (!receipt.Items) {
     throw new Error('Receipt.Items must be set when receipt is used');
   }
@@ -117,15 +115,12 @@ export function validateAndPrepareReceipt(receipt: Receipt): Receipt {
 
   return {
     ...receipt,
-    Items: [...receipt.Items.map(validateAndPrepareReceiptItem)]
+    Items: [...receipt.Items.map(validateAndPrepareReceiptItem)],
   };
-
 }
 
 function validateAndPrepareReceiptItem(item: ReceiptItem): ReceiptItem {
-
   const $item = { ...item };
-
 
   //-------//
   // PRICE //
@@ -137,7 +132,6 @@ function validateAndPrepareReceiptItem(item: ReceiptItem): ReceiptItem {
 
   $item.Price = moneyToPennyOrThrow($item.Price);
 
-
   //----------//
   // QUANTITY //
   //----------//
@@ -146,19 +140,16 @@ function validateAndPrepareReceiptItem(item: ReceiptItem): ReceiptItem {
     throw new Error('Receipt item quantity must be greater than zero');
   }
 
-
   //--------//
   // AMOUNT //
   //--------//
 
   // Calculating amount automatically, if not defined
   if ($item.Amount === undefined) {
-    $item.Amount = ($item.Price * $item.Quantity);
+    $item.Amount = $item.Price * $item.Quantity;
   }
-
 
   // -----
 
   return $item;
-
 }

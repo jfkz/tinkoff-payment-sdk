@@ -1,8 +1,8 @@
+import { validateAndPrepareCardData } from './common/receipt';
 import { HttpRequestMethod } from '../../http-client/http-client';
 import { Schema, SchemaPropertyType as PropType } from '../../serialization/schema';
 import { ApiClient } from '../clients/api-client';
 import { ResponsePayload as BaseResponsePayload } from '../response-payload';
-import { validateAndPrepareCardData, validateAndPrepareReceipt } from './common/receipt';
 
 /** https://oplata.tinkoff.ru/develop/api/payments/finishAuthorize-request/#CardData */
 export interface ICardData {
@@ -64,12 +64,12 @@ export interface FinishAuthorizeRequestPayload {
   PaymentId: number;
   /** Телефон клиента	*/
   Phone?: string;
-  /** 
+  /**
    * true – отправлять клиенту информацию на почту об оплате
    * false – не отправлять
    */
   SendEmail?: boolean;
-  /** 
+  /**
    * Способ платежа. Возможные значения: ACQ
    * Используется и является обязательным для Apple Pay или Google Pay
    */
@@ -81,7 +81,6 @@ export interface FinishAuthorizeRequestPayload {
   Source?: ESource;
   Token?: string;
 }
-
 
 const finishAuthorizeRequestSchema: Schema = [
   {
@@ -95,7 +94,6 @@ const finishAuthorizeRequestSchema: Schema = [
     optional: true,
   },
 ];
-
 
 //==========//
 // RESPONSE //
@@ -115,7 +113,6 @@ export interface FinishAuthorizeResponsePayload extends BaseResponsePayload {
   PaymentURL?: string;
 }
 
-
 const finishAuthorizeResponseSchema: Schema = [
   {
     property: 'Amount',
@@ -124,9 +121,8 @@ const finishAuthorizeResponseSchema: Schema = [
   {
     property: 'ExpDate',
     type: PropType.ExpDateFromString,
-  }
+  },
 ];
-
 
 //==========//
 // FUNCTION //
@@ -135,9 +131,7 @@ const finishAuthorizeResponseSchema: Schema = [
 export async function finishAuthorize(options: {
   apiClient: ApiClient;
   payload: FinishAuthorizeRequestPayload;
-
 }): Promise<FinishAuthorizeResponsePayload> {
-
   const { apiClient } = options;
 
   const { CardData, ...restPayload } = options.payload;
@@ -161,5 +155,4 @@ export async function finishAuthorize(options: {
   });
 
   return response.payload;
-
 }
