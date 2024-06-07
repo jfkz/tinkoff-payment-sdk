@@ -1,11 +1,8 @@
-import { validateAndPrepareCardData } from "./common/receipt";
-import { HttpRequestMethod } from "../../http-client/http-client";
-import {
-  Schema,
-  SchemaPropertyType as PropType,
-} from "../../serialization/schema";
-import { ApiClient } from "../clients/api-client";
-import { ResponsePayload as BaseResponsePayload } from "../response-payload";
+import { validateAndPrepareCardData } from './common/receipt';
+import { HttpRequestMethod } from '../../http-client/http-client';
+import { Schema, SchemaPropertyType as PropType } from '../../serialization/schema';
+import { ApiClient } from '../clients/api-client';
+import { ResponsePayload as BaseResponsePayload } from '../response-payload';
 
 /** https://oplata.tinkoff.ru/develop/api/payments/finishAuthorize-request/#CardData */
 export interface ICardData {
@@ -30,13 +27,13 @@ export interface ICardData {
 }
 
 enum ERoute {
-  ACQ = "ACQ",
+  ACQ = 'ACQ',
 }
 
 enum ESource {
-  Cards = "Cards",
-  ApplePay = "ApplePay",
-  GooglePay = "GooglePay",
+  Cards = 'Cards',
+  ApplePay = 'ApplePay',
+  GooglePay = 'GooglePay',
 }
 
 //=========//
@@ -87,12 +84,12 @@ export interface FinishAuthorizeRequestPayload {
 
 const finishAuthorizeRequestSchema: Schema = [
   {
-    property: "Amount",
+    property: 'Amount',
     type: PropType.MoneyToPenny,
     optional: true,
   },
   {
-    property: "RedirectDueDate",
+    property: 'RedirectDueDate',
     type: PropType.DateToString,
     optional: true,
   },
@@ -118,11 +115,11 @@ export interface FinishAuthorizeResponsePayload extends BaseResponsePayload {
 
 const finishAuthorizeResponseSchema: Schema = [
   {
-    property: "Amount",
+    property: 'Amount',
     type: PropType.MoneyFromPenny,
   },
   {
-    property: "ExpDate",
+    property: 'ExpDate',
     type: PropType.ExpDateFromString,
   },
 ];
@@ -149,7 +146,7 @@ export async function finishAuthorize(options: {
 
   const response = await apiClient.sendRequest<FinishAuthorizeResponsePayload>({
     request: {
-      url: "FinishAuthorize",
+      url: 'FinishAuthorize',
       method: HttpRequestMethod.POST,
       payload: $payload,
     },

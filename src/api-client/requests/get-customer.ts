@@ -16,9 +16,7 @@ export interface GetCustomerRequestPayload {
   IP?: string;
 }
 
-
 const getCustomerRequestSchema: Schema = [];
-
 
 //==========//
 // RESPONSE //
@@ -29,9 +27,7 @@ export interface GetCustomerResponsePayload extends BaseResponsePayload {
   CustomerKey: string;
 }
 
-
 const getCustomerResponseSchema: Schema = [];
-
 
 //==========//
 // FUNCTION //
@@ -40,9 +36,7 @@ const getCustomerResponseSchema: Schema = [];
 export async function getCustomer(options: {
   apiClient: BaseClient;
   payload: GetCustomerRequestPayload;
-
 }): Promise<GetCustomerResponsePayload> {
-
   const { apiClient } = options;
 
   const { ...restPayload } = options.payload;
@@ -62,5 +56,4 @@ export async function getCustomer(options: {
   });
 
   return response.payload;
-
 }

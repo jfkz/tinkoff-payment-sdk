@@ -1,15 +1,12 @@
-import { Language } from "./common/language";
-import { PayType } from "./common/pay-type";
-import { validateAndPrepareReceipt } from "./common/receipt";
-import { Receipt } from "./common/receipt";
-import { PayloadType } from "../../common/payload-type";
-import { HttpRequestMethod } from "../../http-client/http-client";
-import {
-  Schema,
-  SchemaPropertyType as PropType,
-} from "../../serialization/schema";
-import { ApiClient } from "../clients/api-client";
-import { ResponsePayload as BaseResponsePayload } from "../response-payload";
+import { Language } from './common/language';
+import { PayType } from './common/pay-type';
+import { validateAndPrepareReceipt } from './common/receipt';
+import { Receipt } from './common/receipt';
+import { PayloadType } from '../../common/payload-type';
+import { HttpRequestMethod } from '../../http-client/http-client';
+import { Schema, SchemaPropertyType as PropType } from '../../serialization/schema';
+import { ApiClient } from '../clients/api-client';
+import { ResponsePayload as BaseResponsePayload } from '../response-payload';
 
 //=========//
 // REQUEST //
@@ -71,7 +68,7 @@ export interface ITinkoffInitRequestData {
   /**
    * Признак управления накоплением: если передано значение true, то начинается накопление суммы для выплаты продавцу
    */
-  StartSpAccumulation?: null | "true" | "false" | "1N";
+  StartSpAccumulation?: null | 'true' | 'false' | '1N';
 
   /** Идентификатор созданного накопителя */
   SpAccumulationId?: string;
@@ -95,7 +92,7 @@ export interface InitPaymentRequestPayload {
   Description?: string;
   Token?: string;
   Language?: Language;
-  Recurrent?: "Y";
+  Recurrent?: 'Y';
   /** Идентификатор покупателя в системе Продавца */
   CustomerKey?: string;
   RedirectDueDate?: Date;
@@ -109,12 +106,12 @@ export interface InitPaymentRequestPayload {
 
 const initPaymentRequestSchema: Schema = [
   {
-    property: "Amount",
+    property: 'Amount',
     type: PropType.MoneyToPenny,
     optional: true,
   },
   {
-    property: "RedirectDueDate",
+    property: 'RedirectDueDate',
     type: PropType.DateToString,
     optional: true,
   },
@@ -140,11 +137,11 @@ export interface InitPaymentResponsePayload extends BaseResponsePayload {
 
 const initPaymentResponseSchema: Schema = [
   {
-    property: "Amount",
+    property: 'Amount',
     type: PropType.MoneyFromPenny,
   },
   {
-    property: "ExpDate",
+    property: 'ExpDate',
     type: PropType.ExpDateFromString,
   },
 ];
@@ -171,7 +168,7 @@ export async function initPayment(options: {
 
   const response = await apiClient.sendRequest<InitPaymentResponsePayload>({
     request: {
-      url: "Init",
+      url: 'Init',
       method: HttpRequestMethod.POST,
       payload: $payload,
     },

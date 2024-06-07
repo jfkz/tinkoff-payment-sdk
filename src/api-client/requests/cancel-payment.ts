@@ -1,13 +1,10 @@
-import { validateAndPrepareReceipt } from "./common/receipt";
-import { Receipt } from "./common/receipt";
-import { PaymentStatus } from "../../common/payment-status";
-import { HttpRequestMethod } from "../../http-client/http-client";
-import {
-  Schema,
-  SchemaPropertyType as PropType,
-} from "../../serialization/schema";
-import { ApiClient } from "../clients/api-client";
-import { ResponsePayload as BaseResponsePayload } from "../response-payload";
+import { validateAndPrepareReceipt } from './common/receipt';
+import { Receipt } from './common/receipt';
+import { PaymentStatus } from '../../common/payment-status';
+import { HttpRequestMethod } from '../../http-client/http-client';
+import { Schema, SchemaPropertyType as PropType } from '../../serialization/schema';
+import { ApiClient } from '../clients/api-client';
+import { ResponsePayload as BaseResponsePayload } from '../response-payload';
 
 //=========//
 // REQUEST //
@@ -27,7 +24,7 @@ export interface CancelPaymentRequestPayload {
 
 const cancelPaymentRequestSchema: Schema = [
   {
-    property: "Amount",
+    property: 'Amount',
     type: PropType.MoneyToPenny,
     optional: true,
   },
@@ -57,11 +54,11 @@ export interface CancelPaymentResponsePayload extends BaseResponsePayload {
 
 const cancelPaymentResponseSchema: Schema = [
   {
-    property: "OriginalAmount",
+    property: 'OriginalAmount',
     type: PropType.MoneyFromPenny,
   },
   {
-    property: "NewAmount",
+    property: 'NewAmount',
     type: PropType.MoneyFromPenny,
   },
 ];
@@ -88,7 +85,7 @@ export async function cancelPayment(options: {
 
   const response = await apiClient.sendRequest<CancelPaymentResponsePayload>({
     request: {
-      url: "Cancel",
+      url: 'Cancel',
       method: HttpRequestMethod.POST,
       payload: $payload,
     },

@@ -1,16 +1,16 @@
 /** @see http://static2.tinkoff.ru/acquiring/manuals/merchant_api_protocoI_e2c.pdf */
 
-import { SdkError } from "../..";
-import { HttpRequestMethod } from "../../http-client/http-client";
-import { Schema } from "../../serialization/schema";
-import { BaseClient } from "../clients/base-client";
-import { ResponsePayload as BaseResponsePayload } from "../response-payload";
+import { SdkError } from '../..';
+import { HttpRequestMethod } from '../../http-client/http-client';
+import { Schema } from '../../serialization/schema';
+import { BaseClient } from '../clients/base-client';
+import { ResponsePayload as BaseResponsePayload } from '../response-payload';
 
 export enum ECardStatus {
-  ACTIVE = "A",
-  INACTIVE = "I",
-  EXPIRED = "E",
-  DELETED = "D",
+  ACTIVE = 'A',
+  INACTIVE = 'I',
+  EXPIRED = 'E',
+  DELETED = 'D',
 }
 
 export enum ECardType {
@@ -27,7 +27,7 @@ export interface ICardInfo {
   /** Статус карты: A – активная, I – не активная, E – срок действия карты истек, D - удаленная */
   Status: ECardStatus;
   /** Идентификатор рекуррентного платежа */
-  RebillId: number | "";
+  RebillId: number | '';
   /** Тип карты:
  0 - карта списания;
  1 - карта пополнения;
@@ -79,7 +79,7 @@ export async function getCardList(options: {
   const response = await apiClient
     .sendRequest<GetCardListResponsePayload>({
       request: {
-        url: "GetCardList",
+        url: 'GetCardList',
         method: HttpRequestMethod.POST,
         payload: $payload,
       },
@@ -88,17 +88,13 @@ export async function getCardList(options: {
       skipVerification: true,
     })
     .catch((err) => {
-      if (
-        err.constructor == SdkError &&
-        !!err.payload &&
-        !("ErrorCode" in err.payload)
-      ) {
+      if (err.constructor == SdkError && !!err.payload && !('ErrorCode' in err.payload)) {
         return { payload: Array.from(Object.values(err.payload)) };
       }
       throw err;
     });
 
-  if (typeof response.payload === "string") {
+  if (typeof response.payload === 'string') {
     response.payload = JSON.parse(response.payload);
   }
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment

@@ -1,15 +1,14 @@
-import { ApiClientOptions, BaseClient } from "./base-client";
-import { TINKOFF_API_MERCHANT_URL } from "../../common/consts";
-import { SdkError } from "../../common/sdk-error";
-import { HttpRequest, HttpResponse } from "../../http-client/http-client";
-import { SdkLogLevel } from "../../logger/logger";
-import { Schema } from "../../serialization/schema";
-import { ResponsePayload } from "../response-payload";
+import { ApiClientOptions, BaseClient } from './base-client';
+import { TINKOFF_API_MERCHANT_URL } from '../../common/consts';
+import { SdkError } from '../../common/sdk-error';
+import { HttpRequest, HttpResponse } from '../../http-client/http-client';
+import { SdkLogLevel } from '../../logger/logger';
+import { Schema } from '../../serialization/schema';
+import { ResponsePayload } from '../response-payload';
 
 const safedealMerchantClientDefaultOptions: Partial<ApiClientOptions> = {
   baseUrl: TINKOFF_API_MERCHANT_URL,
-  userAgent:
-    "Tinkoff Payment Node.js SDK (https://github.com/jfkz/tinkoff-payment-sdk)",
+  userAgent: 'Tinkoff Payment Node.js SDK (https://github.com/jfkz/tinkoff-payment-sdk)',
 };
 
 /**
@@ -21,9 +20,7 @@ export class SafeDealClient extends BaseClient {
     super(options, safedealMerchantClientDefaultOptions);
   }
 
-  public async sendRequest<
-    ResponsePayloadType extends ResponsePayload,
-  >(options: {
+  public async sendRequest<ResponsePayloadType extends ResponsePayload>(options: {
     request: HttpRequest;
     requestSchema: Schema;
     responseSchema: Schema;
@@ -56,7 +53,7 @@ export class SafeDealClient extends BaseClient {
     const { payload } = response;
 
     // Throwing error in case if request failed
-    if (payload.ErrorCode !== "0") {
+    if (payload.ErrorCode !== '0') {
       throw new SdkError({ payload });
     }
 

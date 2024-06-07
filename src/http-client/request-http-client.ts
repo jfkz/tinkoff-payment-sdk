@@ -1,37 +1,21 @@
-
 import Request, { FullResponse } from 'request-promise-native';
 
 import { HttpClient, HttpRequest, HttpResponse } from './http-client';
-
 
 export interface RequestHttpClientOptions {
   request: typeof Request;
 }
 
-
 /**
  * An HTTP client implementation adapter using Request HTTP client.
  */
 export class RequestHttpClient implements HttpClient {
+  constructor(private options: RequestHttpClientOptions) {}
 
-  constructor(private options: RequestHttpClientOptions) {
-  }
-
-
-  public async sendRequest<ResponsePayloadType>(
-    options: HttpRequest
-
-  ): Promise<HttpResponse<ResponsePayloadType>> {
-
+  public async sendRequest<ResponsePayloadType>(options: HttpRequest): Promise<HttpResponse<ResponsePayloadType>> {
     const { request } = this.options;
 
-    const {
-      url,
-      method,
-      payload,
-      headers,
-
-    } = options;
+    const { url, method, payload, headers } = options;
 
     const requestOptions: Request.RequestPromiseOptions = {
       method,
@@ -43,7 +27,7 @@ export class RequestHttpClient implements HttpClient {
     };
 
     if (options.asForm) {
-      requestOptions.form  = payload;
+      requestOptions.form = payload;
     } else {
       requestOptions.body = payload;
     }
@@ -54,7 +38,5 @@ export class RequestHttpClient implements HttpClient {
       status: response.statusCode,
       payload: response.body,
     };
-
   }
-
 }

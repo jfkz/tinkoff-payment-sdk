@@ -1,4 +1,1 @@
-
-declare module 'node-ghost-crypto' {
-  
-}
+declare module 'node-ghost-crypto' {}

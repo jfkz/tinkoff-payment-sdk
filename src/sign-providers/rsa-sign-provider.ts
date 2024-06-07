@@ -1,13 +1,13 @@
-import * as crypto from "crypto";
-import { readFileSync } from "fs";
+import * as crypto from 'crypto';
+import { readFileSync } from 'fs';
 
-import CryptoJS from "crypto-js";
+import CryptoJS from 'crypto-js';
 
-import { SignProvider } from "./sign-provider";
-import { PayloadType } from "../common/payload-type";
-import { SdkError } from "../common/sdk-error";
-import { HttpRequest } from "../http-client/http-client";
-import { SdkLogLevel } from "../logger/logger";
+import { SignProvider } from './sign-provider';
+import { PayloadType } from '../common/payload-type';
+import { SdkError } from '../common/sdk-error';
+import { HttpRequest } from '../http-client/http-client';
+import { SdkLogLevel } from '../logger/logger';
 
 export interface RSASignProviderOptions {
   privateKeyFile?: string;
@@ -25,8 +25,8 @@ export class RSASignProvider extends SignProvider {
 
     const line = this.compactParameters(payload);
 
-    this.log(SdkLogLevel.debug, "RSA Sign Provider: compacted params: ", line);
-    this.log(SdkLogLevel.debug, "Digest value: ", DigestValue);
+    this.log(SdkLogLevel.debug, 'RSA Sign Provider: compacted params: ', line);
+    this.log(SdkLogLevel.debug, 'Digest value: ', DigestValue);
 
     const SignatureValue = this.signLine(line);
 
@@ -59,7 +59,7 @@ export class RSASignProvider extends SignProvider {
     if (!this.privateKey) {
       throw new SdkError({
         message:
-          "Cant initialize RSA sign provider without private key. Set one of the options: privateKeyFile or privateKeyFile",
+          'Cant initialize RSA sign provider without private key. Set one of the options: privateKeyFile or privateKeyFile',
       });
     }
 
@@ -69,8 +69,7 @@ export class RSASignProvider extends SignProvider {
 
     if (!this.X509SerialNumber) {
       throw new SdkError({
-        message:
-          "Cant initialize RSA sign provider without X509SerialNumber. Please, set up this value in options",
+        message: 'Cant initialize RSA sign provider without X509SerialNumber. Please, set up this value in options',
       });
     }
   }
@@ -85,10 +84,10 @@ export class RSASignProvider extends SignProvider {
   }
 
   protected signLine(line: string): string {
-    const hash = crypto.createHash("SHA256").update(line).digest();
+    const hash = crypto.createHash('SHA256').update(line).digest();
 
-    const sign = crypto.createSign("RSA-SHA256").update(hash);
+    const sign = crypto.createSign('RSA-SHA256').update(hash);
 
-    return sign.sign(this.privateKey, "base64");
+    return sign.sign(this.privateKey, 'base64');
   }
 }

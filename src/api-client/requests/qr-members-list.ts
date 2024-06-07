@@ -1,5 +1,5 @@
-import { buildSendRequestFunction } from "./common/request";
-import { ResponsePayload as BaseResponsePayload } from "../response-payload";
+import { buildSendRequestFunction } from './common/request';
+import { ResponsePayload as BaseResponsePayload } from '../response-payload';
 
 export interface Member {
   //** Идентификатор участника */
@@ -34,7 +34,6 @@ export interface QrMembersListResponsePayload extends BaseResponsePayload {
 // FUNCTION //
 //==========//
 
-export const getQrMembersList = buildSendRequestFunction<
-  QrMembersListRequestPayload,
-  QrMembersListResponsePayload
->("QrMembersList");
+export const getQrMembersList = buildSendRequestFunction<QrMembersListRequestPayload, QrMembersListResponsePayload>(
+  'QrMembersList',
+);

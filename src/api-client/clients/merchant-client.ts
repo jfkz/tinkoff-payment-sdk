@@ -1,16 +1,15 @@
-import { ApiClientOptions, BaseClient } from "./base-client";
-import { TINKOFF_API_MERCHANT_URL } from "../../common/consts";
-import { SdkError } from "../../common/sdk-error";
-import { HttpRequest, HttpResponse } from "../../http-client/http-client";
-import { SdkLogLevel } from "../../logger/logger";
-import { Schema } from "../../serialization/schema";
-import { SignProvider } from "../../sign-providers/sign-provider";
-import { ResponsePayload } from "../response-payload";
+import { ApiClientOptions, BaseClient } from './base-client';
+import { TINKOFF_API_MERCHANT_URL } from '../../common/consts';
+import { SdkError } from '../../common/sdk-error';
+import { HttpRequest, HttpResponse } from '../../http-client/http-client';
+import { SdkLogLevel } from '../../logger/logger';
+import { Schema } from '../../serialization/schema';
+import { SignProvider } from '../../sign-providers/sign-provider';
+import { ResponsePayload } from '../response-payload';
 
 const merchantClientDefaultOptions: Partial<ApiClientOptions> = {
   baseUrl: TINKOFF_API_MERCHANT_URL,
-  userAgent:
-    "Tinkoff Payment Node.js SDK (https://github.com/jfkz/tinkoff-payment-sdk)",
+  userAgent: 'Tinkoff Payment Node.js SDK (https://github.com/jfkz/tinkoff-payment-sdk)',
 };
 
 /**
@@ -21,18 +20,12 @@ export class MerchantClient extends BaseClient {
   private readonly signProvider: SignProvider;
 
   constructor(options: ApiClientOptions, signProvider: SignProvider) {
-    const thisOptions = Object.assign(
-      {},
-      merchantClientDefaultOptions,
-      options || {},
-    );
+    const thisOptions = Object.assign({}, merchantClientDefaultOptions, options || {});
     super(options, thisOptions);
     this.signProvider = signProvider;
   }
 
-  public async sendRequest<
-    ResponsePayloadType extends ResponsePayload,
-  >(options: {
+  public async sendRequest<ResponsePayloadType extends ResponsePayload>(options: {
     request: HttpRequest;
     requestSchema: Schema;
     responseSchema: Schema;
@@ -65,7 +58,7 @@ export class MerchantClient extends BaseClient {
       return response;
     }
 
-    if (typeof response.payload === "string") {
+    if (typeof response.payload === 'string') {
       response.payload = JSON.parse(response.payload);
     }
 
@@ -74,7 +67,7 @@ export class MerchantClient extends BaseClient {
     const { payload } = response;
 
     // Throwing error in case if request failed
-    if (payload.ErrorCode !== "0") {
+    if (payload.ErrorCode !== '0') {
       throw new SdkError({ payload });
     }
 

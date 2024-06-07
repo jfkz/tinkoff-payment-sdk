@@ -1,6 +1,6 @@
-import { NotificationTypes } from "./common/notification-types";
-import { buildSendRequestFunction } from "./common/request";
-import { ResponsePayload as BaseResponsePayload } from "../response-payload";
+import { NotificationTypes } from './common/notification-types';
+import { buildSendRequestFunction } from './common/request';
+import { ResponsePayload as BaseResponsePayload } from '../response-payload';
 
 //=========//
 // REQUEST //
@@ -24,12 +24,14 @@ export interface ResendResponsePayload extends BaseResponsePayload {
 // FUNCTION //
 //==========//
 
-export const resend = buildSendRequestFunction<
-  ResendRequestPayload,
-  ResendResponsePayload
->("Resend", [], [], (payload) => {
-  if (payload.PaymentId && !payload.NotificationTypes) {
-    throw Error("NotificationTypes is required if PaymentId is supplied");
-  }
-  return {};
-});
+export const resend = buildSendRequestFunction<ResendRequestPayload, ResendResponsePayload>(
+  'Resend',
+  [],
+  [],
+  (payload) => {
+    if (payload.PaymentId && !payload.NotificationTypes) {
+      throw Error('NotificationTypes is required if PaymentId is supplied');
+    }
+    return {};
+  },
+);

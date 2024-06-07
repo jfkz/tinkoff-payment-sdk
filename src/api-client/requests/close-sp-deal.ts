@@ -1,5 +1,5 @@
-import { buildSendRequestFunction } from "./common/request";
-import { ResponsePayload as BaseResponsePayload } from "../response-payload";
+import { buildSendRequestFunction } from './common/request';
+import { ResponsePayload as BaseResponsePayload } from '../response-payload';
 
 //=========//
 // REQUEST //
@@ -20,7 +20,6 @@ export type CloseSpDealResponsePayload = BaseResponsePayload;
 // FUNCTION //
 //==========//
 
-export const CloseSpDeal = buildSendRequestFunction<
-  CloseSpDealRequestPayload,
-  CloseSpDealResponsePayload
->("closeSpDeal");
+export const CloseSpDeal = buildSendRequestFunction<CloseSpDealRequestPayload, CloseSpDealResponsePayload>(
+  'closeSpDeal',
+);

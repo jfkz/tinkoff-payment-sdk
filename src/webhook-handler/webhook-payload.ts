@@ -1,8 +1,5 @@
-import { PaymentStatus } from "../common/payment-status";
-import {
-  Schema,
-  SchemaPropertyType as PropType,
-} from "../serialization/schema";
+import { PaymentStatus } from '../common/payment-status';
+import { Schema, SchemaPropertyType as PropType } from '../serialization/schema';
 
 export interface WebhookPayload {
   TerminalKey: string;
@@ -22,25 +19,25 @@ export interface WebhookPayload {
 
 export const webhookPayloadSchema: Schema = [
   {
-    property: "PaymentId",
+    property: 'PaymentId',
     type: PropType.IntegerFromString,
   },
   {
-    property: "Amount",
+    property: 'Amount',
     type: PropType.IntegerFromString,
   },
   {
-    property: "Rebilld",
-    type: PropType.IntegerFromString,
-    optional: true,
-  },
-  {
-    property: "CardId",
+    property: 'Rebilld',
     type: PropType.IntegerFromString,
     optional: true,
   },
   {
-    property: "Amount",
+    property: 'CardId',
+    type: PropType.IntegerFromString,
+    optional: true,
+  },
+  {
+    property: 'Amount',
     type: PropType.MoneyFromPenny,
   },
 ];

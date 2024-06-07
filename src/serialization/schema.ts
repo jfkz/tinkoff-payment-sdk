@@ -1,4 +1,3 @@
-
 export type Schema = SchemaItem[];
 
 export interface SchemaItem {

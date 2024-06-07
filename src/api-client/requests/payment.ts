@@ -1,7 +1,7 @@
-import { HttpRequestMethod } from "../../http-client/http-client";
-import { Schema } from "../../serialization/schema";
-import { ApiClient } from "../clients/api-client";
-import { ResponsePayload as BaseResponsePayload } from "../response-payload";
+import { HttpRequestMethod } from '../../http-client/http-client';
+import { Schema } from '../../serialization/schema';
+import { ApiClient } from '../clients/api-client';
+import { ResponsePayload as BaseResponsePayload } from '../response-payload';
 
 //=========//
 // REQUEST //
@@ -45,7 +45,7 @@ export async function payment(options: {
 
   const response = await apiClient.sendRequest<PaymentResponsePayload>({
     request: {
-      url: "Payment",
+      url: 'Payment',
       method: HttpRequestMethod.POST,
       payload: $payload,
     },

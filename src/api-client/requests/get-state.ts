@@ -16,9 +16,7 @@ export interface GetStateRequestPayload {
   IP?: string;
 }
 
-
 const getStateRequestSchema: Schema = [];
-
 
 //==========//
 // RESPONSE //
@@ -31,9 +29,7 @@ export interface GetStateResponsePayload extends BaseResponsePayload {
   Amount?: number;
 }
 
-
 const getStateResponseSchema: Schema = [];
-
 
 //==========//
 // FUNCTION //
@@ -42,9 +38,7 @@ const getStateResponseSchema: Schema = [];
 export async function getState(options: {
   apiClient: BaseClient;
   payload: GetStateRequestPayload;
-
 }): Promise<GetStateResponsePayload> {
-
   const { apiClient } = options;
 
   const { ...restPayload } = options.payload;
@@ -64,5 +58,4 @@ export async function getState(options: {
   });
 
   return response.payload;
-
 }

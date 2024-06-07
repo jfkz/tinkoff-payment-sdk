@@ -10,13 +10,9 @@
     "sourceMap": true,
     "outDir": "dist/",
     "isolatedModules": true,
-    "lib": [
-      "ESNext"
-    ],
+    "lib": ["ESNext"],
     "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
+    "skipDefaultLibCheck": true
   },
-  "include": [
-    "src/"
-  ]
+  "include": ["src/"]
 }

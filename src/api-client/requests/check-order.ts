@@ -1,6 +1,6 @@
-import { Payments } from "./common/payments";
-import { buildSendRequestFunction } from "./common/request";
-import { ResponsePayload as BaseResponsePayload } from "../response-payload";
+import { Payments } from './common/payments';
+import { buildSendRequestFunction } from './common/request';
+import { ResponsePayload as BaseResponsePayload } from '../response-payload';
 
 //=========//
 // REQUEST //
@@ -26,7 +26,4 @@ export interface CheckOrderResponsePayload extends BaseResponsePayload {
 // FUNCTION //
 //==========//
 
-export const checkOrder = buildSendRequestFunction<
-  CheckOrderRequestPayload,
-  CheckOrderResponsePayload
->("CheckOrder");
+export const checkOrder = buildSendRequestFunction<CheckOrderRequestPayload, CheckOrderResponsePayload>('CheckOrder');

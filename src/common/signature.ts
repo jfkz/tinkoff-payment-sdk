@@ -1,4 +1,3 @@
-
 import { createHash } from 'crypto';
 
 /**
@@ -7,12 +6,7 @@ import { createHash } from 'crypto';
  *
  * See: {@link https://oplata.tinkoff.ru/develop/api/request-sign/ signature generation rules}
  */
-export function generateSignature(options: {
-  payload: any;
-  password: string;
-
-}): string {
-
+export function generateSignature(options: { payload: any; password: string }): string {
   const { password, payload } = options;
 
   const signData = {
@@ -20,33 +14,20 @@ export function generateSignature(options: {
     Password: password,
   };
 
-  const ignoredKeys = [
-    'Token',
-    'Receipt',
-    'DATA',
-  ];
+  const ignoredKeys = ['Token', 'Receipt', 'DATA'];
 
   const signString = Object.keys(signData)
-    .filter(key => !ignoredKeys.includes(key))
+    .filter((key) => !ignoredKeys.includes(key))
     .sort()
-    .map(key => signData[key])
-    .join('')
-  ;
-
-  return createHash('sha256')
-    .update(signString)
-    .digest('hex')
-  ;
-
+    .map((key) => signData[key])
+    .join('');
+  return createHash('sha256').update(signString).digest('hex');
 }
-
 
 export function signRequestPayload<PayloadType>(options: {
   payload: PayloadType;
   password: string;
-
-}): (PayloadType & { Token: string }) {
-
+}): PayloadType & { Token: string } {
   const { payload, password } = options;
 
   return {
@@ -56,5 +37,4 @@ export function signRequestPayload<PayloadType>(options: {
       password,
     }),
   };
-
 }

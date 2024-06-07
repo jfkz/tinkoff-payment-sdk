@@ -1,6 +1,6 @@
-import { DataTypeQr } from "./common/data-type-qr";
-import { buildSendRequestFunction } from "./common/request";
-import { ResponsePayload as BaseResponsePayload } from "../response-payload";
+import { DataTypeQr } from './common/data-type-qr';
+import { buildSendRequestFunction } from './common/request';
+import { ResponsePayload as BaseResponsePayload } from '../response-payload';
 
 //=========//
 // REQUEST //
@@ -30,7 +30,4 @@ export interface GetQrResponsePayload extends BaseResponsePayload {
 // FUNCTION //
 //==========//
 
-export const getQr = buildSendRequestFunction<
-  GetQrRequestPayload,
-  GetQrResponsePayload
->("GetQr");
+export const getQr = buildSendRequestFunction<GetQrRequestPayload, GetQrResponsePayload>('GetQr');

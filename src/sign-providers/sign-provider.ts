@@ -1,4 +1,3 @@
-
 import * as _ from 'lodash';
 
 import { PayloadType } from '../common/payload-type';
@@ -6,7 +5,6 @@ import { HttpRequest } from '../http-client/http-client';
 import { Loggable } from '../logger/logger';
 
 export abstract class SignProvider extends Loggable {
-
   public abstract signRequestPayload(payload: PayloadType): PayloadType;
 
   protected abstract digestLine(line: string): string;
@@ -52,7 +50,7 @@ export abstract class SignProvider extends Loggable {
    * Return sign by line. Check options to set up parameters
    * @param hash base64 encoded line
    */
-  public sign (hash: string): string {
+  public sign(hash: string): string {
     return this.signLine(hash);
   }
 }

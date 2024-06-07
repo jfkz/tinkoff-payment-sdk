@@ -1,7 +1,7 @@
-import { validateAndPrepareReceipt } from "./common/receipt";
-import { Receipt } from "./common/receipt";
-import { buildSendRequestFunction } from "./common/request";
-import { ResponsePayload as BaseResponsePayload } from "../response-payload";
+import { validateAndPrepareReceipt } from './common/receipt';
+import { Receipt } from './common/receipt';
+import { buildSendRequestFunction } from './common/request';
+import { ResponsePayload as BaseResponsePayload } from '../response-payload';
 
 //=========//
 // REQUEST //
@@ -32,6 +32,6 @@ export interface SendClosingReceiptResponsePayload extends BaseResponsePayload {
 export const sendClosingReceipt = buildSendRequestFunction<
   SendClosingReceiptRequestPayload,
   SendClosingReceiptResponsePayload
->("sendClosingReceipt", [], [], (payload) => ({
+>('sendClosingReceipt', [], [], (payload) => ({
   Receipt: validateAndPrepareReceipt(payload.Receipt),
 }));

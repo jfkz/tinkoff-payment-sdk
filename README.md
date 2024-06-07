@@ -1,4 +1,3 @@
-
 # @jfkz/tinkoff-payment-sdk
 
 <!-- NPM Badge -->
@@ -33,8 +32,8 @@ A Node.js SDK for Tinkoff Bank's Payment API.
 
 ## Version difference
 
-* 0.x - old interface for Merchant provider, only CryptoPro is supported
-* 1.x - updated interface for Merchant provider, support both CryptoPro and RSA signatures for request signatures
+- 0.x - old interface for Merchant provider, only CryptoPro is supported
+- 1.x - updated interface for Merchant provider, support both CryptoPro and RSA signatures for request signatures
 
 ## Installation
 
@@ -101,7 +100,6 @@ ApiManagerInstance.initPayment({
 
 @todo
 
-
 ## License (MIT)
 
 Copyright (c) 2020 jfkz, Slava Fomin II
@@ -124,5 +122,4 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-
-  [Got]: https://github.com/sindresorhus/got
+[Got]: https://github.com/sindresorhus/got
