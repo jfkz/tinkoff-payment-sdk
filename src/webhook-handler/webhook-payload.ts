@@ -9,7 +9,7 @@ export interface WebhookPayload {
   PaymentId: number;
   ErrorCode: string;
   Amount: number;
-  Rebilld?: number;
+  RebillId?: number;
   CardId: number;
   Pan: string;
   ExpDate: string;
