@@ -33,7 +33,7 @@ A Node.js SDK for Tinkoff Bank's Payment API.
 ## Version difference
 
 - 0.x - old interface for Merchant provider, only CryptoPro is supported
-- 1.x - updated interface for Merchant provider, support both CryptoPro and RSA signatures for request signatures
+- 1.x and higher - updated interface for Merchant provider, support both CryptoPro and RSA signatures for request signatures
 
 ## Installation
 
@@ -102,7 +102,7 @@ ApiManagerInstance.initPayment({
 
 ## License (MIT)
 
-Copyright (c) 2020 jfkz, Slava Fomin II
+Copyright (c) 2020-2025 jfkz, Slava Fomin II
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

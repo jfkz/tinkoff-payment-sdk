@@ -20,7 +20,7 @@ export class SafeDealClient extends BaseClient {
     super(options, safedealMerchantClientDefaultOptions);
   }
 
-  public async sendRequest<ResponsePayloadType extends ResponsePayload>(options: {
+  public async sendRequest<ResponsePayloadType extends object = ResponsePayload>(options: {
     request: HttpRequest;
     requestSchema: Schema;
     responseSchema: Schema;
@@ -53,7 +53,7 @@ export class SafeDealClient extends BaseClient {
     const { payload } = response;
 
     // Throwing error in case if request failed
-    if (payload.ErrorCode !== '0') {
+    if ((payload as ResponsePayload).ErrorCode !== '0') {
       throw new SdkError({ payload });
     }
 

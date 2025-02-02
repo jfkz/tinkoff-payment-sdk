@@ -4,7 +4,6 @@ import { SdkError } from '../..';
 import { HttpRequestMethod } from '../../http-client/http-client';
 import { Schema } from '../../serialization/schema';
 import { BaseClient } from '../clients/base-client';
-import { ResponsePayload as BaseResponsePayload } from '../response-payload';
 
 export enum ECardStatus {
   ACTIVE = 'A',
@@ -55,7 +54,7 @@ const getCardListRequestSchema: Schema = [];
 // RESPONSE //
 //==========//
 
-export type GetCardListResponsePayload = BaseResponsePayload & ICardInfo[];
+export type GetCardListResponsePayload = ICardInfo[];
 
 /** TODO: Add verification to ICardInfo */
 const getCardListResponseSchema: Schema = [];
@@ -97,7 +96,5 @@ export async function getCardList(options: {
   if (typeof response.payload === 'string') {
     response.payload = JSON.parse(response.payload);
   }
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error incorrect typing
   return response.payload;
 }
