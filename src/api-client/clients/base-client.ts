@@ -23,7 +23,7 @@ export abstract class BaseClient extends Loggable {
     this.options = Object.assign({}, defaultOptions, options);
   }
 
-  public abstract sendRequest<ResponsePayloadType extends BaseResponsePayload>(options: {
+  public abstract sendRequest<ResponsePayloadType extends object = BaseResponsePayload>(options: {
     request: HttpRequest;
     requestSchema: Schema;
     responseSchema: Schema;
