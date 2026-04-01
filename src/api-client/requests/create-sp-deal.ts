@@ -23,6 +23,6 @@ export interface CreateSpDealResponsePayload extends BaseResponsePayload {
 // FUNCTION //
 //==========//
 
-export const CreateSpDeal = buildSendRequestFunction<CreateSpDealRequestPayload, CreateSpDealResponsePayload>(
+export const createSpDeal = buildSendRequestFunction<CreateSpDealRequestPayload, CreateSpDealResponsePayload>(
   'createSpDeal',
 );

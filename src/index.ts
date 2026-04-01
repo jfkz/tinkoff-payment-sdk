@@ -149,3 +149,16 @@ export * from './api-client/requests/remove-card';
 
 export * from './api-client/requests/create-sp-deal';
 export * from './api-client/requests/close-sp-deal';
+
+// QR API
+
+export * from './api-client/requests/get-static-qr';
+export * from './api-client/requests/add-account-qr';
+export * from './api-client/requests/charge-qr';
+export * from './api-client/requests/qr-members-list';
+
+// Shared payment methods
+
+export * from './api-client/requests/get-state';
+export * from './api-client/requests/resend';
+export * from './api-client/requests/payment';

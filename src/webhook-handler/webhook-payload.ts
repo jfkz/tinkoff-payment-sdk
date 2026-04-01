@@ -27,7 +27,7 @@ export const webhookPayloadSchema: Schema = [
     type: PropType.IntegerFromString,
   },
   {
-    property: 'Rebilld',
+    property: 'RebillId',
     type: PropType.IntegerFromString,
     optional: true,
   },
