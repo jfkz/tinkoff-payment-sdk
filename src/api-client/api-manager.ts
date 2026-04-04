@@ -7,15 +7,23 @@ import { addCustomer, AddCustomerRequestPayload, AddCustomerResponsePayload } fr
 import { cancelPayment, CancelPaymentRequestPayload, CancelPaymentResponsePayload } from './requests/cancel-payment';
 import { chargePayment, ChargePaymentRequestPayload, ChargePaymentResponsePayload } from './requests/charge-payment';
 import { checkOrder, CheckOrderRequestPayload, CheckOrderResponsePayload } from './requests/check-order';
+import { closeSpDeal, CloseSpDealRequestPayload, CloseSpDealResponsePayload } from './requests/close-sp-deal';
 import {
   confirmPayment,
   ConfirmPaymentRequestPayload,
   ConfirmPaymentResponsePayload,
 } from './requests/confirm-payment';
+import { createSpDeal, CreateSpDealRequestPayload, CreateSpDealResponsePayload } from './requests/create-sp-deal';
+import {
+  finishAuthorize,
+  FinishAuthorizeRequestPayload,
+  FinishAuthorizeResponsePayload,
+} from './requests/finish-authorize';
 import { getCardList, GetCardListRequestPayload, GetCardListResponsePayload } from './requests/get-card-list';
 import { getCustomer, GetCustomerRequestPayload, GetCustomerResponsePayload } from './requests/get-customer';
 import { getQr, GetQrRequestPayload, GetQrResponsePayload } from './requests/get-qr';
 import { getState, GetStateRequestPayload, GetStateResponsePayload } from './requests/get-state';
+import { getStaticQr, GetStaticQrRequestPayload, GetStaticQrResponsePayload } from './requests/get-static-qr';
 import { initPayment, InitPaymentRequestPayload, InitPaymentResponsePayload } from './requests/init-payment';
 import { payment, PaymentRequestPayload, PaymentResponsePayload } from './requests/payment';
 import { removeCard, RemoveCardRequestPayload, RemoveCardResponsePayload } from './requests/remove-card';
@@ -127,6 +135,20 @@ export class ApiManager extends BaseApiManager {
     return sendClosingReceipt({ apiClient: this.apiClient, payload });
   }
 
+  public getStaticQr(payload: GetStaticQrRequestPayload): Promise<GetStaticQrResponsePayload> {
+    return getStaticQr({
+      apiClient: this.apiClient,
+      payload,
+    });
+  }
+
+  public finishAuthorize(payload: FinishAuthorizeRequestPayload): Promise<FinishAuthorizeResponsePayload> {
+    return finishAuthorize({
+      apiClient: this.apiClient as ApiClient,
+      payload,
+    });
+  }
+
   public getCardList(payload: GetCardListRequestPayload): Promise<GetCardListResponsePayload> {
     return getCardList({
       apiClient: this.apiClient,
@@ -175,6 +197,20 @@ export class ApiManagerSafeDeal extends BaseApiManager {
       payload,
     });
   }
+
+  public createSpDeal(payload: CreateSpDealRequestPayload): Promise<CreateSpDealResponsePayload> {
+    return createSpDeal({
+      apiClient: this.apiClient,
+      payload,
+    });
+  }
+
+  public closeSpDeal(payload: CloseSpDealRequestPayload): Promise<CloseSpDealResponsePayload> {
+    return closeSpDeal({
+      apiClient: this.apiClient,
+      payload,
+    });
+  }
 }
 
 export class ApiManagerMerchant extends BaseApiManager {
@@ -213,6 +249,20 @@ export class ApiManagerMerchant extends BaseApiManager {
 
   public getState(payload: GetStateRequestPayload): Promise<GetStateResponsePayload> {
     return getState({
+      apiClient: this.apiClient,
+      payload,
+    });
+  }
+
+  public createSpDeal(payload: CreateSpDealRequestPayload): Promise<CreateSpDealResponsePayload> {
+    return createSpDeal({
+      apiClient: this.apiClient,
+      payload,
+    });
+  }
+
+  public closeSpDeal(payload: CloseSpDealRequestPayload): Promise<CloseSpDealResponsePayload> {
+    return closeSpDeal({
       apiClient: this.apiClient,
       payload,
     });

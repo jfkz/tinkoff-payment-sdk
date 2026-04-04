@@ -20,6 +20,6 @@ export type CloseSpDealResponsePayload = BaseResponsePayload;
 // FUNCTION //
 //==========//
 
-export const CloseSpDeal = buildSendRequestFunction<CloseSpDealRequestPayload, CloseSpDealResponsePayload>(
+export const closeSpDeal = buildSendRequestFunction<CloseSpDealRequestPayload, CloseSpDealResponsePayload>(
   'closeSpDeal',
 );
