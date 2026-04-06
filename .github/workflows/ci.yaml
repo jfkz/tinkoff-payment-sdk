@@ -8,6 +8,11 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+
 jobs:
   test:
     name: Test & Coverage
@@ -30,3 +35,4 @@ jobs:
         with:
           test-script: npm run test:coverage
           annotations: failed-tests
+          github-token: ${{ secrets.GITHUB_TOKEN }}
